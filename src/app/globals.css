@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+/* Arborix — technical design system tokens */
+@theme inline {
+  --color-arborix-bg: #ffffff;
+  --color-arborix-text: #131517;
+  --color-arborix-meta: #5c6166;
+  --color-arborix-line: #c0d6e9;
+  --color-arborix-accent: #06b6d4;
+  --color-arborix-accent-muted: color-mix(in srgb, #06b6d4 35%, transparent);
+  --font-mono-display: var(--font-code), ui-monospace, monospace;
+  --font-ui-display: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --radius-frame: 0px;
+  --radius-sheet-top: 12px;
+  --shadow-museum: 0 0 0 0.5px var(--color-arborix-line);
+}
+
+@layer base {
+  :root {
+    /* 32px — matches main horizontal padding (px-8) for symmetric viewport gutters */
+    --nav-gutter: 2rem;
+    --nav-w: 13.5rem;
+    --main-with-nav-ml: calc(var(--nav-gutter) + var(--nav-w));
+    --color-arborix-bg: #ffffff;
+    --color-arborix-text: #131517;
+    --color-arborix-meta: #5c6166;
+    --color-arborix-line: #c0d6e9;
+    --color-arborix-accent: #06b6d4;
+    /* Legacy alias — Source Code Pro */
+    --font-geist-mono: var(--font-code);
+  }
+
+  html {
+    color-scheme: light;
+    background-color: var(--color-arborix-bg);
+  }
+
+  body {
+    @apply text-sm font-normal antialiased;
+    background-color: var(--color-arborix-bg);
+    color: var(--color-arborix-text);
+    font-feature-settings: "ss01" on, "cv01" on;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-arborix-accent) 22%, transparent);
+  }
+}
+
+/* Technical frame: sharp corners, 0.5px hairline */
+@utility frame-museum {
+  @apply rounded-none border-[0.5px] border-[var(--color-arborix-line)] bg-white/85;
+  box-shadow: var(--shadow-museum);
+}
+
+@utility rounded-sheet-top {
+  border-top-left-radius: var(--radius-sheet-top);
+  border-top-right-radius: var(--radius-sheet-top);
+}
+
+@utility glass-overlay {
+  background: color-mix(in srgb, white 72%, transparent);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  border: 0.5px solid var(--color-arborix-line);
+}
+
+@utility mono-label {
+  font-family: var(--font-mono-display);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@utility font-ui {
+  font-family: var(--font-ui-display);
+}
+
+@utility font-code {
+  font-family: var(--font-mono-display);
+}
+
+/* Instrument identifiers — sharp, hairline only */
+@utility museum-tag {
+  @apply inline-flex items-center rounded-none border-[0.5px] border-[var(--color-arborix-line)] bg-white/60 px-2 py-0.5 font-code text-[12px] font-medium tracking-widest;
+}
+
+@utility focus-recede {
+  font-weight: 400;
+  opacity: 0.6;
+  transition:
+    opacity 0.35s ease,
+    font-weight 0.2s ease;
+}
+
+@utility hairline {
+  border-width: 0.5px;
+}
+
+/* Primary active CTA: professional clarity */
+@utility cta-active {
+  font-family: var(--font-ui-display);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #131517;
+  background-color: #e0f5ff;
+  border: 0.5px solid #bee3f8;
+  border-radius: 0;
+  padding: 8px 24px;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.08s ease;
+}
+
+.cta-active:hover {
+  background-color: #c0e8ff;
+}
+
+.cta-active:active {
+  box-shadow: inset 0 0 0 1px #bee3f8;
+}
+
+/* Range: 4px grid, sharp thumb */
+.priority-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 28px;
+  background: transparent;
+}
+
+.priority-slider:focus-visible {
+  outline: none;
+}
+
+.priority-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-arborix-accent) 35%, transparent);
+}
+
+.priority-slider::-webkit-slider-runnable-track {
+  height: 1px;
+  background: var(--color-arborix-line);
+}
+
+.priority-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  border: 0.5px solid var(--color-arborix-line);
+  background: white;
+  box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--color-arborix-text) 12%, transparent);
+  margin-top: -6px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.priority-slider::-webkit-slider-thumb:active {
+  transform: scale(0.96);
+  border-color: color-mix(in srgb, var(--color-arborix-accent) 55%, var(--color-arborix-line));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-arborix-accent) 45%, transparent);
+}
+
+.priority-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  border: 0.5px solid var(--color-arborix-line);
+  background: white;
+  box-shadow: 0 0 0 0.5px color-mix(in srgb, var(--color-arborix-text) 12%, transparent);
+}
+
+.priority-slider::-moz-range-track {
+  height: 1px;
+  background: var(--color-arborix-line);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Forensic verdict: narrative re-calibration feedback */
+.verdict-shimmer-overlay {
+  position: relative;
+}
+.verdict-shimmer-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(148, 163, 184, 0.22) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+/* Identity Radar: one-time cyan reveal when calibration unlocks */
+@keyframes identity-radar-cyan-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  45% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.95));
+  }
+}
+.identity-radar-cyan-reveal-pulse {
+  animation: identity-radar-cyan-pulse 0.8s cubic-bezier(0.4, 0, 0.2, 1) 1 both;
+}

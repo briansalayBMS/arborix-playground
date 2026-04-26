@@ -1,0 +1,112 @@
+/* =============================================================
+   ARBORIX DESIGN SYSTEM — CSS TOKENS
+   Version 0.1 · April 2026 · 4px grid
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+:root {
+  /* ─── Color ─── */
+  --color-primary: #1D1D1F;
+  --color-secondary: #86868B;
+  --color-tertiary: #D2D2D7;
+  --color-blue: #0071E3;
+  --color-amber: #FF9F0A;
+  --color-green: #30D158;
+
+  /* ─── Neutral scale ─── */
+  --color-bg: #F5F5F3;
+  --color-card: #FFFFFF;
+  --color-border: #E8E8E8;
+  --color-track: #F0F0F0;
+  --color-divider: #E8E8E8;
+
+  /* ─── Spacing (4px grid) ─── */
+  --spacing-1x: 4px;
+  --spacing-2x: 8px;
+  --spacing-3x: 12px;
+  --spacing-4x: 16px;
+  --spacing-5x: 20px;
+  --spacing-6x: 24px;
+  --spacing-8x: 32px;
+  --spacing-10x: 40px;
+  --spacing-12x: 48px;
+  --spacing-16x: 64px;
+
+  /* ─── Radius ─── */
+  --radius-sm: 8px;    /* tabs, inputs */
+  --radius-md: 16px;   /* medium elements */
+  --radius-lg: 20px;   /* cards */
+  --radius-shell: 20px; /* page shell */
+  --radius-pill: 980px; /* pills, buttons */
+
+  /* ─── Typography — Font families ─── */
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ─── Typography — Statement (Instrument Serif) ─── */
+  --statement-hero-size: 48px;
+  --statement-hero-weight: 400;
+  --statement-hero-lh: 1.25;
+  --statement-hero-ls: 0;
+
+  --statement-question-size: 24px;
+  --statement-question-weight: 400;
+  --statement-question-lh: 1.25;
+  --statement-question-ls: 0;
+
+  --statement-title-size: 20px;
+  --statement-title-weight: 400;
+  --statement-title-lh: 1.25;
+  --statement-title-ls: 0;
+
+  /* ─── Typography — Data (Instrument Serif) ─── */
+  --data-number-size: 42px;
+  --data-number-weight: 400;
+  --data-number-lh: 1.25;
+
+  --data-unit-size: 18px;
+  --data-unit-weight: 400;
+  --data-unit-lh: 1.25;
+
+  /* ─── Typography — Narrative (Inter) ─── */
+  --narrative-body-size: 18px;
+  --narrative-body-weight: 300;
+  --narrative-body-lh: 1.75;
+
+  --narrative-bold-size: 18px;
+  --narrative-bold-weight: 600;
+  --narrative-bold-lh: 1.75;
+
+  /* ─── Typography — Labels (Inter) ─── */
+  --label-card-size: 14px;
+  --label-card-weight: 400;
+  --label-card-lh: 1.35;
+  --label-card-ls: 0.05em;
+
+  --inter-sm-size: 12px;
+  --inter-sm-weight: 400;
+  --inter-sm-lh: 1.0;
+  --inter-sm-ls: 0.05em;
+
+  /* ─── Data visualization ─── */
+  --dataviz-gradient-start: #0071E3;
+  --dataviz-gradient-end: #30D158;
+  --dataviz-fill-opacity: 0.08;
+  --dataviz-stroke-width: 1px;
+  --dataviz-ring-stroke-width: 3px;
+  --dataviz-node-size: 8px;
+  --dataviz-node-weak-size: 5px;
+  --dataviz-halo-opacity: 0.1;
+  --dataviz-amber-start: #FFD60A;
+  --dataviz-amber-end: #FF9F0A;
+
+  /* ─── Shadows ─── */
+  --shadow-card-hover: 0 2px 20px rgba(0, 0, 0, 0.04);
+  --shadow-tab-active: 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-status-dot: 0 0 8px rgba(48, 209, 88, 0.5);
+
+  /* ─── Transitions ─── */
+  --transition-default: all 0.3s ease;
+  --transition-hover-lift: translateY(-4px);
+}

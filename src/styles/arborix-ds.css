@@ -1,0 +1,406 @@
+/* =============================================================
+   ARBORIX DESIGN SYSTEM — TYPOGRAPHY & COMPONENTS
+   Apply after tokens.css
+   ============================================================= */
+
+/* ─── Base ─── */
+body {
+  font-family: var(--font-sans);
+  color: var(--color-primary);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================================
+   TYPOGRAPHY — Named styles matching Figma tokens
+   ============================================================= */
+
+/* Statement/Hero — Section headlines, archetype names */
+.statement-hero {
+  font-family: var(--font-serif);
+  font-size: var(--statement-hero-size);
+  font-weight: var(--statement-hero-weight);
+  line-height: var(--statement-hero-lh);
+  letter-spacing: var(--statement-hero-ls);
+  color: var(--color-primary);
+}
+
+/* Statement/Question — Inquiry questions, ring chart centers */
+.statement-question {
+  font-family: var(--font-serif);
+  font-size: var(--statement-question-size);
+  font-weight: var(--statement-question-weight);
+  line-height: var(--statement-question-lh);
+  letter-spacing: var(--statement-question-ls);
+  color: var(--color-primary);
+}
+
+/* Statement/Title — Pattern titles, card headlines */
+.statement-title {
+  font-family: var(--font-serif);
+  font-size: var(--statement-title-size);
+  font-weight: var(--statement-title-weight);
+  line-height: var(--statement-title-lh);
+  letter-spacing: var(--statement-title-ls);
+  color: var(--color-primary);
+}
+
+/* Data number — Large data readouts */
+.data-number {
+  font-family: var(--font-serif);
+  font-size: var(--data-number-size);
+  font-weight: var(--data-number-weight);
+  line-height: var(--data-number-lh);
+  color: var(--color-primary);
+  font-feature-settings: 'lnum' 1, 'pnum' 1;
+}
+
+/* Data unit — Units beside data numbers */
+.data-unit {
+  font-family: var(--font-serif);
+  font-size: var(--data-unit-size);
+  font-weight: var(--data-unit-weight);
+  line-height: var(--data-unit-lh);
+  color: var(--color-secondary);
+}
+
+/* Narrative/Body — Body text, section descriptions */
+.narrative-body {
+  font-family: var(--font-sans);
+  font-size: var(--narrative-body-size);
+  font-weight: var(--narrative-body-weight);
+  line-height: var(--narrative-body-lh);
+  color: var(--color-primary);
+}
+
+/* Narrative/Bold — Bold emphasis within body text */
+.narrative-bold {
+  font-family: var(--font-sans);
+  font-size: var(--narrative-bold-size);
+  font-weight: var(--narrative-bold-weight);
+  line-height: var(--narrative-bold-lh);
+  color: var(--color-primary);
+}
+
+/* Label/Card — Section labels, numbered headers */
+.label-card {
+  font-family: var(--font-sans);
+  font-size: var(--label-card-size);
+  font-weight: var(--label-card-weight);
+  line-height: var(--label-card-lh);
+  letter-spacing: var(--label-card-ls);
+  color: var(--color-secondary);
+  text-transform: uppercase;
+}
+
+/* inter sm — Radar axis labels, instrument readouts */
+.inter-sm {
+  font-family: var(--font-sans);
+  font-size: var(--inter-sm-size);
+  font-weight: var(--inter-sm-weight);
+  line-height: var(--inter-sm-lh);
+  letter-spacing: var(--inter-sm-ls);
+  color: var(--color-secondary);
+  text-transform: uppercase;
+}
+
+/* inter sm active — Active/flagged axis label */
+.inter-sm-active {
+  font-family: var(--font-sans);
+  font-size: var(--inter-sm-size);
+  font-weight: var(--inter-sm-weight);
+  line-height: var(--inter-sm-lh);
+  letter-spacing: var(--inter-sm-ls);
+  color: var(--color-blue);
+  text-transform: uppercase;
+}
+
+/* ─── Supporting text styles ─── */
+
+.text-description {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.54;
+  color: var(--color-secondary);
+}
+
+.text-delta {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--color-blue);
+}
+
+.text-flag {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-amber);
+}
+
+.text-metadata {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.33;
+  color: var(--color-secondary);
+}
+
+.text-timestamp {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.33;
+  color: var(--color-tertiary);
+}
+
+/* =============================================================
+   SURFACES
+   ============================================================= */
+
+.surface-bg {
+  background: var(--color-bg);
+}
+
+.surface-card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-default);
+}
+
+.surface-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: var(--transition-hover-lift);
+}
+
+.surface-card-static {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+}
+
+/* =============================================================
+   COMPONENTS
+   ============================================================= */
+
+/* ─── Buttons ─── */
+.btn-primary {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  padding: var(--spacing-2x) var(--spacing-5x);
+  border-radius: var(--radius-pill);
+  background: var(--color-blue);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.btn-primary:hover {
+  background: #0077ED;
+}
+
+.btn-ghost {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  padding: var(--spacing-2x) var(--spacing-5x);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-blue);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.btn-ghost:hover {
+  background: #F5F5F7;
+}
+
+/* ─── Status pill ─── */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+  padding: var(--spacing-2x) var(--spacing-4x);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-secondary);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-green);
+  box-shadow: var(--shadow-status-dot);
+}
+
+/* ─── Tab group ─── */
+.tab-container {
+  display: flex;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+
+.tab {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  padding: var(--spacing-1x) var(--spacing-3x);
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--color-secondary);
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.tab-active {
+  background: var(--color-card);
+  color: var(--color-primary);
+  font-weight: 400;
+  box-shadow: var(--shadow-tab-active);
+}
+
+/* ─── Axis bar ─── */
+.axis-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3x);
+  margin-bottom: var(--spacing-4x);
+}
+
+.axis-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-secondary);
+  width: 72px;
+  flex-shrink: 0;
+}
+
+.axis-track {
+  flex: 1;
+  height: 2px;
+  background: var(--color-track);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.axis-fill {
+  height: 100%;
+  border-radius: 1px;
+  background: var(--color-primary);
+}
+
+.axis-fill-flagged {
+  background: var(--color-amber);
+}
+
+.axis-fill-weak {
+  background: var(--color-tertiary);
+}
+
+.axis-value {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-secondary);
+  width: 32px;
+  text-align: right;
+}
+
+/* ─── Section header ─── */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8x);
+}
+
+/* ─── Footer bar ─── */
+.footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-6x);
+  border-top: 1px solid var(--color-divider);
+}
+
+/* =============================================================
+   DATA VISUALIZATION — SVG gradients (define in SVG defs)
+   ============================================================= */
+
+/*
+  Radar polygon & ring chart gradients — define these in SVG <defs>:
+
+  <linearGradient id="dataviz-gradient" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0071E3"/>
+    <stop offset="100%" stop-color="#30D158"/>
+  </linearGradient>
+
+  Stroke: url(#dataviz-gradient), 1px
+  Fill: url(#dataviz-gradient), 8% opacity
+
+  Node halo (radial gradient):
+  <radialGradient id="node-halo">
+    <stop offset="0%" stop-color="rgba(0,113,227,0.1)"/>
+    <stop offset="100%" stop-color="rgba(0,113,227,0)"/>
+  </radialGradient>
+
+  Guide rings: #E8E8E8 (outer) → #F4F4F4 (inner), 0.5px stroke
+  Spoke lines: #F0F0F0, 0.5px stroke
+*/
+
+/* =============================================================
+   LAYOUT
+   ============================================================= */
+
+.page-shell {
+  background: var(--color-bg);
+  border-radius: var(--radius-shell);
+  padding: var(--spacing-12x);
+}
+
+.section-gap {
+  margin-bottom: var(--spacing-16x);
+}
+
+.card-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4x);
+}
+
+.card-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4x);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .page-shell {
+    padding: var(--spacing-6x);
+  }
+
+  .section-gap {
+    margin-bottom: var(--spacing-10x);
+  }
+
+  .card-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
