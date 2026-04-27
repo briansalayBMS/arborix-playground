@@ -18,31 +18,14 @@ import { cn } from "@/lib/cn";
 
 export function IdentityRadar({
   auditPercent = 40,
+  showPanel = true,
 }: {
   auditPercent?: number;
+  showPanel?: boolean;
 }) {
   const uid = useId().replace(/:/g, "");
-  const [hasMounted, setHasMounted] = useState(false);
-  const chartLocked = !hasMounted || auditPercent < 55;
-
-  const prevLocked = useRef<boolean | null>(null);
   const [revealPulse, setRevealPulse] = useState(false);
   const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hasMounted) return;
-    const locked = auditPercent < 55;
-    if (prevLocked.current === true && !locked) {
-      setRevealPulse(true);
-      const id = window.setTimeout(() => setRevealPulse(false), 850);
-      return () => clearTimeout(id);
-    }
-    prevLocked.current = locked;
-  }, [auditPercent, hasMounted]);
 
   const {
     setLeadAxis,
@@ -101,13 +84,7 @@ export function IdentityRadar({
       className="flex h-full min-h-0 flex-col gap-1 text-left"
     >
       <div className="relative h-[min(340px,72vw)] w-full max-w-[460px]">
-        <div
-          className={cn(
-            "absolute inset-0 overflow-hidden will-change-[filter,backdrop-filter]",
-            "transition-[filter,backdrop-filter,-webkit-backdrop-filter] duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
-            chartLocked && "blur-md grayscale backdrop-blur-md",
-          )}
-        >
+        <div className="absolute inset-0 overflow-hidden">
           <ParentSize>
             {({ width, height }) =>
               width > 0 && height > 0 ? (
@@ -127,36 +104,29 @@ export function IdentityRadar({
             }
           </ParentSize>
         </div>
-        {chartLocked ? (
-          <div className="pointer-events-none absolute inset-0 z-10 flex items-start justify-start p-4">
-            <div className="max-w-[min(100%,18rem)] border border-solid border-[#BEE3F8] bg-[#E0F5FF]/90 px-3 py-2">
-              <p className="m-0 text-left font-code text-[12px] font-medium uppercase leading-snug tracking-[0.12em] text-[#334155]">
-                [ CALIBRATION REQUIRED TO UNLOCK DATA ]
-              </p>
-            </div>
-          </div>
-        ) : null}
       </div>
 
-      <div className="flex flex-col gap-3 pt-2">
-        <div>
-          <p className="label-card m-0">{gap.axis}</p>
-          <p className="inter-sm m-0 mt-1">
-            Performance gap · Δ {gap.delta.toFixed(2)} ·{" "}
-            {gap.naturalHigher ? "Natural above adaptive" : "Adaptive above natural"}
-          </p>
+      {showPanel ? (
+        <div className="flex flex-col gap-3 pt-2">
+          <div>
+            <p className="label-card m-0">{gap.axis}</p>
+            <p className="inter-sm m-0 mt-1">
+              Performance gap · Δ {gap.delta.toFixed(2)} ·{" "}
+              {gap.naturalHigher ? "Natural above adaptive" : "Adaptive above natural"}
+            </p>
+          </div>
+          <div className="border-t border-[var(--color-border)] pt-4">
+            <p className="label-card m-0 mb-2">{"Auditor's verdict"}</p>
+            <p
+              className="m-0 text-[13px] leading-relaxed"
+              style={{ fontFamily: "var(--font-sans)", color: "var(--color-primary)" }}
+            >
+              <span style={{ fontWeight: 600 }}>{verdictParts.lead}</span>
+              <span style={{ fontWeight: 300 }}>{verdictParts.rest}</span>
+            </p>
+          </div>
         </div>
-        <div className="border-t border-[var(--color-border)] pt-4">
-          <p className="label-card m-0 mb-2">{"Auditor's verdict"}</p>
-          <p
-            className="m-0 text-[13px] leading-relaxed"
-            style={{ fontFamily: "var(--font-sans)", color: "var(--color-primary)" }}
-          >
-            <span style={{ fontWeight: 600 }}>{verdictParts.lead}</span>
-            <span style={{ fontWeight: 300 }}>{verdictParts.rest}</span>
-          </p>
-        </div>
-      </div>
+      ) : null}
     </motion.div>
   );
 }

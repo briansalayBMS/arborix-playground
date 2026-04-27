@@ -69,20 +69,20 @@ export function PriorityCalibration() {
       <div className="glass-overlay rounded-none p-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="mono-label text-slate-500">
+            <p className="mono-label text-[var(--color-secondary)]">
               pairwise weight
             </p>
-            <p className="mt-2 text-sm font-normal text-slate-500">
+            <p className="mt-2 text-sm font-normal text-[var(--color-secondary)]">
               Slide to calibrate urgency. The opposing card dims; the active card
               picks up tension and glow.
             </p>
           </div>
           <div className="w-full md:max-w-md">
             <div className="flex items-center justify-between pb-2">
-              <span className="mono-label text-[12px] text-[var(--color-arborix-accent)]">
+              <span className="mono-label text-[12px] text-[var(--color-blue)]">
                 {LEFT.title}
               </span>
-              <span className="mono-label text-[12px] text-slate-500">
+              <span className="mono-label text-[12px] text-[var(--color-secondary)]">
                 {RIGHT.title}
               </span>
             </div>
@@ -128,22 +128,22 @@ function GoalCard({
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.995 }}
       transition={{ type: "spring", stiffness: 520, damping: 34 }}
-      className="rounded-none border border-[var(--color-arborix-line)] p-5"
+      className="rounded-none border border-[var(--color-border)] p-5"
     >
       <motion.div style={{ opacity: emphasis }}>
         <span
           className={
             accent === "cyan"
-              ? "mono-label text-[var(--color-arborix-accent)]"
-              : "mono-label text-slate-500"
+              ? "mono-label text-[var(--color-blue)]"
+              : "mono-label text-[var(--color-secondary)]"
           }
         >
           goal
         </span>
-        <h3 className="mt-3 text-base font-bold tracking-tight text-slate-800">
+        <h3 className="mt-3 text-base font-bold tracking-tight text-[var(--color-primary)]">
           {title}
         </h3>
-        <p className="mt-2 text-sm font-normal leading-relaxed text-slate-500">
+        <p className="mt-2 text-sm font-normal leading-relaxed text-[var(--color-secondary)]">
           {subtitle}
         </p>
       </motion.div>

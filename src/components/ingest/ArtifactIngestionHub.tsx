@@ -98,19 +98,15 @@ export function ArtifactIngestionHub() {
   return (
     <div className={cn("space-y-12", inquiryRow && "pb-28")}>
       <header className="space-y-3">
-        <h1 className="font-ui m-0 text-[32px] font-bold leading-tight tracking-tight text-[#131517]">
-          Artifact Ingestion
-        </h1>
-        <p className="font-ui m-0 max-w-3xl text-base font-normal leading-relaxed text-[#5C6166]">
+        <h1 className="statement-hero m-0">Artifact Ingestion</h1>
+        <p className="narrative-body m-0 max-w-3xl">
           Feed the Auditor. Mount URLs, documents, or raw text into the sovereign record for
           forensic mapping.
         </p>
       </header>
 
       <section className="space-y-4">
-        <h2 className="font-code m-0 text-[12px] font-bold uppercase tracking-[0.18em] text-[#5C6166]">
-          Universal mount station
-        </h2>
+        <h2 className="label-card m-0">Universal mount station</h2>
 
         <div className="flex flex-wrap gap-2">
           {modes.map((m) => (
@@ -119,10 +115,10 @@ export function ArtifactIngestionHub() {
               type="button"
               onClick={() => setMode(m.id)}
               className={cn(
-                "font-code border-[0.5px] border-slate-400 bg-white px-3 py-2 text-[12px] font-normal uppercase tracking-wider transition-colors",
+                "font-code border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-[12px] font-normal uppercase tracking-wider transition-colors",
                 mode === m.id
-                  ? "text-[#131517]"
-                  : "text-[#5C6166] hover:text-[#131517]",
+                  ? "text-[var(--color-primary)]"
+                  : "text-[var(--color-secondary)] hover:text-[var(--color-primary)]",
               )}
             >
               {m.label}
@@ -130,14 +126,14 @@ export function ArtifactIngestionHub() {
           ))}
         </div>
 
-        <div className="border-[0.5px] border-slate-400 bg-white p-4">
+        <div className="border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] p-4">
           {mode === "url" ? (
             <input
               type="url"
               value={urlValue}
               onChange={(e) => setUrlValue(e.target.value)}
               placeholder="https://"
-              className="font-code w-full border-0 bg-transparent p-0 text-sm font-normal text-[#131517] outline-none placeholder:text-[#5C6166]"
+              className="font-code w-full border-0 bg-transparent p-0 text-sm font-normal text-[var(--color-primary)] outline-none placeholder:text-[var(--color-tertiary)]"
             />
           ) : null}
 
@@ -155,9 +151,9 @@ export function ArtifactIngestionHub() {
                 className="sr-only"
                 onChange={(e) => onFilePick(e.target.files)}
               />
-              <div className="font-code min-h-[88px] text-sm font-normal text-[#5C6166]">
+              <div className="font-code min-h-[88px] text-sm font-normal text-[var(--color-secondary)]">
                 {pendingFile ? (
-                  <span className="text-[#131517]">{pendingFile.name}</span>
+                  <span className="text-[var(--color-primary)]">{pendingFile.name}</span>
                 ) : (
                   <>Drop PDF, DOCX, or Markdown — or click to select</>
                 )}
@@ -171,75 +167,58 @@ export function ArtifactIngestionHub() {
               onChange={(e) => setTextValue(e.target.value)}
               rows={6}
               placeholder="Paste raw text…"
-              className="font-code min-h-[120px] w-full resize-y border-0 bg-transparent p-0 text-sm font-normal text-[#131517] outline-none placeholder:text-[#5C6166]"
+              className="font-code min-h-[120px] w-full resize-y border-0 bg-transparent p-0 text-sm font-normal text-[var(--color-primary)] outline-none placeholder:text-[var(--color-tertiary)]"
             />
           ) : null}
         </div>
 
         <div className="space-y-2">
-          <label htmlFor={intentId} className="sr-only">
-            Optional intent
-          </label>
+          <label htmlFor={intentId} className="sr-only">Optional intent</label>
           <input
             id={intentId}
             type="text"
             value={intentValue}
             onChange={(e) => setIntentValue(e.target.value)}
             placeholder="[ OPTIONAL: TELL ARBORIX WHAT THIS IS ]"
-            className="font-code w-full border-0 border-b-[0.5px] border-slate-400 bg-transparent p-0 py-2 text-sm font-normal text-[#131517] outline-none placeholder:text-[#5C6166]"
+            className="font-code w-full border-0 border-b-[0.5px] border-[var(--color-border)] bg-transparent p-0 py-2 text-sm font-normal text-[var(--color-primary)] outline-none placeholder:text-[var(--color-secondary)]"
           />
         </div>
 
-        <button
-          type="button"
-          onClick={onMount}
-          className="cta-active"
-        >
+        <button type="button" onClick={onMount} className="cta-active">
           MOUNT ARTIFACT
         </button>
       </section>
 
       <section className="space-y-4">
-        <h2 className="font-ui m-0 text-sm font-bold tracking-tight text-[#131517]">
-          Forensic ledger
-        </h2>
+        <h2 className="label-card m-0 text-[var(--color-primary)]">Forensic ledger</h2>
         <div className="w-full overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-left">
             <thead>
-              <tr className="border-b-[0.5px] border-slate-400">
-                <th
-                  scope="col"
-                  className="font-code py-3 pr-6 pl-0 text-[12px] font-bold uppercase tracking-widest text-[#5C6166]"
-                >
-                  ID
-                </th>
-                <th
-                  scope="col"
-                  className="font-code py-3 pr-6 pl-0 text-[12px] font-bold uppercase tracking-widest text-[#5C6166]"
-                >
-                  Domain
-                </th>
-                <th
-                  scope="col"
-                  className="font-code py-3 pl-0 text-[12px] font-bold uppercase tracking-widest text-[#5C6166]"
-                >
-                  Status
-                </th>
+              <tr className="border-b-[0.5px] border-[var(--color-border)]">
+                {["ID", "Domain", "Status"].map((h) => (
+                  <th
+                    key={h}
+                    scope="col"
+                    className="inter-sm py-3 pr-6 pl-0 text-[var(--color-secondary)]"
+                  >
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
               {log.map((row) => (
-                <tr key={row.id} className="border-b-[0.5px] border-slate-400">
-                  <td className="font-code py-3 pr-6 pl-0 align-top text-[12px] font-normal tabular-nums text-[#131517]">
+                <tr key={row.id} className="border-b-[0.5px] border-[var(--color-border)]">
+                  <td className="font-code py-3 pr-6 pl-0 align-top text-[12px] font-normal tabular-nums text-[var(--color-primary)]">
                     {row.id}
                   </td>
                   <td className="py-3 pr-6 pl-0 align-top">
                     <div className="flex flex-col gap-1">
-                      <span className="font-code text-sm font-bold text-slate-800">
+                      <span className="font-code text-sm font-bold text-[var(--color-primary)]">
                         {row.autoDetectedDomain}
                       </span>
                       {row.domain !== row.autoDetectedDomain ? (
-                        <span className="font-code text-[11px] font-normal text-[#5C6166]">
+                        <span className="font-code text-[12px] font-normal text-[var(--color-secondary)]">
                           Routing: {row.domain}
                         </span>
                       ) : null}
@@ -250,36 +229,34 @@ export function ArtifactIngestionHub() {
                         id={`domain-${row.id}`}
                         value={row.domain}
                         disabled={row.sealed}
-                        onChange={(e) =>
-                          setDomain(row.id, e.target.value as LedgerDomain)
-                        }
-                        className="mt-1 w-full max-w-[14rem] cursor-pointer appearance-none border-[0.5px] border-slate-400 bg-white py-1.5 pl-0 pr-6 font-code text-sm font-bold text-slate-800 outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                        onChange={(e) => setDomain(row.id, e.target.value as LedgerDomain)}
+                        className="mt-1 w-full max-w-[14rem] cursor-pointer appearance-none border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] py-1.5 pl-0 pr-6 font-code text-sm font-bold text-[var(--color-primary)] outline-none disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {DOMAIN_OPTIONS.map((d) => (
-                          <option key={d} value={d}>
-                            {d}
-                          </option>
+                          <option key={d} value={d}>{d}</option>
                         ))}
                       </select>
                     </div>
                   </td>
-                  <td className="font-code py-3 pl-0 align-top text-sm text-[#131517]">
+                  <td className="font-code py-3 pl-0 align-top text-sm text-[var(--color-primary)]">
                     {row.sealed ? (
-                      <span className="font-normal text-[#131517]">[ SEALED ]</span>
+                      <span className="font-normal text-[var(--color-primary)]">[ SEALED ]</span>
                     ) : (
                       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                         {row.verificationRequired ? (
                           <>
                             <span
-                              className="inline-block h-2 w-2 shrink-0 bg-[#06B6D4]"
+                              className="inline-block h-2 w-2 shrink-0 bg-[var(--color-blue)]"
                               aria-hidden
                             />
-                            <span className="font-normal text-[#131517]">
+                            <span className="font-normal text-[var(--color-primary)]">
                               [ VERIFICATION REQUIRED ]
                             </span>
                           </>
                         ) : (
-                          <span className="font-normal text-[#5C6166]">[ READY TO SEAL ]</span>
+                          <span className="font-normal text-[var(--color-secondary)]">
+                            [ READY TO SEAL ]
+                          </span>
                         )}
                         <button
                           type="button"
@@ -300,12 +277,12 @@ export function ArtifactIngestionHub() {
 
       {inquiryRow ? (
         <div
-          className="fixed bottom-0 right-0 z-40 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-[0.5px] border-slate-400 bg-white px-8 py-3"
+          className="fixed bottom-0 right-0 z-40 flex flex-wrap items-center gap-x-6 gap-y-2 border-t-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-8 py-3"
           style={{ left: "var(--main-with-nav-ml)" }}
         >
-          <p className="m-0 flex min-w-0 flex-1 items-baseline gap-2 font-code text-sm leading-snug text-[#131517]">
+          <p className="m-0 flex min-w-0 flex-1 items-baseline gap-2 font-code text-sm leading-snug text-[var(--color-primary)]">
             <span
-              className="mt-1.5 inline-block h-2 w-2 shrink-0 bg-[#06B6D4]"
+              className="mt-1.5 inline-block h-2 w-2 shrink-0 bg-[var(--color-blue)]"
               aria-hidden
             />
             <span className="min-w-0 truncate" title={inquiryCopy}>

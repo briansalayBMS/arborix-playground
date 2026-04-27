@@ -10,7 +10,7 @@ import { useSovereignCommand } from "@/context/SovereignCommandContext";
 type Phase = "q1" | "q2" | "payoff";
 
 const BTN =
-  "min-h-[52px] w-full max-w-xl border-[0.5px] border-slate-300 bg-[#E0F5FF] px-6 py-4 text-left font-ui text-[15px] font-semibold leading-snug text-[#131517] outline-none transition-colors hover:bg-[#C0E8FF] focus-visible:ring-2 focus-visible:ring-[#06B6D4] sm:max-w-none";
+  "min-h-[52px] w-full max-w-xl border-[0.5px] border-[var(--color-border)] bg-[rgba(0,113,227,0.06)] px-6 py-4 text-left font-ui text-[15px] font-semibold leading-snug text-[var(--color-primary)] outline-none transition-colors hover:bg-[rgba(0,113,227,0.04)] focus-visible:ring-2 focus-visible:ring-[var(--color-blue)] sm:max-w-none";
 
 export function PersonalityHookOverlay() {
   const {
@@ -105,7 +105,7 @@ export function PersonalityHookOverlay() {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="absolute bottom-0 left-0 right-0 flex max-h-[min(92vh,880px)] flex-col overflow-hidden border-t-[0.5px] border-slate-300 bg-white shadow-[0_-12px_40px_rgba(0,0,0,0.12)]"
+            className="absolute bottom-0 left-0 right-0 flex max-h-[min(92vh,880px)] flex-col overflow-hidden border-t-[0.5px] border-[var(--color-border)] bg-white shadow-[0_-12px_40px_rgba(0,0,0,0.12)]"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -116,7 +116,7 @@ export function PersonalityHookOverlay() {
               <button
                 type="button"
                 onClick={onMinimizeDeposition}
-                className="font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[#131517] outline-none hover:text-[#5C6166] focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+                className="font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-primary)] outline-none hover:text-[var(--color-secondary)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
               >
                 [ MINIMIZE DEPOSITION ]
               </button>
@@ -125,12 +125,12 @@ export function PersonalityHookOverlay() {
             <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-10 sm:px-8">
               {phase === "q1" ? (
                 <div className="w-full max-w-3xl text-left">
-                  <p className="font-code m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[#5C6166]">
+                  <p className="font-ui m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]">
                     Phase 1 · Pace
                   </p>
                   <h2
                     id={titleId}
-                    className="font-ui m-0 mt-4 text-[24px] font-semibold leading-snug text-[#131517]"
+                    className="font-ui m-0 mt-4 text-[24px] font-semibold leading-snug text-[var(--color-primary)]"
                   >
                     When a new challenge arises, do you prefer to act immediately to get results, or take
                     time to analyze the best approach?
@@ -156,10 +156,10 @@ export function PersonalityHookOverlay() {
 
               {phase === "q2" ? (
                 <div className="w-full max-w-3xl text-left">
-                  <p className="font-code m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[#5C6166]">
+                  <p className="font-ui m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]">
                     Phase 1 · Priority
                   </p>
-                  <h2 className="font-ui m-0 mt-4 text-[24px] font-semibold leading-snug text-[#131517]">
+                  <h2 className="font-ui m-0 mt-4 text-[24px] font-semibold leading-snug text-[var(--color-primary)]">
                     In a high-pressure meeting, is your primary focus on the logic of the solution or the
                     morale of the team?
                   </h2>
@@ -185,7 +185,7 @@ export function PersonalityHookOverlay() {
                       setPhase("q1");
                       setPace(null);
                     }}
-                    className="mt-8 font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[#5C6166] underline-offset-2 hover:text-[#131517] hover:underline"
+                    className="mt-8 font-ui text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)] underline-offset-2 hover:text-[var(--color-primary)] hover:underline"
                   >
                     Back
                   </button>
@@ -194,13 +194,13 @@ export function PersonalityHookOverlay() {
 
               {phase === "payoff" && verdict ? (
                 <div className="w-full max-w-3xl text-left">
-                  <p className="font-code m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[#5C6166]">
+                  <p className="font-ui m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]">
                     Archetype verdict
                   </p>
-                  <p className="font-ui m-0 mt-4 text-[20px] font-semibold leading-relaxed text-[#131517]">
+                  <p className="font-ui m-0 mt-4 text-[20px] font-semibold leading-relaxed text-[var(--color-primary)]">
                     {verdict.verdictLine}
                   </p>
-                  <p className="font-code m-0 mt-6 text-[12px] font-medium uppercase tracking-[0.12em] text-[#5C6166]">
+                  <p className="font-code m-0 mt-6 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]">
                     Closing in 2 seconds
                   </p>
                 </div>

@@ -13,6 +13,7 @@
   --color-blue: #0071E3;
   --color-amber: #FF9F0A;
   --color-green: #30D158;
+  --color-red: #FF3B30;
 
   /* ─── Neutral scale ─── */
   --color-bg: #F5F5F3;
@@ -43,9 +44,10 @@
   /* ─── Typography — Font families ─── */
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-code: 'Source Code Pro', ui-monospace, monospace;
 
   /* ─── Typography — Statement (Instrument Serif) ─── */
-  --statement-hero-size: 48px;
+  --statement-hero-size: 40px;
   --statement-hero-weight: 400;
   --statement-hero-lh: 1.25;
   --statement-hero-ls: 0;
@@ -71,8 +73,8 @@
 
   /* ─── Typography — Narrative (Inter) ─── */
   --narrative-body-size: 18px;
-  --narrative-body-weight: 300;
-  --narrative-body-lh: 1.75;
+  --narrative-body-weight: 500;
+  --narrative-body-lh: 1.6;
 
   --narrative-bold-size: 18px;
   --narrative-bold-weight: 600;
@@ -109,4 +111,9 @@
   /* ─── Transitions ─── */
   --transition-default: all 0.3s ease;
   --transition-hover-lift: translateY(-4px);
+
+  /* ─── Command Strip ─── */
+  --command-strip-height: 40px;
+  --command-strip-font-size: 10px;
+  --command-strip-letter-spacing: 0.1em;
 }

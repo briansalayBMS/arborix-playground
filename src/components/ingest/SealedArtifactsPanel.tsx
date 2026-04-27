@@ -19,32 +19,32 @@ export function SealedArtifactsPanel({
 
   return (
     <section className="space-y-3">
-      <h2 className="font-ui m-0 text-sm font-bold tracking-tight text-[#131517]">{title}</h2>
+      <h2 className="font-ui m-0 text-sm font-bold tracking-tight text-[var(--color-primary)]">{title}</h2>
       <div className="w-full overflow-x-auto">
         <table className="w-full min-w-[560px] border-collapse text-left">
           <thead>
-            <tr className="border-b-[0.5px] border-slate-400">
+            <tr className="border-b-[0.5px] border-[var(--color-secondary)]">
               <th
                 scope="col"
-                className="font-code py-3 pr-4 text-[12px] font-bold uppercase tracking-widest text-[#5C6166]"
+                className="font-code py-3 pr-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-secondary)]"
               >
                 Artifact ID
               </th>
               <th
                 scope="col"
-                className="font-code py-3 pr-4 text-[12px] font-bold uppercase tracking-widest text-[#5C6166]"
+                className="font-code py-3 pr-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-secondary)]"
               >
                 Source
               </th>
               <th
                 scope="col"
-                className="font-code py-3 pr-4 text-[12px] font-bold uppercase tracking-widest text-[#5C6166]"
+                className="font-code py-3 pr-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-secondary)]"
               >
                 Type (AUTO)
               </th>
               <th
                 scope="col"
-                className="font-code py-3 text-[12px] font-bold uppercase tracking-widest text-[#5C6166]"
+                className="font-code py-3 text-[12px] font-bold uppercase tracking-widest text-[var(--color-secondary)]"
               >
                 Custody
               </th>
@@ -52,17 +52,17 @@ export function SealedArtifactsPanel({
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={row.id} className="border-b-[0.5px] border-slate-400">
-                <td className="font-code py-3 pr-4 align-top text-sm font-normal text-[#131517]">
+              <tr key={row.id} className="border-b-[0.5px] border-[var(--color-secondary)]">
+                <td className="font-code py-3 pr-4 align-top text-sm font-normal text-[var(--color-primary)]">
                   {row.id}
                 </td>
-                <td className="font-code max-w-[320px] py-3 pr-4 align-top text-sm font-normal text-[#131517]">
+                <td className="font-code max-w-[320px] py-3 pr-4 align-top text-sm font-normal text-[var(--color-primary)]">
                   {row.source}
                 </td>
-                <td className="font-code py-3 pr-4 align-top text-sm font-normal text-[#131517]">
+                <td className="font-code py-3 pr-4 align-top text-sm font-normal text-[var(--color-primary)]">
                   {row.type}
                 </td>
-                <td className="font-code py-3 align-top text-sm font-bold text-[#131517]">
+                <td className="font-code py-3 align-top text-sm font-bold text-[var(--color-primary)]">
                   [ SEALED ]
                 </td>
               </tr>

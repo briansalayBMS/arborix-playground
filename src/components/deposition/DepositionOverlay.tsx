@@ -119,18 +119,18 @@ export function DepositionOverlay() {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="absolute bottom-0 left-0 right-0 flex max-h-[min(90vh,860px)] flex-col overflow-hidden border-t-[0.5px] border-slate-300 bg-white shadow-[0_-12px_40px_rgba(0,0,0,0.12)]"
+            className="absolute bottom-0 left-0 right-0 flex max-h-[min(90vh,860px)] flex-col overflow-hidden border-t-[0.5px] border-[var(--color-border)] bg-white shadow-[0_-12px_40px_rgba(0,0,0,0.12)]"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex shrink-0 items-center justify-end border-b-[0.5px] border-[var(--color-arborix-line)]/60 px-4 py-3 sm:px-8 sm:pl-[var(--main-with-nav-ml)]">
+            <div className="flex shrink-0 items-center justify-end border-b-[0.5px] border-[var(--color-border)]/60 px-4 py-3 sm:px-8 sm:pl-[var(--main-with-nav-ml)]">
               <button
                 type="button"
                 onClick={onFinishForNow}
-                className="font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[#131517] outline-none hover:text-[#5C6166] focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+                className="font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-primary)] outline-none hover:text-[var(--color-secondary)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
               >
                 [ DISMISS ]
               </button>
@@ -139,28 +139,28 @@ export function DepositionOverlay() {
             <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-8 pt-4 text-left sm:px-8 sm:pl-[var(--main-with-nav-ml)]">
               <h2
                 id={titleId}
-                className="m-0 text-left font-ui text-[16px] font-semibold leading-snug text-[#131517]"
+                className="m-0 text-left font-ui text-[16px] font-semibold leading-snug text-[var(--color-primary)]"
               >
                 Transcript
               </h2>
-              <p className="m-0 mt-1 text-left font-code text-[12px] uppercase tracking-[0.1em] text-slate-500">
+              <p className="m-0 mt-1 text-left font-code text-[12px] uppercase tracking-[0.1em] text-[var(--color-secondary)]">
                 {stepLabel}
               </p>
 
               {hasLocked ? (
-                <div className="mt-4 space-y-3 border-b-[0.5px] border-slate-200 pb-4">
+                <div className="mt-4 space-y-3 border-b-[0.5px] border-[var(--color-border)] pb-4">
                   {completedTurns.map((t, i) => (
                     <div
                       key={`${t.question.slice(0, 24)}-${i}`}
-                      className="rounded-none border-[0.5px] border-slate-200 bg-slate-100/90 px-3 py-2.5 text-slate-500"
+                      className="rounded-none border-[0.5px] border-[var(--color-border)] bg-[var(--color-bg)]/90 px-3 py-2.5 text-[var(--color-secondary)]"
                     >
                       <p className="m-0 text-left font-code text-[12px] font-medium uppercase tracking-[0.1em]">
                         Locked
                       </p>
-                      <p className="m-0 mt-1 text-left font-code text-[14px] leading-relaxed text-slate-500">
+                      <p className="m-0 mt-1 text-left font-code text-[14px] leading-relaxed text-[var(--color-secondary)]">
                         {t.question}
                       </p>
-                      <p className="m-0 mt-2 text-left font-code text-[14px] leading-relaxed text-slate-500">
+                      <p className="m-0 mt-2 text-left font-code text-[14px] leading-relaxed text-[var(--color-secondary)]">
                         {t.answer}
                       </p>
                     </div>
@@ -170,26 +170,26 @@ export function DepositionOverlay() {
 
               {hasLocked && currentAck ? (
                 <div className="mt-4 text-left">
-                  <h3 className="m-0 text-left font-ui text-[16px] font-semibold text-[#131517]">
+                  <h3 className="m-0 text-left font-ui text-[16px] font-semibold text-[var(--color-primary)]">
                     Acknowledgement
                   </h3>
-                  <p className="m-0 mt-1 text-left font-code text-[14px] leading-relaxed text-slate-800">
+                  <p className="m-0 mt-1 text-left font-code text-[14px] leading-relaxed text-[var(--color-primary)]">
                     {currentAck}
                   </p>
                 </div>
               ) : null}
 
               <div className="mt-5 text-left">
-                <h3 className="m-0 text-left font-ui text-[16px] font-semibold text-[#131517]">
+                <h3 className="m-0 text-left font-ui text-[16px] font-semibold text-[var(--color-primary)]">
                   {hasLocked ? "Follow-up" : "Current inquiry"}
                 </h3>
-                <p className="m-0 mt-1 text-left font-code text-[14px] leading-relaxed text-slate-800">
+                <p className="m-0 mt-1 text-left font-code text-[14px] leading-relaxed text-[var(--color-primary)]">
                   {currentQuestion}
                 </p>
               </div>
 
-              <div className="mt-4 border-t-[0.5px] border-slate-200 pt-3">
-                <p className="m-0 text-left font-ui text-[16px] font-semibold text-[#131517]">
+              <div className="mt-4 border-t-[0.5px] border-[var(--color-border)] pt-3">
+                <p className="m-0 text-left font-ui text-[16px] font-semibold text-[var(--color-primary)]">
                   Your turn
                 </p>
                 <div className="mt-2 flex flex-col items-stretch gap-2">
@@ -204,17 +204,17 @@ export function DepositionOverlay() {
                   <button
                     type="button"
                     onClick={onPickFile}
-                    className="w-full max-w-md border-[0.5px] border-dashed border-slate-300 bg-white/60 px-3 py-2 text-left font-code text-[12px] font-medium uppercase tracking-[0.1em] text-slate-600 outline-none transition-colors hover:bg-white/90 focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+                    className="w-full max-w-md border-[0.5px] border-dashed border-[var(--color-border)] bg-white/60 px-3 py-2 text-left font-code text-[12px] font-medium uppercase tracking-[0.1em] text-[var(--color-primary)] outline-none transition-colors hover:bg-white/90 focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
                   >
                     [ MOUNT SOURCE (OPTIONAL) ]
                     {sourceName ? (
-                      <span className="ml-2 font-normal text-slate-500">{sourceName}</span>
+                      <span className="ml-2 font-normal text-[var(--color-secondary)]">{sourceName}</span>
                     ) : null}
                   </button>
                 </div>
                 <label
                   htmlFor={inputId}
-                  className="m-0 mt-3 block text-left font-ui text-[16px] font-semibold text-[#131517]"
+                  className="m-0 mt-3 block text-left font-ui text-[16px] font-semibold text-[var(--color-primary)]"
                 >
                   Your response
                 </label>
@@ -224,7 +224,7 @@ export function DepositionOverlay() {
                   value={response}
                   onChange={(e) => setResponse(e.target.value)}
                   rows={5}
-                  className="mt-1 w-full min-h-[120px] resize-y rounded-none border-[0.5px] border-slate-300 bg-white px-3 py-2.5 text-left font-code text-[14px] leading-relaxed text-[#131517] outline-none transition-[border-color,box-shadow] placeholder:text-slate-400 focus:border-[#06B6D4] focus:ring-1 focus:ring-[#06B6D4]/35"
+                  className="mt-1 w-full min-h-[120px] resize-y rounded-none border-[0.5px] border-[var(--color-border)] bg-white px-3 py-2.5 text-left font-code text-[14px] leading-relaxed text-[var(--color-primary)] outline-none transition-[border-color,box-shadow] placeholder:text-[var(--color-secondary)] focus:border-[var(--color-blue)] focus:ring-1 focus:ring-[var(--color-blue)]/35"
                   placeholder="Type your next response. The Auditor reads this in line with your prior turns."
                   spellCheck
                 />
@@ -235,14 +235,14 @@ export function DepositionOverlay() {
                   type="button"
                   onClick={onContinue}
                   disabled={!response.trim()}
-                  className="min-h-[48px] w-full border-[0.5px] border-slate-300 bg-[#E0F5FF] px-4 py-3 text-left font-code text-[12px] font-semibold uppercase tracking-[0.12em] text-[#131517] outline-none transition-colors hover:bg-[#C0E8FF] focus-visible:ring-1 focus-visible:ring-[#06B6D4] disabled:cursor-not-allowed disabled:opacity-40"
+                  className="min-h-[48px] w-full border-[0.5px] border-[var(--color-border)] bg-[rgba(0,113,227,0.06)] px-4 py-3 text-left font-code text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)] outline-none transition-colors hover:bg-[rgba(0,113,227,0.04)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)] disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   [ CONTINUE DEPOSITION ]
                 </button>
                 <button
                   type="button"
                   onClick={onFinishForNow}
-                  className="min-h-[44px] w-full border-[0.5px] border-transparent bg-transparent px-4 py-2 text-left font-code text-[12px] font-medium uppercase tracking-[0.12em] text-slate-600 outline-none hover:text-[#131517] focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+                  className="min-h-[44px] w-full border-[0.5px] border-transparent bg-transparent px-4 py-2 text-left font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-primary)] outline-none hover:text-[var(--color-primary)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
                 >
                   [ FINISH FOR NOW ]
                 </button>

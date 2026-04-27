@@ -38,16 +38,16 @@ export function SummaryReveal() {
 
   return (
     <section className="w-full max-w-4xl">
-      <header className="border-b-[0.5px] border-slate-300 pb-4">
+      <header className="border-b-[0.5px] border-[var(--color-border)] pb-4">
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setMode("recruiter")}
             className={cn(
-              "border-[0.5px] border-slate-300 px-6 py-2 font-code text-[14px] font-semibold text-[#131517]",
+              "border-[0.5px] border-[var(--color-border)] px-6 py-2 font-code text-[14px] font-semibold text-[var(--color-primary)]",
               mode === "recruiter"
-                ? "bg-[#E0F5FF]"
-                : "bg-white hover:bg-[#E0F5FF]/45",
+                ? "bg-[rgba(0,113,227,0.06)]"
+                : "bg-white hover:bg-[rgba(0,113,227,0.06)]/45",
             )}
           >
             RECRUITER SUMMARY
@@ -56,10 +56,10 @@ export function SummaryReveal() {
             type="button"
             onClick={() => setMode("internal")}
             className={cn(
-              "border-[0.5px] border-slate-300 px-6 py-2 font-code text-[14px] font-semibold text-[#131517]",
+              "border-[0.5px] border-[var(--color-border)] px-6 py-2 font-code text-[14px] font-semibold text-[var(--color-primary)]",
               mode === "internal"
-                ? "bg-[#E0F5FF]"
-                : "bg-white hover:bg-[#E0F5FF]/45",
+                ? "bg-[rgba(0,113,227,0.06)]"
+                : "bg-white hover:bg-[rgba(0,113,227,0.06)]/45",
             )}
           >
             INTERNAL SUMMARY
@@ -67,15 +67,15 @@ export function SummaryReveal() {
         </div>
       </header>
 
-      <div className="mt-6 border-[0.5px] border-slate-300 bg-white p-6">
-        <h2 className="font-ui m-0 text-[24px] font-semibold leading-tight text-[#131517]">
+      <div className="mt-6 border-[0.5px] border-[var(--color-border)] bg-white p-6">
+        <h2 className="font-ui m-0 text-[24px] font-semibold leading-tight text-[var(--color-primary)]">
           {mode === "recruiter" ? "Executive Summary" : "Forensic Audit"}
         </h2>
         <div className="mt-4 space-y-3">
           {content.map((line) => (
             <p
               key={line}
-              className="font-ui m-0 text-[16px] font-normal leading-relaxed text-[#131517]"
+              className="font-ui m-0 text-[16px] font-normal leading-relaxed text-[var(--color-primary)]"
             >
               {line}
             </p>
@@ -84,7 +84,7 @@ export function SummaryReveal() {
       </div>
 
       <div className="mt-8">
-        <h3 className="font-ui m-0 text-[16px] font-semibold text-[#131517]">
+        <h3 className="font-ui m-0 text-[16px] font-semibold text-[var(--color-primary)]">
           Enhancement Pathways
         </h3>
         <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-3">
@@ -92,12 +92,12 @@ export function SummaryReveal() {
             <button
               key={item.title}
               type="button"
-              className="cursor-pointer border-[0.5px] border-[#BEE3F8] bg-[#E0F5FF] p-4 text-left transition-colors hover:bg-[#C0E8FF]"
+              className="cursor-pointer border-[0.5px] border-[rgba(0,113,227,0.08)] bg-[rgba(0,113,227,0.06)] p-4 text-left transition-colors hover:bg-[rgba(0,113,227,0.04)]"
             >
-              <p className="font-code m-0 text-[14px] font-semibold text-[#131517]">
+              <p className="font-code m-0 text-[14px] font-semibold text-[var(--color-primary)]">
                 {item.title}
               </p>
-              <p className="font-ui m-0 mt-2 text-[14px] leading-relaxed text-[#131517]">
+              <p className="font-ui m-0 mt-2 text-[14px] leading-relaxed text-[var(--color-primary)]">
                 {item.body}
               </p>
             </button>

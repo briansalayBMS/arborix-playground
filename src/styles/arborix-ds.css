@@ -74,6 +74,24 @@ body {
   color: var(--color-primary);
 }
 
+/* Observation body — Auditor observation paragraph (20px/500/175%) */
+.observation-body {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--color-primary);
+}
+
+/* Gap body — Forensic gap card descriptions (16px/300/175%) */
+.gap-body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--color-primary);
+}
+
 /* Narrative/Bold — Bold emphasis within body text */
 .narrative-bold {
   font-family: var(--font-sans);
@@ -271,6 +289,45 @@ body {
   box-shadow: var(--shadow-tab-active);
 }
 
+/* ─── Feed tabs (gradient bottom indicator) ─── */
+.tab-feed-row {
+  display: flex;
+  gap: var(--spacing-8x);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab-feed {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-secondary);
+  background: transparent;
+  border: none;
+  padding: 0 0 var(--spacing-4x) 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tab-feed:hover {
+  color: var(--color-primary);
+}
+
+.tab-feed-active {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.tab-feed-active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--dataviz-gradient-start), var(--dataviz-gradient-end));
+}
+
 /* ─── Axis bar ─── */
 .axis-row {
   display: flex;
@@ -403,4 +460,65 @@ body {
   .card-grid-2 {
     grid-template-columns: 1fr;
   }
+}
+
+/* =============================================================
+   COMMAND STRIP — persistent bottom bar
+   ============================================================= */
+
+.command-strip {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--command-strip-height);
+  padding: 0 var(--spacing-8x);
+  background: var(--color-card);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-code);
+  font-size: var(--command-strip-font-size);
+  font-weight: 500;
+  letter-spacing: var(--command-strip-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+.command-strip-identity {
+  /* inherits all from .command-strip */
+}
+
+.command-strip-trust {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+}
+
+.command-strip-verified {
+  color: var(--color-primary);
+}
+
+.command-strip-health {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+}
+
+.command-strip-conflict {
+  color: var(--color-amber);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  transition: opacity 0.15s ease;
+}
+
+.command-strip-conflict:hover {
+  opacity: 0.7;
 }

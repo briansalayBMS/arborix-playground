@@ -32,7 +32,7 @@ function renderRedactedSegments(text: string, ranges: RedactionRange[]) {
     out.push(
       <span
         key={key++}
-        className="inline-block rounded-none bg-slate-700 align-baseline font-code text-sm leading-relaxed text-transparent select-none"
+        className="inline-block rounded-none bg-[var(--color-primary)] align-baseline font-code text-sm leading-relaxed text-transparent select-none"
         aria-hidden
       >
         {"\u00A0".repeat(len)}
@@ -113,7 +113,7 @@ export function RedactableSourceText({
         ref={ref}
         onMouseUp={onMouseUp}
         className={cn(
-          "select-text font-code text-sm whitespace-pre-wrap text-[#131517]",
+          "select-text font-code text-sm whitespace-pre-wrap text-[var(--color-primary)]",
           className,
         )}
       >
@@ -125,7 +125,7 @@ export function RedactableSourceText({
         createPortal(
           <button
             type="button"
-            className="fixed z-[100] border-[0.5px] border-slate-400 bg-white px-2 py-1 font-code text-[11px] font-bold uppercase tracking-[0.14em] text-[#131517]"
+            className="fixed z-[100] border-[0.5px] border-[var(--color-secondary)] bg-white px-2 py-1 font-code text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--color-primary)]"
             style={{ left: float.left, top: float.top }}
             onMouseDown={(e) => e.preventDefault()}
             onClick={applyRedact}

@@ -11,7 +11,6 @@ const BENCHMARKS = [
   { id: "pde-l7", line: "Product Design Executive · L7" },
 ] as const;
 
-/** L8 Arborix standard position on the 1–10 precision scale (benchmark hairline). */
 const SKILLS = [
   { id: "strategic", label: "Strategic Framing", benchmark: 8.2 },
   { id: "system", label: "System Design", benchmark: 8.0 },
@@ -22,10 +21,7 @@ const SKILLS = [
   { id: "talent", label: "Talent & Org Design", benchmark: 7.7 },
 ] as const;
 
-function ratingBelowBenchmark(
-  rating: number | null | undefined,
-  benchmark: number,
-): boolean {
+function ratingBelowBenchmark(rating: number | null | undefined, benchmark: number): boolean {
   if (rating === null || rating === undefined) return false;
   return rating < benchmark;
 }
@@ -55,9 +51,10 @@ export function SkillsAuditInstrument() {
 
   const benchmark = BENCHMARKS[benchmarkIdx];
 
-  const gapCount = useMemo(() => {
-    return SKILLS.filter((s) => ratingBelowBenchmark(ratings[s.id], s.benchmark)).length;
-  }, [ratings]);
+  const gapCount = useMemo(
+    () => SKILLS.filter((s) => ratingBelowBenchmark(ratings[s.id], s.benchmark)).length,
+    [ratings],
+  );
 
   const hasBelowBenchmarkRow = useMemo(
     () => SKILLS.some((s) => ratingBelowBenchmark(ratings[s.id], s.benchmark)),
@@ -78,23 +75,26 @@ export function SkillsAuditInstrument() {
   return (
     <div className="max-w-3xl space-y-14">
       <header className="space-y-3">
-        <h1 className="font-ui m-0 text-[32px] font-bold leading-tight tracking-tight text-[var(--color-arborix-text)]">
-          Skills Audit
-        </h1>
-        <p className="m-0 max-w-2xl text-base font-normal leading-relaxed text-slate-600">
+        <h1 className="statement-hero m-0">Skills Audit</h1>
+        <p className="narrative-body m-0 max-w-2xl">
           A technical mapping of capabilities against the Arborix Standard. Benchmarked for L8
           Design Leadership.
         </p>
       </header>
 
-      <section className="space-y-3 border-b border-[var(--color-arborix-line)] pb-10">
+      <section className="space-y-3 border-b border-[var(--color-border)] pb-10">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <span className="text-base font-normal text-slate-600">Current benchmark:</span>
-          <span className="text-base font-bold text-[var(--color-arborix-text)]">{benchmark.line}</span>
+          <span className="text-description">Current benchmark:</span>
+          <span
+            className="text-[16px] font-semibold text-[var(--color-primary)]"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            {benchmark.line}
+          </span>
           <button
             type="button"
             onClick={() => setPickerOpen((o) => !o)}
-            className="text-sm font-normal text-[#06B6D4] underline-offset-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#06B6D4]/40"
+            className="text-description text-[var(--color-blue)] underline-offset-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]/40"
           >
             Change
           </button>
@@ -113,13 +113,12 @@ export function SkillsAuditInstrument() {
                   <li key={b.id}>
                     <button
                       type="button"
-                      onClick={() => {
-                        setBenchmarkIdx(i);
-                        setPickerOpen(false);
-                      }}
+                      onClick={() => { setBenchmarkIdx(i); setPickerOpen(false); }}
                       className={cn(
-                        "w-full cursor-pointer border-0 bg-transparent p-0 text-left text-sm font-normal transition-colors",
-                        i === benchmarkIdx ? "text-slate-800" : "text-slate-500 hover:text-slate-700",
+                        "w-full cursor-pointer border-0 bg-transparent p-0 text-left transition-colors",
+                        i === benchmarkIdx
+                          ? "text-description text-[var(--color-primary)]"
+                          : "text-description hover:text-[var(--color-primary)]",
                       )}
                     >
                       {b.line}
@@ -133,43 +132,41 @@ export function SkillsAuditInstrument() {
       </section>
 
       <section className="space-y-12">
-          {SKILLS.map((skill) => {
-            const rating = ratings[skill.id];
-            const diagnostic = effectiveDiagnosticAxis;
-            let rowDimmed = false;
-            if (diagnostic) {
-              rowDimmed = SKILL_DIAGNOSTIC_AXIS[skill.id] !== diagnostic;
-            } else if (hasBelowBenchmarkRow) {
-              rowDimmed = !ratingBelowBenchmark(rating, skill.benchmark);
-            }
-            const cyanLead =
-              (diagnostic && SKILL_DIAGNOSTIC_AXIS[skill.id] === diagnostic && !rowDimmed) ||
-              (!diagnostic && ratingBelowBenchmark(rating, skill.benchmark) && !rowDimmed);
+        {SKILLS.map((skill) => {
+          const rating = ratings[skill.id];
+          const diagnostic = effectiveDiagnosticAxis;
+          let rowDimmed = false;
+          if (diagnostic) {
+            rowDimmed = SKILL_DIAGNOSTIC_AXIS[skill.id] !== diagnostic;
+          } else if (hasBelowBenchmarkRow) {
+            rowDimmed = !ratingBelowBenchmark(rating, skill.benchmark);
+          }
+          const cyanLead =
+            (diagnostic && SKILL_DIAGNOSTIC_AXIS[skill.id] === diagnostic && !rowDimmed) ||
+            (!diagnostic && ratingBelowBenchmark(rating, skill.benchmark) && !rowDimmed);
 
-            return (
-              <PrecisionRow
-                key={skill.id}
-                skill={skill}
-                rating={rating}
-                rowDimmed={rowDimmed}
-                cyanDiagnosticLead={cyanLead}
-                onRating={(v) => setRatings((prev) => ({ ...prev, [skill.id]: v }))}
-              />
-            );
-          })}
+          return (
+            <PrecisionRow
+              key={skill.id}
+              skill={skill}
+              rating={rating}
+              rowDimmed={rowDimmed}
+              cyanDiagnosticLead={cyanLead}
+              onRating={(v) => setRatings((prev) => ({ ...prev, [skill.id]: v }))}
+            />
+          );
+        })}
       </section>
 
-      <section className="space-y-5 border-t border-[var(--color-arborix-line)] pt-12">
-        <p className="m-0 font-code text-[12px] font-normal uppercase tracking-[0.2em] text-slate-500">
-          [ ISSUANCE : VERIFICATION KEY ]
-        </p>
-        <p className="m-0 max-w-2xl text-sm font-normal leading-relaxed text-slate-800">
+      <section className="space-y-5 border-t border-[var(--color-border)] pt-12">
+        <p className="inter-sm m-0">[ ISSUANCE : VERIFICATION KEY ]</p>
+        <p className="text-description m-0 max-w-2xl">
           Arborix records are self-reported until verified by 3 peers. Generate a secure, anonymous
           link to seal this record.
         </p>
         {gapCount > 0 ? (
-          <p className="m-0 text-sm font-normal text-slate-500">
-            <span className="font-bold text-slate-800">
+          <p className="text-description m-0">
+            <span className="font-semibold text-[var(--color-primary)]">
               {gapCount} benchmark gap{gapCount === 1 ? "" : "s"}
             </span>{" "}
             — peer verification recommended before seal.
@@ -179,20 +176,18 @@ export function SkillsAuditInstrument() {
         {forensicUrl ? (
           <div className="space-y-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
-              <pre className="m-0 min-h-[3rem] min-w-0 flex-1 overflow-x-auto border-[0.5px] border-[var(--color-arborix-line)] bg-slate-50/80 px-3 py-3 font-code text-sm leading-relaxed text-slate-800">
+              <pre className="m-0 min-h-[3rem] min-w-0 flex-1 overflow-x-auto border-[0.5px] border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-3 font-code text-sm leading-relaxed text-[var(--color-primary)]">
                 <code>{forensicUrl}</code>
               </pre>
               <button
                 type="button"
                 onClick={copyKey}
-                className="h-auto shrink-0 border-[0.5px] border-[var(--color-arborix-line)] bg-white px-4 py-3 text-sm font-normal text-slate-800 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#06B6D4]/40 sm:self-auto"
+                className="h-auto shrink-0 border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 text-description transition-colors hover:bg-[var(--color-bg)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]/40 sm:self-auto"
               >
                 {copied ? "Copied" : "Copy link"}
               </button>
             </div>
-            <p className="m-0 font-code text-[12px] font-normal uppercase tracking-[0.14em] text-slate-500">
-              [ status: awaiting 3 testimonies ]
-            </p>
+            <p className="inter-sm m-0">[ status: awaiting 3 testimonies ]</p>
           </div>
         ) : (
           <button
@@ -201,7 +196,7 @@ export function SkillsAuditInstrument() {
               const id = crypto.randomUUID?.() ?? `arx-${Date.now()}`;
               setForensicUrl(`https://arborix.app/verify/${id.slice(0, 8)}`);
             }}
-            className="inline-flex w-full max-w-md items-center justify-center border-[0.5px] border-slate-600 bg-slate-800 px-5 py-3 font-code text-[12px] font-normal uppercase tracking-[0.18em] text-white transition-colors hover:bg-slate-800/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#06B6D4]/45 sm:w-auto"
+            className="btn-primary inline-flex w-full max-w-md items-center justify-center sm:w-auto"
           >
             Generate forensic link
           </button>
@@ -267,11 +262,13 @@ function PrecisionRow({
         cyanDiagnosticLead && !rowDimmed && "opacity-100",
       )}
     >
-      <p className="m-0 text-sm font-normal text-slate-800">
+      <p className="text-description m-0">
         <span
           className={cn(
-            "font-bold",
-            cyanDiagnosticLead && !rowDimmed ? "text-[#06B6D4]" : "text-slate-800",
+            "font-semibold",
+            cyanDiagnosticLead && !rowDimmed
+              ? "text-[var(--color-blue)]"
+              : "text-[var(--color-primary)]",
           )}
         >
           {dataPoint}
@@ -301,28 +298,21 @@ function PrecisionRow({
               onRating(clampRating(rating + 0.1));
             }
           }}
-          className="relative h-10 w-full cursor-pointer touch-none outline-none focus-visible:ring-1 focus-visible:ring-[#06B6D4]/40"
+          className="relative h-10 w-full cursor-pointer touch-none outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]/40"
         >
-          <div className="pointer-events-none absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-slate-200" />
-
+          <div className="pointer-events-none absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 bg-[var(--color-track)]" />
           <div
-            className="pointer-events-none absolute top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 bg-slate-400"
-            style={{
-              left: pctForValue(skill.benchmark),
-              width: "0.5px",
-              height: "1.5rem",
-            }}
+            className="pointer-events-none absolute top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 bg-[var(--color-secondary)]"
+            style={{ left: pctForValue(skill.benchmark), width: "0.5px", height: "1.5rem" }}
             aria-hidden
           />
-
           <span
-            className="pointer-events-none absolute top-1/2 z-[2] block h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#06B6D4] shadow-[0_0_0_1px_rgba(6,182,212,0.25)]"
+            className="pointer-events-none absolute top-1/2 z-[2] block h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-blue)] shadow-[0_0_0_1px_rgba(0,113,227,0.25)]"
             style={{ left: pctForValue(rating) }}
             aria-hidden
           />
-
           <div
-            className="pointer-events-none absolute left-0 right-0 top-full flex justify-between pt-1 font-code text-[10px] font-normal tabular-nums text-slate-500"
+            className="pointer-events-none absolute left-0 right-0 top-full flex justify-between pt-1 font-code text-[12px] font-normal tabular-nums text-[var(--color-secondary)]"
             aria-hidden
           >
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (

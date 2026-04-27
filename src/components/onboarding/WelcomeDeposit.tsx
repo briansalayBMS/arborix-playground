@@ -87,11 +87,11 @@ export function WelcomeDeposit() {
 
   return (
     <section className="w-full">
-      <header className="border-b-[0.5px] border-slate-300 pb-6">
-        <h1 className="font-ui m-0 text-[32px] font-semibold leading-tight text-[#131517]">
+      <header className="border-b-[0.5px] border-[var(--color-border)] pb-6">
+        <h1 className="font-ui m-0 text-[32px] font-semibold leading-tight text-[var(--color-primary)]">
           Mount Your Record
         </h1>
-        <p className="font-ui m-0 mt-3 text-[16px] font-normal leading-relaxed text-[#5C6166]">
+        <p className="font-ui m-0 mt-3 text-[16px] font-normal leading-relaxed text-[var(--color-secondary)]">
           Upload your LinkedIn PDF or Resume to begin the forensic audit.
         </p>
       </header>
@@ -101,7 +101,7 @@ export function WelcomeDeposit() {
           <div className="flex flex-col gap-2">
             <label
               htmlFor={nameId}
-              className="font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[#5C6166]"
+              className="font-ui text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]"
             >
               FULL NAME
             </label>
@@ -112,14 +112,14 @@ export function WelcomeDeposit() {
               placeholder="Your full name"
               required
               autoComplete="name"
-              className="h-10 rounded-none border-[0.5px] border-slate-400 bg-white px-3 font-code text-[14px] text-[#131517] outline-none placeholder:text-[#5C6166]/45 focus:border-[#06B6D4]/60"
+              className="h-10 rounded-none border-[0.5px] border-[var(--color-secondary)] bg-white px-3 font-code text-[14px] text-[var(--color-primary)] outline-none placeholder:text-[var(--color-secondary)]/45 focus:border-[var(--color-blue)]/60"
             />
           </div>
 
           <div className="flex flex-col gap-2">
             <label
               htmlFor={emailId}
-              className="font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[#5C6166]"
+              className="font-ui text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]"
             >
               BUSINESS EMAIL
             </label>
@@ -131,25 +131,25 @@ export function WelcomeDeposit() {
               placeholder="name@domain.com"
               required
               autoComplete="email"
-              className="h-10 rounded-none border-[0.5px] border-slate-400 bg-white px-3 font-code text-[14px] text-[#131517] outline-none placeholder:text-[#5C6166]/45 focus:border-[#06B6D4]/60"
+              className="h-10 rounded-none border-[0.5px] border-[var(--color-secondary)] bg-white px-3 font-code text-[14px] text-[var(--color-primary)] outline-none placeholder:text-[var(--color-secondary)]/45 focus:border-[var(--color-blue)]/60"
             />
           </div>
         </div>
 
         <div
           className={cn(
-            "relative mt-2 min-h-[140px] rounded-none border-[0.5px] border-slate-400 bg-white p-6 text-left transition-colors",
-            dragOver && "border-[#06B6D4]/60 bg-[#E0F5FF]/30",
+            "relative mt-2 min-h-[140px] rounded-none border-[0.5px] border-[var(--color-secondary)] bg-white p-6 text-left transition-colors",
+            dragOver && "border-[var(--color-blue)]/60 bg-[rgba(0,113,227,0.06)]/30",
           )}
           onDragOver={onDragOverZone}
           onDragLeave={onDragLeaveZone}
           onDrop={onDrop}
         >
           <div className="pointer-events-none relative z-0">
-            <p className="font-code m-0 text-[12px] font-semibold uppercase tracking-[0.12em] text-[#131517]">
+            <p className="font-code m-0 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)]">
               [ MOUNT PROFESSIONAL RECORD ]
             </p>
-            <p className="font-code m-0 mt-2 text-[14px] leading-relaxed text-[#5C6166]">
+            <p className="font-ui m-0 mt-2 text-[14px] leading-relaxed text-[var(--color-secondary)]">
               Drop LinkedIn export PDF and resume PDF here, or click to add files. You can mount
               multiple sources.
             </p>
@@ -179,15 +179,15 @@ export function WelcomeDeposit() {
         </div>
 
         {artifacts.length > 0 ? (
-          <div className="mt-2 border-[0.5px] border-slate-300 bg-white p-4">
-            <p className="font-code m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[#5C6166]">
+          <div className="mt-2 border-[0.5px] border-[var(--color-border)] bg-white p-4">
+            <p className="font-ui m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]">
               Mounted Artifacts
             </p>
-            <p className="font-code m-0 mt-2 flex flex-wrap items-baseline gap-x-1 gap-y-1 text-[12px] leading-relaxed text-[#131517]">
+            <p className="font-code m-0 mt-2 flex flex-wrap items-baseline gap-x-1 gap-y-1 text-[12px] leading-relaxed text-[var(--color-primary)]">
               {artifacts.map((a, i) => (
                 <span key={a.id} className="inline-flex items-baseline gap-1">
                   {i > 0 ? (
-                    <span className="text-[#5C6166]" aria-hidden>
+                    <span className="text-[var(--color-secondary)]" aria-hidden>
                       |
                     </span>
                   ) : null}

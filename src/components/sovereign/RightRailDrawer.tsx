@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 import { useRightRailDrawer } from "@/context/RightRailDrawerContext";
 
 function noEmDash(s: string): string {
-  return s.replace(/\u2014/g, "-");
+  return s.replace(/—/g, "-");
 }
 
 export function RightRailDrawer() {
@@ -28,16 +28,12 @@ export function RightRailDrawer() {
     if (!isOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    return () => { document.body.style.overflow = prev; };
   }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, close]);
@@ -45,11 +41,7 @@ export function RightRailDrawer() {
   const displayAnalysis = useMemo(() => {
     if (!payload) return "";
     return noEmDash(
-      auditorAnalysisForFocusedSource(
-        payload.forensicVerdict,
-        payload.sources,
-        focusedSourceId,
-      ),
+      auditorAnalysisForFocusedSource(payload.forensicVerdict, payload.sources, focusedSourceId),
     );
   }, [payload, focusedSourceId]);
 
@@ -60,14 +52,14 @@ export function RightRailDrawer() {
       <button
         type="button"
         aria-label="Close asset inspector shade"
-        className="absolute inset-0 bg-slate-900/15"
+        className="absolute inset-0 bg-[rgba(0,0,0,0.15)]"
         onClick={close}
       />
 
       <div
         role="document"
         className={cn(
-          "fixed top-0 right-0 z-[70] flex h-screen w-[400px] flex-col border-l border-[#E2E8F0] bg-white",
+          "fixed top-0 right-0 z-[70] flex h-screen w-[400px] flex-col border-l border-[var(--color-border)] bg-[var(--color-card)]",
           "transition-transform duration-300 ease-out motion-reduce:transition-none",
           slideIn ? "translate-x-0" : "translate-x-full",
         )}
@@ -76,63 +68,45 @@ export function RightRailDrawer() {
         <header className="flex shrink-0 items-start justify-between gap-1 p-6 text-left">
           <p
             id="asset-inspector-title"
-            className="m-0 min-w-0 flex-1 pr-2 font-code text-[12px] font-semibold uppercase leading-snug tracking-[0.1em] text-[#131517]"
+            className="label-card m-0 min-w-0 flex-1 pr-2 text-[var(--color-primary)]"
           >
             ASSET INSPECTOR [ID: {payload.recordId}]
           </p>
           <button
             type="button"
             onClick={close}
-            className="ml-auto shrink-0 rounded-none border-0 bg-transparent p-0 font-code text-[12px] font-semibold uppercase tracking-[0.08em] text-[#131517] outline-none hover:opacity-80 focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+            className="label-card ml-auto shrink-0 rounded-none border-0 bg-transparent p-0 text-[var(--color-primary)] outline-none hover:opacity-80 focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
           >
             [ CLOSE ]
           </button>
         </header>
 
         <div className="flex min-h-0 flex-1 flex-col gap-0 overflow-y-auto">
-          <div className="bg-gray-50 p-6 text-left">
+          <div className="bg-[var(--color-bg)] p-6 text-left">
             <dl className="m-0 flex flex-col gap-1">
-              <div>
-                <dt className="m-0 font-code text-[11px] font-semibold uppercase tracking-[0.12em] text-[#64748B]">
-                  Source
-                </dt>
-                <dd className="m-0 mt-1 break-all font-code text-[13px] font-normal leading-snug text-[#131517]">
-                  {payload.sourcePath}
-                </dd>
-              </div>
-              <div>
-                <dt className="m-0 font-code text-[11px] font-semibold uppercase tracking-[0.12em] text-[#64748B]">
-                  Type
-                </dt>
-                <dd className="m-0 mt-1 font-code text-[13px] font-normal leading-snug text-[#131517]">
-                  {payload.fileType}
-                </dd>
-              </div>
-              <div>
-                <dt className="m-0 font-code text-[11px] font-semibold uppercase tracking-[0.12em] text-[#64748B]">
-                  Timestamp
-                </dt>
-                <dd className="m-0 mt-1 font-code text-[13px] font-normal tabular-nums leading-snug text-[#131517]">
-                  {payload.timestamp}
-                </dd>
-              </div>
+              {[
+                { key: "Source", value: payload.sourcePath },
+                { key: "Type", value: payload.fileType },
+                { key: "Timestamp", value: payload.timestamp },
+              ].map(({ key, value }) => (
+                <div key={key}>
+                  <dt className="inter-sm m-0">{key}</dt>
+                  <dd className="m-0 mt-1 break-all font-code text-[13px] font-normal leading-snug text-[var(--color-primary)]">
+                    {value}
+                  </dd>
+                </div>
+              ))}
             </dl>
           </div>
 
           <div className="p-6 text-left">
-            <p className="m-0 font-code text-[10px] font-semibold uppercase tracking-[0.14em] text-[#64748B]">
-              AUDITOR&apos;S ANALYSIS
-            </p>
-            <p className="m-0 mt-1 font-code text-[13px] font-normal leading-[1.5] text-[#131517]">
-              {displayAnalysis}
-            </p>
+            <p className="inter-sm m-0">AUDITOR&apos;S ANALYSIS</p>
+            <p className="text-description m-0 mt-2">{displayAnalysis}</p>
           </div>
 
-          <div className="border-t border-[#E2E8F0] p-6 text-left">
-            <p className="m-0 font-code text-[10px] font-semibold uppercase tracking-[0.14em] text-[#64748B]">
-              SOURCES OF TRUTH
-            </p>
-            <ul className="m-0 mt-1 list-none space-y-1 p-0">
+          <div className="border-t border-[var(--color-border)] p-6 text-left">
+            <p className="inter-sm m-0">SOURCES OF TRUTH</p>
+            <ul className="m-0 mt-2 list-none space-y-1 p-0">
               {payload.sources.map((s) => {
                 const page = s.pageHint ? ` (${s.pageHint})` : "";
                 const line = `- [${s.tag}] ${s.label}${page}`;
@@ -145,9 +119,9 @@ export function RightRailDrawer() {
                         setFocusedSourceId((prev) => (prev === s.id ? null : s.id))
                       }
                       className={cn(
-                        "w-full cursor-pointer border-0 bg-transparent p-0 text-left font-code text-[13px] font-normal leading-snug text-[#131517]",
-                        "underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#06B6D4]",
-                        active && "bg-[#E0F5FF]/60 text-[#131517] ring-1 ring-inset ring-[#06B6D4]/40",
+                        "w-full cursor-pointer border-0 bg-transparent p-0 text-left font-code text-[13px] font-normal leading-snug text-[var(--color-primary)]",
+                        "underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]",
+                        active && "bg-[rgba(0,113,227,0.06)]/60 text-[var(--color-primary)] ring-1 ring-inset ring-[var(--color-blue)]/40",
                       )}
                     >
                       {noEmDash(line)}
@@ -159,15 +133,16 @@ export function RightRailDrawer() {
           </div>
         </div>
 
-        <footer className="shrink-0 border-t border-[#E2E8F0] bg-white p-6">
+        <footer className="shrink-0 border-t border-[var(--color-border)] bg-[var(--color-card)] p-6">
           <div className="flex flex-col gap-1">
             <a
               href="#"
               className={cn(
-                "flex min-h-[44px] w-full items-center justify-center rounded-none border border-[#131517] bg-white",
-                "font-ui text-[14px] font-semibold leading-tight text-[#131517]",
-                "outline-none transition-colors hover:bg-[#F8FAFC] focus-visible:ring-1 focus-visible:ring-[#06B6D4]",
+                "flex min-h-[44px] w-full items-center justify-center rounded-none border border-[var(--color-primary)] bg-[var(--color-card)]",
+                "text-[14px] font-semibold leading-tight text-[var(--color-primary)]",
+                "outline-none transition-colors hover:bg-[var(--color-bg)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]",
               )}
+              style={{ fontFamily: "var(--font-sans)" }}
               onClick={(e) => e.preventDefault()}
             >
               [ DOWNLOAD ORIGINAL ]
@@ -175,10 +150,11 @@ export function RightRailDrawer() {
             <a
               href="#"
               className={cn(
-                "flex min-h-[44px] w-full items-center justify-center rounded-none border border-[#06B6D4]/25 bg-[#E0F5FF]",
-                "font-ui text-[14px] font-semibold leading-tight text-[#131517]",
-                "outline-none transition-colors hover:bg-[#C0E8FF] focus-visible:ring-1 focus-visible:ring-[#06B6D4]",
+                "flex min-h-[44px] w-full items-center justify-center rounded-none border border-[var(--color-blue)]/25 bg-[rgba(0,113,227,0.06)]",
+                "text-[14px] font-semibold leading-tight text-[var(--color-primary)]",
+                "outline-none transition-colors hover:bg-[rgba(0,113,227,0.04)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]",
               )}
+              style={{ fontFamily: "var(--font-sans)" }}
               onClick={(e) => e.preventDefault()}
             >
               [ VIEW FULL TRANSCRIPT ]

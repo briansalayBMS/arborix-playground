@@ -37,7 +37,7 @@ type StoredCustom = {
 };
 
 function noEmDash(s: string): string {
-  return s.replace(/\u2014/g, "-");
+  return s.replace(/—/g, "-");
 }
 
 function loadSealedIds(domain: SovereignLedgerDomain): Set<string> {
@@ -55,9 +55,7 @@ function loadSealedIds(domain: SovereignLedgerDomain): Set<string> {
 function saveSealedIds(domain: SovereignLedgerDomain, ids: Set<string>) {
   try {
     localStorage.setItem(sealedStorageKey(domain), JSON.stringify([...ids]));
-  } catch {
-    /* ignore */
-  }
+  } catch { /* ignore */ }
 }
 
 function loadActiveMap(domain: SovereignLedgerDomain): Record<string, boolean> {
@@ -75,9 +73,7 @@ function loadActiveMap(domain: SovereignLedgerDomain): Record<string, boolean> {
 function saveActiveMap(domain: SovereignLedgerDomain, m: Record<string, boolean>) {
   try {
     localStorage.setItem(activeToggleStorageKey(domain), JSON.stringify(m));
-  } catch {
-    /* ignore */
-  }
+  } catch { /* ignore */ }
 }
 
 function loadCustomRows(domain: SovereignLedgerDomain): StoredCustom[] {
@@ -101,9 +97,7 @@ function loadCustomRows(domain: SovereignLedgerDomain): StoredCustom[] {
 function saveCustomRows(domain: SovereignLedgerDomain, rows: StoredCustom[]) {
   try {
     localStorage.setItem(customRowsStorageKey(domain), JSON.stringify(rows));
-  } catch {
-    /* ignore */
-  }
+  } catch { /* ignore */ }
 }
 
 function detailForRecord(recordId: string, asset: string, sourceFallback: string): LedgerArtifactDetail {
@@ -136,8 +130,10 @@ function LedgerToggle({
       aria-labelledby={labelledBy}
       onClick={onToggle}
       className={cn(
-        "relative h-5 w-9 shrink-0 rounded-full border-[0.5px] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#06B6D4] focus-visible:ring-offset-2 focus-visible:ring-offset-white",
-        active ? "border-[#06B6D4] bg-[#E0F5FF]" : "border-slate-300 bg-slate-100",
+        "relative h-5 w-9 shrink-0 rounded-full border-[0.5px] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-white",
+        active
+          ? "border-[var(--color-blue)] bg-[rgba(0,113,227,0.06)]"
+          : "border-[var(--color-border)] bg-[var(--color-bg)]",
       )}
     >
       <span
@@ -189,26 +185,24 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
     const base = SOVEREIGN_LEDGER_EVIDENCE[domain].map((ev) => {
       const sealed = rowSealed(ev.recordId);
       const detail = detailForRecord(ev.recordId, ev.asset, "sovereign:registry");
-      const status: RegistryRow["status"] = sealed ? "sealed" : "pending";
       return {
         key: ev.recordId,
         recordId: ev.recordId,
         asset: ev.asset,
         adjust: adjustStr,
-        status,
+        status: (sealed ? "sealed" : "pending") as RegistryRow["status"],
         detail,
       };
     });
     const custom = customRows.map((cr) => {
       const sealed = rowSealed(cr.recordId);
       const detail = detailForRecord(cr.recordId, cr.asset, cr.source);
-      const status: RegistryRow["status"] = sealed ? "sealed" : "pending";
       return {
         key: cr.recordId,
         recordId: cr.recordId,
         asset: cr.asset,
         adjust: adjustStr,
-        status,
+        status: (sealed ? "sealed" : "pending") as RegistryRow["status"],
         detail,
       };
     });
@@ -222,15 +216,9 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
 
   useEffect(() => {
     if (!mounted) return;
-    if (domain !== "YOU") {
-      setYouLedgerActiveRatio(1);
-      return;
-    }
+    if (domain !== "YOU") { setYouLedgerActiveRatio(1); return; }
     const total = rows.length;
-    if (total === 0) {
-      setYouLedgerActiveRatio(1);
-      return;
-    }
+    if (total === 0) { setYouLedgerActiveRatio(1); return; }
     const activeN = rows.filter((r) => activeById[r.recordId] !== false).length;
     setYouLedgerActiveRatio(activeN / total);
   }, [mounted, domain, rows, activeById, setYouLedgerActiveRatio]);
@@ -241,14 +229,7 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
     const ratio = total > 0 ? rows.filter((r) => activeById[r.recordId] !== false).length / total : 1;
     const target = Math.round(40 + ratio * 15);
     setAuditCalibrationPercent(target);
-  }, [
-    mounted,
-    domain,
-    rows,
-    activeById,
-    personalityPhase1Complete,
-    setAuditCalibrationPercent,
-  ]);
+  }, [mounted, domain, rows, activeById, personalityPhase1Complete, setAuditCalibrationPercent]);
 
   const pendingCount = useMemo(
     () => rows.filter((r) => r.status === "pending").length,
@@ -337,21 +318,19 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
 
   return (
     <section className={cn("flex w-full flex-col text-left", className)}>
-      <div className="frame-museum overflow-hidden border-[0.5px] border-[var(--color-arborix-line)] bg-[var(--color-arborix-bg)]">
-        <div className="flex w-full flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b-[0.5px] border-[#E2E8F0] bg-white/30 px-4 py-2.5 sm:px-5">
-          <p className="m-0 min-w-0 font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[#131517]">
-            {headerLabel}
-          </p>
+      <div className="frame-museum overflow-hidden border-[0.5px] border-[var(--color-border)] bg-[var(--color-bg)]">
+        <div className="flex w-full flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2.5 sm:px-5">
+          <p className="label-card m-0 text-[var(--color-primary)]">{headerLabel}</p>
           <div className="ml-auto flex flex-wrap items-center justify-end gap-3">
             <button
               type="button"
               onClick={() => setMountOpen((v) => !v)}
-              className="rounded-none border-0 bg-transparent px-0 py-1 font-code text-[11px] font-semibold uppercase tracking-[0.12em] text-[#131517] outline-none hover:opacity-80 focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+              className="label-card rounded-none border-0 bg-transparent px-0 py-1 text-[var(--color-primary)] outline-none hover:opacity-80 focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
             >
               [ + MOUNT NEW ASSET ]
             </button>
             <span
-              className="font-code text-[12px] font-normal uppercase tracking-[0.1em] text-[#131517]"
+              className="label-card text-[var(--color-primary)]"
               aria-live="polite"
             >
               ({pendingCount} UNVERIFIED)
@@ -360,7 +339,7 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
               type="button"
               onClick={() => setExpanded((v) => !v)}
               aria-expanded={expanded}
-              className="rounded-none border-0 bg-transparent px-0 py-1 font-code text-[12px] font-normal uppercase tracking-[0.12em] text-[#131517] outline-none transition-opacity hover:opacity-80 focus-visible:ring-1 focus-visible:ring-[#06B6D4] focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-reduce:transition-none"
+              className="label-card rounded-none border-0 bg-transparent px-0 py-1 text-[var(--color-primary)] outline-none transition-opacity hover:opacity-80 focus-visible:ring-1 focus-visible:ring-[var(--color-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-reduce:transition-none"
             >
               {expanded ? "[ COLLAPSE LEDGER ]" : "[ EXPAND LEDGER ]"}
             </button>
@@ -368,10 +347,8 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
         </div>
 
         {mountOpen ? (
-          <div className="border-b-[0.5px] border-[#E2E8F0] bg-white px-4 py-3 sm:px-5">
-            <p className="m-0 font-code text-[10px] font-semibold uppercase tracking-[0.12em] text-[#64748B]">
-              MOUNT PATH OR URL
-            </p>
+          <div className="border-b-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 sm:px-5">
+            <p className="inter-sm m-0">MOUNT PATH OR URL</p>
             <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center">
               <input
                 type="text"
@@ -379,12 +356,12 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
                 onChange={(e) => setMountInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && addMountedAsset()}
                 placeholder="https:// or /path/to/file.pdf"
-                className="min-h-10 w-full min-w-0 flex-1 border-[0.5px] border-slate-300 bg-white px-3 py-2 font-code text-[13px] text-[#131517] outline-none placeholder:text-slate-400 focus-visible:border-[#06B6D4]/60"
+                className="min-h-10 w-full min-w-0 flex-1 border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 font-code text-[13px] text-[var(--color-primary)] outline-none placeholder:text-[var(--color-tertiary)] focus-visible:border-[var(--color-blue)]/60"
               />
               <button
                 type="button"
                 onClick={addMountedAsset}
-                className="shrink-0 rounded-none border-[0.5px] border-slate-400 bg-[#E0F5FF] px-4 py-2 font-code text-[11px] font-semibold uppercase tracking-[0.12em] text-[#131517] outline-none hover:bg-[#C0E8FF] focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+                className="shrink-0 rounded-none border-[0.5px] border-[var(--color-border)] bg-[rgba(0,113,227,0.06)] px-4 py-2 font-code text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)] outline-none hover:bg-[rgba(0,113,227,0.04)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
               >
                 Add to ledger
               </button>
@@ -403,10 +380,10 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
             aria-hidden={!expanded}
             {...(!expanded ? { inert: true as const } : {})}
           >
-            <div className="flex min-h-0 w-full min-w-0 flex-col bg-white">
+            <div className="flex min-h-0 w-full min-w-0 flex-col bg-[var(--color-card)]">
               <div className="min-w-0 flex-1">
-                <div className="border-b-[0.5px] border-[#E2E8F0] bg-white/30 px-4 py-2.5 sm:px-5">
-                  <p className="mono-label m-0 text-[#131517]">Verified registry</p>
+                <div className="border-b-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2.5 sm:px-5">
+                  <p className="label-card m-0 text-[var(--color-primary)]">Verified registry</p>
                 </div>
 
                 <div className="w-full overflow-x-auto px-0 pb-4 pt-0">
@@ -417,33 +394,18 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
                   >
                     <div
                       role="row"
-                      className="grid grid-cols-[2.25rem_minmax(5rem,0.85fr)_minmax(9rem,1.4fr)_minmax(6.5rem,1fr)_minmax(7.5rem,1.1fr)_auto] items-end gap-0 border-b-[0.5px] border-[#E2E8F0] px-4 py-2 sm:px-5 sm:py-2.5"
+                      className="grid grid-cols-[2.25rem_minmax(5rem,0.85fr)_minmax(9rem,1.4fr)_minmax(6.5rem,1fr)_minmax(7.5rem,1.1fr)_auto] items-end gap-0 border-b-[0.5px] border-[var(--color-border)] px-4 py-2 sm:px-5 sm:py-2.5"
                     >
-                      <span className="block w-9 shrink-0 border-r-[0.5px] border-[#E2E8F0]" aria-hidden />
-                      <span
-                        role="columnheader"
-                        className="border-r-[0.5px] border-[#E2E8F0] px-2 font-code text-[13px] font-semibold uppercase tracking-[0.08em] text-[#131517]"
-                      >
-                        Record (ID)
-                      </span>
-                      <span
-                        role="columnheader"
-                        className="border-r-[0.5px] border-[#E2E8F0] px-2 font-code text-[13px] font-semibold uppercase tracking-[0.08em] text-[#131517]"
-                      >
-                        Asset (Title)
-                      </span>
-                      <span
-                        role="columnheader"
-                        className="border-r-[0.5px] border-[#E2E8F0] px-2 font-code text-[13px] font-semibold uppercase tracking-[0.08em] text-[#131517]"
-                      >
-                        Adjust
-                      </span>
-                      <span
-                        role="columnheader"
-                        className="border-r-[0.5px] border-[#E2E8F0] px-2 font-code text-[13px] font-semibold uppercase tracking-[0.08em] text-[#131517]"
-                      >
-                        Verification
-                      </span>
+                      <span className="block w-9 shrink-0 border-r-[0.5px] border-[var(--color-border)]" aria-hidden />
+                      {["Record (ID)", "Asset (Title)", "Adjust", "Verification"].map((h) => (
+                        <span
+                          key={h}
+                          role="columnheader"
+                          className="border-r-[0.5px] border-[var(--color-border)] px-2 inter-sm text-[var(--color-secondary)]"
+                        >
+                          {h}
+                        </span>
+                      ))}
                       <span className="sr-only">Seal</span>
                     </div>
 
@@ -457,14 +419,14 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
                               key={row.key}
                               role="row"
                               className={cn(
-                                "grid grid-cols-[2.25rem_minmax(5rem,0.85fr)_minmax(9rem,1.4fr)_minmax(6.5rem,1fr)_minmax(7.5rem,1.1fr)_auto] items-center gap-0 border-b-[0.5px] border-[#E2E8F0] px-4 py-1.5 sm:px-5 sm:py-2",
-                                rowSelected && "bg-[#E0F5FF]/35",
+                                "grid grid-cols-[2.25rem_minmax(5rem,0.85fr)_minmax(9rem,1.4fr)_minmax(6.5rem,1fr)_minmax(7.5rem,1.1fr)_auto] items-center gap-0 border-b-[0.5px] border-[var(--color-border)] px-4 py-1.5 sm:px-5 sm:py-2",
+                                rowSelected && "bg-[rgba(0,113,227,0.06)]/35",
                               )}
                             >
                               <div
                                 className={cn(
-                                  "flex h-full items-center border-r-[0.5px] border-[#E2E8F0] pl-0.5",
-                                  rowSelected && "border-l border-l-[#06B6D4] pl-0",
+                                  "flex h-full items-center border-r-[0.5px] border-[var(--color-border)] pl-0.5",
+                                  rowSelected && "border-l border-l-[var(--color-blue)] pl-0",
                                 )}
                               >
                                 <LedgerToggle
@@ -475,32 +437,32 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
                               </div>
                               <span
                                 id={labelId}
-                                className="border-r-[0.5px] border-[#E2E8F0] px-2 font-code text-[13px] font-normal tabular-nums leading-tight text-[#131517]"
+                                className="border-r-[0.5px] border-[var(--color-border)] px-2 font-code text-[13px] font-normal tabular-nums leading-tight text-[var(--color-primary)]"
                               >
                                 {row.recordId}
                               </span>
                               <button
                                 type="button"
                                 onClick={() => openInspector(row)}
-                                className="min-w-0 cursor-pointer border-r-[0.5px] border-[#E2E8F0] bg-transparent px-2 py-0 text-left font-code text-[13px] font-normal leading-tight text-[#131517] underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+                                className="min-w-0 cursor-pointer border-r-[0.5px] border-[var(--color-border)] bg-transparent px-2 py-0 text-left font-code text-[13px] font-normal leading-tight text-[var(--color-primary)] underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
                               >
                                 {noEmDash(row.asset)}
                               </button>
                               <span
                                 className={cn(
-                                  "border-r-[0.5px] border-[#E2E8F0] px-2 font-code text-[13px] font-normal leading-tight transition-colors",
-                                  active ? "text-[#131517]" : "text-slate-400",
+                                  "border-r-[0.5px] border-[var(--color-border)] px-2 font-code text-[13px] font-normal leading-tight transition-colors",
+                                  active ? "text-[var(--color-primary)]" : "text-[var(--color-tertiary)]",
                                 )}
                               >
                                 {row.adjust}
                               </span>
-                              <div className="min-w-0 border-r-[0.5px] border-[#E2E8F0] px-2">
+                              <div className="min-w-0 border-r-[0.5px] border-[var(--color-border)] px-2">
                                 {row.status === "pending" ? (
-                                  <span className="inline-flex rounded border border-dashed border-slate-400 px-2 py-0.5 font-code text-[13px] font-normal leading-tight text-slate-600">
+                                  <span className="inline-flex rounded border border-dashed border-[var(--color-border)] px-2 py-0.5 font-code text-[13px] font-normal leading-tight text-[var(--color-secondary)]">
                                     Pending seal
                                   </span>
                                 ) : (
-                                  <span className="inline-flex rounded-sm bg-[#06B6D4] px-2 py-0.5 font-code text-[13px] font-semibold uppercase tracking-[0.06em] text-white">
+                                  <span className="inline-flex rounded-sm bg-[var(--color-blue)] px-2 py-0.5 font-code text-[13px] font-semibold uppercase tracking-[0.06em] text-white">
                                     SEALED
                                   </span>
                                 )}
@@ -510,12 +472,12 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
                                   <button
                                     type="button"
                                     onClick={() => sealRow(row.recordId)}
-                                    className="rounded-none border-[0.5px] border-slate-400 bg-white px-2 py-1 font-code text-[10px] font-semibold uppercase tracking-[0.1em] text-[#131517] outline-none transition-colors hover:bg-[#F8FAFC] focus-visible:ring-1 focus-visible:ring-[#06B6D4]"
+                                    className="rounded-none border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-2 py-1 font-code text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] outline-none transition-colors hover:bg-[var(--color-bg)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
                                   >
                                     [ SEAL RECORD ]
                                   </button>
                                 ) : (
-                                  <span className="font-code text-[10px] font-medium uppercase tracking-[0.08em] text-[#64748B]">
+                                  <span className="font-code text-[12px] font-medium uppercase tracking-[0.08em] text-[var(--color-secondary)]">
                                     Sealed
                                   </span>
                                 )}

@@ -1,5 +1,5 @@
-import { BoardroomHome } from "@/components/home/BoardroomHome";
+import { TotalStateHome } from "@/components/home/TotalStateHome";
 
-export default function HomeBoardroomPage() {
-  return <BoardroomHome />;
+export default function HomePage() {
+  return <TotalStateHome />;
 }

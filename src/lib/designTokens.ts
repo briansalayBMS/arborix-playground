@@ -11,11 +11,11 @@ export const designTokens = {
     /** Page chrome */
     background: "#FFFFFF",
     /** Secondary labels, metadata */
-    meta: "#5C6166",
+    meta: "var(--color-secondary)",
     /** Deep slate — primary text */
-    foreground: "#131517",
+    foreground: "var(--color-primary)",
     /** Arborix cyan — signal / focus */
-    accent: "#06B6D4",
+    accent: "var(--color-blue)",
     /** Soft blue hairlines, grids, borders */
     border: "#C0D6E9",
   },

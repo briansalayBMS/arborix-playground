@@ -46,10 +46,10 @@ export function EnvironmentalContext() {
   return (
     <div className="space-y-16">
       <header className="space-y-3">
-        <h1 className="font-ui m-0 text-[32px] font-bold leading-tight tracking-tight text-[var(--color-arborix-text)]">
+        <h1 className="font-ui m-0 text-[32px] font-bold leading-tight tracking-tight text-[var(--color-primary)]">
           Environmental Context
         </h1>
-        <p className="font-ui m-0 max-w-3xl text-base font-normal leading-relaxed text-[var(--color-arborix-meta)]">
+        <p className="font-ui m-0 max-w-3xl text-base font-normal leading-relaxed text-[var(--color-secondary)]">
           The operating environment. Mounting the organizational mission, values, and cultural
           friction points.
         </p>
@@ -58,29 +58,29 @@ export function EnvironmentalContext() {
       <SealedArtifactsPanel domain="COMPANY" />
 
       <section className="space-y-4">
-        <h2 className="font-ui m-0 text-sm font-bold tracking-tight text-[var(--color-arborix-text)]">
+        <h2 className="font-ui m-0 text-sm font-bold tracking-tight text-[var(--color-primary)]">
           Environmental ledger
         </h2>
 
         <div className="w-full overflow-x-auto">
           <table className="w-full min-w-[640px] border-collapse text-left">
             <thead>
-              <tr className="border-b-[0.5px] border-slate-400">
+              <tr className="border-b-[0.5px] border-[var(--color-secondary)]">
                 <th
                   scope="col"
-                  className="font-code py-4 pr-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-arborix-meta)]"
+                  className="font-ui py-4 pr-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-secondary)]"
                 >
                   Domain
                 </th>
                 <th
                   scope="col"
-                  className="font-code py-4 pr-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-arborix-meta)]"
+                  className="font-ui py-4 pr-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-secondary)]"
                 >
                   Value / principle
                 </th>
                 <th
                   scope="col"
-                  className="font-code py-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-arborix-meta)]"
+                  className="font-ui py-4 text-[12px] font-bold uppercase tracking-widest text-[var(--color-secondary)]"
                 >
                   Audit status
                 </th>
@@ -90,26 +90,26 @@ export function EnvironmentalContext() {
               {LEDGER_ROWS.map((row) => (
                 <tr
                   key={row.domain}
-                  className="border-b-[0.5px] border-slate-400"
+                  className="border-b-[0.5px] border-[var(--color-secondary)]"
                 >
-                  <td className="py-4 pr-4 align-top text-sm font-bold text-[var(--color-arborix-text)]">
+                  <td className="py-4 pr-4 align-top text-sm font-bold text-[var(--color-primary)]">
                     {row.domain}
                   </td>
-                  <td className="py-4 pr-4 align-top text-sm font-normal text-[var(--color-arborix-text)]">
+                  <td className="py-4 pr-4 align-top text-sm font-normal text-[var(--color-primary)]">
                     {row.value}
                   </td>
                   <td className="py-4 align-top">
                     <div className="flex items-center gap-2">
                       {row.unverified ? (
                         <span
-                          className="h-2 w-2 shrink-0 rounded-full bg-[#06B6D4]"
+                          className="h-2 w-2 shrink-0 rounded-full bg-[var(--color-blue)]"
                           title="Unverified"
                           aria-label="Unverified"
                         />
                       ) : (
                         <span className="h-2 w-2 shrink-0" aria-hidden />
                       )}
-                      <span className="font-code text-[12px] font-normal text-[var(--color-arborix-meta)]">
+                      <span className="font-code text-[12px] font-normal text-[var(--color-secondary)]">
                         {row.audit}
                       </span>
                     </div>
@@ -122,7 +122,7 @@ export function EnvironmentalContext() {
       </section>
 
       <section className="space-y-4">
-        <p className="m-0 font-code text-[12px] font-normal uppercase tracking-[0.2em] text-[var(--color-arborix-meta)]">
+        <p className="m-0 font-code text-[12px] font-normal uppercase tracking-[0.2em] text-[var(--color-secondary)]">
           [ mount company values ]
         </p>
         <label
@@ -130,8 +130,8 @@ export function EnvironmentalContext() {
           onDrop={onDrop}
           onDragOver={onDragOver}
           className={cn(
-            "flex min-h-[120px] cursor-pointer flex-col justify-center border-[0.5px] border-dashed border-slate-400 bg-white px-4 py-6",
-            "transition-colors hover:border-[var(--color-arborix-accent)]/50",
+            "flex min-h-[120px] cursor-pointer flex-col justify-center border-[0.5px] border-dashed border-[var(--color-secondary)] bg-white px-4 py-6",
+            "transition-colors hover:border-[var(--color-blue)]/50",
           )}
         >
           <input
@@ -141,11 +141,11 @@ export function EnvironmentalContext() {
             className="sr-only"
             onChange={() => setMounted(true)}
           />
-          <span className="text-center text-sm font-normal text-[var(--color-arborix-meta)]">
+          <span className="text-center text-sm font-normal text-[var(--color-secondary)]">
             Drop PDF or text — or click to select
           </span>
         </label>
-        <p className="m-0 font-code text-[12px] font-normal uppercase tracking-[0.14em] text-[var(--color-arborix-meta)]">
+        <p className="m-0 font-code text-[12px] font-normal uppercase tracking-[0.14em] text-[var(--color-secondary)]">
           {mounted ? (
             <>[ STATUS: FILE STAGED — ANALYSIS QUEUED ]</>
           ) : (
