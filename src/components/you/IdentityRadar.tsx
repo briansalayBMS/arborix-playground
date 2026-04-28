@@ -19,9 +19,11 @@ import { cn } from "@/lib/cn";
 export function IdentityRadar({
   auditPercent = 40,
   showPanel = true,
+  overrideValues,
 }: {
   auditPercent?: number;
   showPanel?: boolean;
+  overrideValues?: readonly number[];
 }) {
   const uid = useId().replace(/:/g, "");
   const [revealPulse, setRevealPulse] = useState(false);
@@ -37,10 +39,11 @@ export function IdentityRadar({
   } = useDiagnosticFocus();
 
   const adaptivePolygonValues = useMemo(() => {
+    if (overrideValues) return overrideValues;
     const r = Math.min(1, Math.max(0, youLedgerActiveRatio));
     const center = 0.52;
     return ADAPTIVE.map((v) => v * r + (1 - r) * center);
-  }, [youLedgerActiveRatio]);
+  }, [overrideValues, youLedgerActiveRatio]);
 
   const ledgerPulseRef = useRef(0);
   useEffect(() => {
@@ -84,7 +87,7 @@ export function IdentityRadar({
       className="flex h-full min-h-0 flex-col gap-1 text-left"
     >
       <div className="relative h-[min(340px,72vw)] w-full max-w-[460px]">
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-visible">
           <ParentSize>
             {({ width, height }) =>
               width > 0 && height > 0 ? (

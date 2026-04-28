@@ -17,7 +17,7 @@ import { cn } from "@/lib/cn";
 
 // ─── Command Strip ───────────────────────────────────────────────
 
-function CommandStrip() {
+function CommandStrip({ viewMode = "internal" }: { viewMode?: "internal" | "external" }) {
   const { auditCalibrationPercent } = useSovereignCommand();
   const pathname = usePathname();
   const router = useRouter();
@@ -37,7 +37,7 @@ function CommandStrip() {
   }
 
   return (
-    <div className="command-strip">
+    <div className="command-strip" style={viewMode === "external" ? { visibility: "hidden", pointerEvents: "none" } : undefined}>
       <span className="command-strip-identity">
         {IDENTITY_ANCHOR.name.toUpperCase()} // AUDIT 01
       </span>
@@ -107,10 +107,10 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
           </main>
         </div>
         <RightRailDrawer />
-        {/* Command Strip — hidden in external view and welcome */}
-        {!isWelcome && !isExternalView && <CommandStrip />}
-        {/* Arbor FAB */}
-        {!isWelcome && !isExternalView && <ArborFAB />}
+        {/* Command Strip — visibility toggled via viewMode; not unmounted */}
+        {!isWelcome && <CommandStrip viewMode={isExternalView ? "external" : "internal"} />}
+        {/* Arbor FAB — visibility toggled via viewMode; not unmounted */}
+        {!isWelcome && <ArborFAB viewMode={isExternalView ? "external" : "internal"} />}
       </RightRailDrawerProvider>
     </DiagnosticFocusProvider>
   );
