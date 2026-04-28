@@ -234,7 +234,10 @@ function RadarCard({
                   onMouseEnter={withTooltips ? () => scheduleTooltip(axis) : undefined}
                   onMouseLeave={withTooltips ? clearTooltip : undefined}
                 >
-                  <span className={cn("axis-label", isFlagged && "text-[var(--color-amber)]")}>
+                  <span
+                    className="axis-label"
+                    style={isFlagged ? { color: "var(--color-amber)" } : undefined}
+                  >
                     {axis === "Conscientiousness" ? "Consc." : axis}
                   </span>
                   <div className="axis-track">
@@ -364,8 +367,9 @@ function JumpLink({ children }: { children: React.ReactNode }) {
     <span
       style={{
         cursor: "pointer",
-        textDecoration: hovered ? "underline dotted" : "none",
-        textDecorationColor: "rgba(0,113,227,0.35)",
+        textDecorationLine: hovered ? "underline" : "none",
+        textDecorationStyle: hovered ? "dotted" : undefined,
+        textDecorationColor: hovered ? "rgba(0,113,227,0.3)" : undefined,
         textUnderlineOffset: 3,
         transition: "opacity 0.12s ease",
         opacity: hovered ? 0.75 : 1,
