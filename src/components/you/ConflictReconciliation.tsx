@@ -71,9 +71,7 @@ export function ResolutionCenter({
     >
       {/* Container header */}
       <div style={{ borderBottom: "1px solid rgba(0,113,227,0.10)", padding: "var(--spacing-4x) var(--spacing-8x)" }}>
-        <p className="m-0" style={{ ...monoStyle, color: "var(--color-secondary)", fontSize: 12 }}>
-          [ SECTION 02 // CONFLICT RECONCILIATION ]
-        </p>
+        <p className="label-card m-0">CONFLICT RECONCILIATION</p>
       </div>
 
       {/* Two-column body */}
@@ -196,7 +194,7 @@ export function ResolutionCenter({
 
           <div style={{ marginTop: "var(--spacing-5x)", borderTop: "1px solid rgba(0,113,227,0.12)", paddingTop: "var(--spacing-4x)" }}>
             <p className="m-0" style={{ ...monoStyle, color: "var(--color-blue)", fontSize: 12 }}>
-              [ +15% AUDIT RESOLUTION ON COMPLETION ]
+              [ +15% RECORD RESOLUTION ON COMPLETION ]
             </p>
           </div>
         </div>

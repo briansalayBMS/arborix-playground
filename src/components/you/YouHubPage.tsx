@@ -219,94 +219,61 @@ function RadarCard({
             <p className="text-description mt-2">{archetypeSubtitle}</p>
           </div>
 
-          {withDeltaLegend ? (
-            /* ── Internal: forensic delta table ── */
-            <div className="space-y-2">
-              {AXES.map((axis, i) => {
-                const nat = NATURAL[i];
-                const ada = ADAPTIVE[i];
-                const delta = Math.abs(nat - ada).toFixed(2);
-                const logic = nat > ada ? "NATURAL > ADAPTIVE" : "ADAPTIVE > NATURAL";
-                const isFlagged = i === gapIndex;
-                const label = axis === "Conscientiousness" ? "CONSC." : axis.toUpperCase();
-                return (
-                  <div key={axis} className="flex items-center gap-2">
-                    {isFlagged ? (
-                      <span style={{ ...monoStyle, color: "var(--color-amber)" }} aria-label="unverified">
-                        [!]
-                      </span>
-                    ) : null}
-                    <span
+          {/* Axis bars — label | track | value; tooltips in external view only */}
+          <div className="space-y-4">
+            {AXES.map((axis, i) => {
+              const value = ADAPTIVE[i];
+              const isFlagged = i === gapIndex;
+              const def = AXIS_DEFINITIONS[axis];
+              const showTip = withTooltips && activeTooltip === axis;
+              return (
+                <div
+                  key={axis}
+                  className="axis-row"
+                  style={{ position: "relative" }}
+                  onMouseEnter={withTooltips ? () => scheduleTooltip(axis) : undefined}
+                  onMouseLeave={withTooltips ? clearTooltip : undefined}
+                >
+                  <span className={cn("axis-label", isFlagged && "text-[var(--color-amber)]")}>
+                    {axis === "Conscientiousness" ? "Consc." : axis}
+                  </span>
+                  <div className="axis-track">
+                    <div
+                      className={cn("axis-fill", isFlagged && "axis-fill-flagged")}
+                      style={{ width: `${value * 100}%` }}
+                    />
+                  </div>
+                  {!withTooltips && (
+                    <span className="axis-value">{value.toFixed(2)}</span>
+                  )}
+
+                  {showTip && def ? (
+                    <div
                       style={{
-                        ...monoStyle,
-                        color: isFlagged ? "var(--color-amber)" : "var(--color-primary)",
+                        position: "absolute",
+                        bottom: "calc(100% + 6px)",
+                        left: 0,
+                        zIndex: 50,
+                        backgroundColor: "var(--color-card)",
+                        borderRadius: 8,
+                        boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                        padding: "8px 12px",
+                        whiteSpace: "nowrap",
+                        pointerEvents: "none",
                       }}
                     >
-                      {label} |{" "}
-                      <AuditTooltip definition={TOOLTIP_DEFINITIONS.delta} side="bottom">
-                        <span style={{ borderBottom: "1px dotted currentColor", cursor: "help" }}>Δ</span>
-                      </AuditTooltip>
-                      {" "}{delta} | {logic}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            /* ── External: visual axis bars with tooltips ── */
-            <div className="space-y-4">
-              {AXES.map((axis, i) => {
-                const value = ADAPTIVE[i];
-                const isFlagged = i === gapIndex;
-                const def = AXIS_DEFINITIONS[axis];
-                const showTip = withTooltips && activeTooltip === axis;
-                return (
-                  <div
-                    key={axis}
-                    className="axis-row"
-                    style={{ position: "relative" }}
-                    onMouseEnter={withTooltips ? () => scheduleTooltip(axis) : undefined}
-                    onMouseLeave={withTooltips ? clearTooltip : undefined}
-                  >
-                    <span className={cn("axis-label", isFlagged && "text-[var(--color-amber)]")}>
-                      {axis === "Conscientiousness" ? "Consc." : axis}
-                    </span>
-                    <div className="axis-track">
-                      <div
-                        className={cn("axis-fill", isFlagged && "axis-fill-flagged")}
-                        style={{ width: `${value * 100}%` }}
-                      />
+                      <p className="m-0" style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 600, color: "var(--color-primary)", marginBottom: 2 }}>
+                        {def.label}
+                      </p>
+                      <p className="m-0" style={{ fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 400, color: "var(--color-secondary)" }}>
+                        {def.definition}
+                      </p>
                     </div>
-                    <span className="axis-value">{value.toFixed(2)}</span>
-
-                    {showTip && def ? (
-                      <div
-                        style={{
-                          position: "absolute",
-                          bottom: "calc(100% + 6px)",
-                          left: 0,
-                          zIndex: 50,
-                          backgroundColor: "var(--color-card)",
-                          borderRadius: 8,
-                          boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-                          padding: "8px 12px",
-                          whiteSpace: "nowrap",
-                          pointerEvents: "none",
-                        }}
-                      >
-                        <p className="m-0" style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 600, color: "var(--color-primary)", marginBottom: 2 }}>
-                          {def.label}
-                        </p>
-                        <p className="m-0" style={{ fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 400, color: "var(--color-secondary)" }}>
-                          {def.definition}
-                        </p>
-                      </div>
-                    ) : null}
-                  </div>
-                );
-              })}
-            </div>
-          )}
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -429,20 +396,8 @@ function HeaderBlock({
     { label: "PRIORITY BIAS", value: profile.bias },
   ] as const;
 
-  const metadataLabel = isExternal
-    ? "EXECUTIVE PROFILE // RECORD ID: 01-VERDICT"
-    : "AUDITOR OBSERVATION // RECORD ID: 01-VERDICT";
-
   return (
     <div>
-      {/* Metadata */}
-      <p
-        className="m-0"
-        style={{ ...monoStyle, fontSize: 12, color: "var(--color-secondary)", marginBottom: "var(--spacing-2x)" }}
-      >
-        {metadataLabel}
-      </p>
-
       {/* Headline — Instrument Serif 40px */}
       <p
         className="statement-hero m-0"
@@ -810,9 +765,11 @@ export function YouHubPage() {
         />
       )}
 
-      <div style={{ marginTop: "var(--spacing-16x)" }}>
-        <SovereignLedger domain="YOU" />
-      </div>
+      {tab === "internal" && (
+        <div style={{ marginTop: "var(--spacing-16x)" }}>
+          <SovereignLedger domain="YOU" />
+        </div>
+      )}
     </div>
   );
 }
