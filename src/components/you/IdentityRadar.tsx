@@ -184,6 +184,7 @@ function RadarCanvas({
     <svg
       width={width}
       height={height}
+      overflow="visible"
       role="img"
       aria-label="Identity radar posture analysis"
       onPointerLeave={(e) => {
@@ -245,10 +246,12 @@ function RadarCanvas({
         const isFlagged = i === gap.index;
         const isFocused = i === labelFocusIndex && !isFlagged;
         const fill = isFlagged ? "#FF9F0A" : isFocused ? "#0071E3" : "#86868B";
+        // Clamp x so text centered at this point stays within SVG viewport
+        const labelX = Math.max(28, Math.min(width - 28, labelPos.x));
         return (
           <g key={label}>
             <text
-              x={labelPos.x}
+              x={labelX}
               y={labelPos.y}
               textAnchor="middle"
               dominantBaseline="middle"
@@ -264,7 +267,7 @@ function RadarCanvas({
               {axisDisplayLabel(label)}
             </text>
             <circle
-              cx={labelPos.x}
+              cx={labelX}
               cy={labelPos.y}
               r={22}
               fill="transparent"

@@ -124,24 +124,6 @@ export function ImpactLedgerCard({ onPreviewOpen }: { onPreviewOpen: () => void 
           {SYNTHESIS_BODY}
         </p>
 
-        {/* Next Play */}
-        <div>
-          <p className="m-0" style={{ ...mono, marginBottom: 12 }}>NEXT PLAY</p>
-          {[
-            "EXECUTION // CLOSE SOVEREIGN FEEDBACK LOOP",
-            "STRATEGY // SECURE BUDGET ALIGNMENT FOR H2",
-          ].map((line) => (
-            <p
-              key={line}
-              className="m-0"
-              style={{ fontFamily: "var(--font-code), ui-monospace, monospace", fontSize: 12, fontWeight: 400, letterSpacing: "0.08em", color: "var(--color-primary)", lineHeight: 2 }}
-            >
-              {line}{" "}
-              <span style={{ color: "var(--color-blue)" }}>›</span>
-            </p>
-          ))}
-        </div>
-
         {/* CTA */}
         <button
           type="button"

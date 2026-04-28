@@ -209,3 +209,8 @@
 .identity-radar-cyan-reveal-pulse {
   animation: identity-radar-cyan-pulse 0.8s cubic-bezier(0.4, 0, 0.2, 1) 1 both;
 }
+
+@keyframes proposed-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

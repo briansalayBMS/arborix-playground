@@ -60,6 +60,15 @@ const SEALED_DATA: Record<string, { sources: Source[]; logicBridge: string[] }> 
   },
 };
 
+const INFERRED_SOURCES: Record<string, Source[]> = {
+  "VP Strategy Review": [
+    {
+      line:    "G-CAL // APR 25 // VP OF PRODUCT + 4 LEADS // 60 MIN",
+      snippet: "60-minute strategy session detected. No follow-up documentation found.",
+    },
+  ],
+};
+
 const INFERRED_GAP: Record<string, string> = {
   "VP Strategy Review":
     "A 60-minute G-Cal event with the VP of Product was detected. No follow-up documentation or Slack signal found.",
@@ -174,9 +183,9 @@ export function SignalTraceDrawer({
             </div>
 
             {/* ── Body ─────────────────────────────────────────── */}
-            <div style={{ padding: "24px 28px", display: "flex", flexDirection: "column", gap: 32 }}>
+            <div style={{ padding: "24px 28px 28px", paddingTop: 24, display: "flex", flexDirection: "column", gap: 32 }}>
 
-              {/* Section 1 — Provenance */}
+              {/* Section 1 — Provenance (SEALED) */}
               {sealed && (
                 <section>
                   <p className="m-0" style={{ ...scp(), marginBottom: 12 }}>SIGNAL SOURCES</p>
@@ -236,6 +245,23 @@ export function SignalTraceDrawer({
                       </li>
                     ))}
                   </ul>
+                </section>
+              )}
+
+              {/* Section 1b — Provenance (INFERRED) */}
+              {!sealed && card && INFERRED_SOURCES[card.title] && (
+                <section>
+                  <p className="m-0" style={{ ...scp(), marginBottom: 12 }}>SIGNAL SOURCES</p>
+                  <div>
+                    {INFERRED_SOURCES[card.title].map((src, i) => (
+                      <div key={i} style={{ padding: "8px 0", borderBottom: "1px solid var(--color-border)" }}>
+                        <p className="m-0" style={scp("var(--color-primary)")}>{src.line}</p>
+                        <p className="m-0" style={{ ...inter(13, 400, "var(--color-secondary)"), fontStyle: "italic", marginTop: 4 }}>
+                          {src.snippet}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </section>
               )}
 
