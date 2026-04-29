@@ -204,7 +204,7 @@ function RadarCard({
   useEffect(() => () => { if (tooltipTimer.current) clearTimeout(tooltipTimer.current); }, []);
 
   return (
-    <div className="surface-card p-8">
+    <div className="arb-card">
       <p className="label-card mb-6">IDENTITY RADAR</p>
       <div className="flex flex-col lg:flex-row lg:items-start" style={{ gap: "var(--spacing-16x)" }}>
         <div className="relative shrink-0" style={{ width: 280, height: 280 }}>
@@ -434,51 +434,31 @@ function HeaderBlock({
             style={{ color: "var(--color-green)", flexShrink: 0 }}
             aria-hidden
           />
-          <span style={{ ...monoStyle, fontSize: 12, color: "var(--color-secondary)" }}>
+          <span className="arb-verified-label">
             VERIFIED BY ARBORIX LEDGER
           </span>
         </div>
-        <span style={{ ...monoStyle, fontSize: 12, color: "var(--color-secondary)" }}>
+        <span className="arb-verified-label">
           LAST VERIFIED APR 27, 2026
         </span>
       </div>
 
-      {/* Core Operating Model — 3-column grid */}
+      {/* Core Operating Model — 3-column cards */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          borderTop: "1px solid var(--color-border)",
+          display: "flex",
+          gap: "var(--spacing-3x)",
           paddingTop: "var(--spacing-6x)",
         }}
       >
-        {OPERATING_MODEL.map(({ label, value }, i) => (
+        {OPERATING_MODEL.map(({ label, value }) => (
           <div
             key={label}
-            style={{
-              paddingLeft: i > 0 ? "var(--spacing-6x)" : 0,
-              paddingRight: i < 2 ? "var(--spacing-6x)" : 0,
-              borderLeft: i > 0 ? "1px solid var(--color-border)" : "none",
-            }}
+            className="arb-card-compact"
+            style={{ flex: 1 }}
           >
-            <p
-              className="m-0"
-              style={{ ...monoStyle, fontSize: 12, color: "var(--color-secondary)", marginBottom: "var(--spacing-2x)" }}
-            >
-              {label}
-            </p>
-            <p
-              className="m-0"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 13,
-                fontWeight: 400,
-                lineHeight: 1.4,
-                color: "var(--color-primary)",
-              }}
-            >
-              {value}
-            </p>
+            <span className="arb-card-label">{label}</span>
+            <p className="arb-card-body m-0">{value}</p>
           </div>
         ))}
       </div>
@@ -665,25 +645,23 @@ export function YouHubPage() {
     <div className="w-full text-left">
       {/* Tab bar — 16px below HUD (GlobalHUD controls top gap) */}
       <div
-        className="tab-feed-row items-center"
+        className="arb-tabs"
         style={{ marginBottom: "var(--spacing-8x)" }}
       >
-        <div className="flex" style={{ gap: "var(--spacing-8x)" }}>
-          <button
-            type="button"
-            onClick={() => setTab("internal")}
-            className={cn("tab-feed", tab === "internal" && "tab-feed-active")}
-          >
-            YOUR SUMMARY
-          </button>
-          <button
-            type="button"
-            onClick={() => setTab("external")}
-            className={cn("tab-feed", tab === "external" && "tab-feed-active")}
-          >
-            EXTERNAL SUMMARY
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => setTab("internal")}
+          className={cn("arb-tab", tab === "internal" && "active")}
+        >
+          YOUR SUMMARY
+        </button>
+        <button
+          type="button"
+          onClick={() => setTab("external")}
+          className={cn("arb-tab", tab === "external" && "active")}
+        >
+          EXTERNAL SUMMARY
+        </button>
 
         {/* Share — external view only, strictly hidden in internal */}
         {tab === "external" ? (

@@ -62,20 +62,16 @@ export function ResolutionCenter({
     <div
       id="resolution-center"
       ref={inquiryRef}
-      style={{
-        borderRadius: "var(--radius-lg)",
-        border: "1px solid rgba(0,113,227,0.15)",
-        background: "rgba(0,113,227,0.02)",
-        overflow: "hidden",
-      }}
+      className="arb-card"
+      style={{ padding: 0, overflow: "hidden" }}
     >
       {/* Container header */}
-      <div style={{ borderBottom: "1px solid rgba(0,113,227,0.10)", padding: "var(--spacing-4x) var(--spacing-8x)" }}>
+      <div style={{ borderBottom: "1px solid var(--color-border)", padding: "var(--spacing-4x) var(--spacing-8x)" }}>
         <p className="label-card m-0">CONFLICT RECONCILIATION</p>
       </div>
 
       {/* Two-column body */}
-      <div style={{ display: "flex", alignItems: "stretch" }}>
+      <div style={{ display: "flex", alignItems: "stretch", gap: 32 }}>
 
         {/* Left pane — 40% — Dossier clips */}
         <div
@@ -117,23 +113,16 @@ export function ResolutionCenter({
                   [ OPEN CONFLICT // REF: {gap.ref} ]
                 </button>
               </AuditTooltip>
-              <div style={{ opacity: 0.8 }}>
-                <p className="statement-title m-0 mb-2" style={{ fontWeight: 700 }}>{gap.title}</p>
-                <p className="gap-body m-0">{gap.body}</p>
+              <div>
+                <p className="arb-card-title m-0">{gap.title}</p>
+                <p className="arb-card-body m-0">{gap.body}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Suture separator */}
-        <div
-          style={{
-            width: 1,
-            flexShrink: 0,
-            background: isAnyHovered ? "var(--color-primary)" : "rgba(0,113,227,0.12)",
-            transition: "background 0.2s ease",
-          }}
-        />
+        {/* Column divider */}
+        <div style={{ width: "0.5px", flexShrink: 0, background: "var(--color-border)" }} />
 
         {/* Right pane — 60% — Your Next Question */}
         <div
@@ -192,7 +181,7 @@ export function ResolutionCenter({
             <span className="text-timestamp">~3 min</span>
           </div>
 
-          <div style={{ marginTop: "var(--spacing-5x)", borderTop: "1px solid rgba(0,113,227,0.12)", paddingTop: "var(--spacing-4x)" }}>
+          <div style={{ marginTop: "var(--spacing-5x)", borderTop: "1px solid var(--color-border)", paddingTop: "var(--spacing-4x)" }}>
             <p className="m-0" style={{ ...monoStyle, color: "var(--color-blue)", fontSize: 12 }}>
               [ +15% RECORD RESOLUTION ON COMPLETION ]
             </p>

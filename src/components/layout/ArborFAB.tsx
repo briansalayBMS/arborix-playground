@@ -109,7 +109,7 @@ export function ArborFAB({ viewMode = "internal" }: { viewMode?: "internal" | "e
         transition={fabTransition}
         style={{
           position: "fixed",
-          bottom: 80,
+          bottom: 'calc(40px + 16px)',
           right: 32,
           zIndex: 40,
           display: "flex",

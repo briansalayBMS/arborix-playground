@@ -468,9 +468,10 @@ body {
    -------------------------------------------------------------------------- */
 
 .surface-card {
-  background: var(--color-background);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: var(--card-padding);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 
@@ -727,4 +728,198 @@ body {
   font-weight: 400;
   line-height: 1.33;
   letter-spacing: 0.03em;
+}
+
+/* --------------------------------------------------------------------------
+   TAB FEED — Page-level tab switcher (YOU page internal/external)
+   -------------------------------------------------------------------------- */
+
+.tab-feed-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab-feed {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  background: transparent;
+  border: 0;
+  padding: 0 0 12px 0;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.tab-feed::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.tab-feed-active {
+  color: var(--color-primary);
+}
+
+.tab-feed-active::after {
+  background: linear-gradient(90deg, var(--color-blue) 0%, var(--color-primary) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   CARD VARIANTS
+   -------------------------------------------------------------------------- */
+
+.arb-card {
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.arb-card-standard {
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 32px 36px;
+}
+
+.arb-card-compact {
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 28px 32px;
+}
+
+.arb-card-inquiry {
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 40px 48px;
+  border: 1px solid rgba(0, 113, 227, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   TAB GROUP
+   -------------------------------------------------------------------------- */
+
+.arb-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0;
+  gap: 0;
+}
+
+.arb-tab {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  padding: 8px 20px 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.arb-tab:hover {
+  color: var(--color-primary);
+}
+
+.arb-tab.active {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.arb-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--color-blue), var(--color-green));
+}
+
+/* --------------------------------------------------------------------------
+   SECTION DIVIDER LABEL
+   -------------------------------------------------------------------------- */
+
+.arb-section-label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   VERIFIED ROW
+   -------------------------------------------------------------------------- */
+
+.arb-verified-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-top: 0.5px solid var(--color-border);
+  border-bottom: 0.5px solid var(--color-border);
+  margin-bottom: 32px;
+}
+
+.arb-verified-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.arb-verified-date {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   CARD TYPOGRAPHY — one treatment per role, no exceptions
+   -------------------------------------------------------------------------- */
+
+.arb-card-label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.arb-card-body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--color-primary);
+}
+
+.arb-card-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--color-primary);
+  margin-bottom: 8px;
 }

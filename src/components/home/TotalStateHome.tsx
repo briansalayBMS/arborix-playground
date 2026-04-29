@@ -112,8 +112,8 @@ export function TotalStateHome() {
           {DIRECTIVES.map((d) => (
             <div
               key={d.title}
-              className="surface-card"
-              style={{ padding: "32px 40px", display: "flex", flexDirection: "column", gap: "var(--spacing-4x)" }}
+              className="arb-card-standard"
+              style={{ marginBottom: 2, display: "flex", flexDirection: "column", gap: "var(--spacing-4x)" }}
             >
               {/* Top row: vector label */}
               <span style={mono}>{d.vector}</span>

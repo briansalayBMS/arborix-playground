@@ -98,12 +98,13 @@ export function LeftNav() {
           display: 'block',
           padding: '8px 0',
           fontSize: '14px',
-          fontWeight: active ? 600 : 400,
+          fontWeight: active ? 500 : 400,
           letterSpacing: '0.05em',
           color: active ? 'var(--color-primary)' : 'var(--color-secondary)',
           textTransform: 'uppercase',
           transition: 'color 0.15s ease, font-weight 0.15s ease',
         }}
+        whileHover={{ color: 'var(--color-primary)' }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 420, damping: 28 }}
       >
@@ -190,7 +191,7 @@ export function LeftNav() {
                                 top: 0,
                                 bottom: 0,
                                 width: '2px',
-                                background: 'var(--color-primary)',
+                                background: 'linear-gradient(180deg, var(--color-blue), var(--color-green))',
                                 borderRadius: '1px',
                               }} />
                             )}
