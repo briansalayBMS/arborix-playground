@@ -34,7 +34,7 @@ const HOME_RADAR_VALUES = [0.42, 0.88, 0.35, 0.50, 0.60, 0.55, 0.70, 0.50] as co
 const DIRECTIVES = [
   {
     vector: "STRATEGY //",
-    title: "Anchor the Sovereign Architecture to H2 budget before the window closes.",
+    title: "Anchor the technical narrative to the H2 budget before the window closes.",
     context: "The roadmap is settled but the VP of Eng has not seen the technical narrative. Budget lock is in 3 weeks.",
     radarLine: "STRATEGIC SCALABILITY // +0.18 RADAR LIFT",
     confidence: "Verified",
@@ -50,7 +50,7 @@ const DIRECTIVES = [
   },
   {
     vector: "TEAM //",
-    title: "Delegate the Sovereign Feedback Loop to clear your strategic horizon.",
+    title: "Delegate the feedback loop to clear your strategic horizon.",
     context: "Execution is at ceiling. The only move that shifts your radar is offloading IC delivery to create space for H2 planning.",
     radarLine: "HORIZON CLEARANCE // +0.09 RADAR LIFT",
     confidence: "More context needed",
@@ -83,6 +83,7 @@ export function TotalStateHome() {
   }
 
   return (
+    <div className="page-content">
     <div
       className="w-full text-left"
       style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16x)" }}
@@ -241,6 +242,7 @@ export function TotalStateHome() {
       </section>
 
       {previewOpen && <ManagerUpdateModal onClose={() => setPreviewOpen(false)} />}
+    </div>
     </div>
   );
 }

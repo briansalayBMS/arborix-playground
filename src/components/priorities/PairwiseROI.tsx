@@ -4,7 +4,7 @@ const ITEMS = [
   {
     rank: 1,
     vector: "STRATEGY //",
-    title: "Anchor Sovereign Architecture to H2 budget",
+    title: "Anchor technical narrative to H2 budget",
     lift: "+0.18 STRATEGIC",
   },
   {
@@ -22,7 +22,7 @@ const ITEMS = [
   {
     rank: 4,
     vector: "EXECUTION //",
-    title: "Close Sovereign Feedback Loop",
+    title: "Close the feedback loop",
     lift: "+0.08 EXECUTION",
   },
 ] as const;

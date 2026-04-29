@@ -37,7 +37,7 @@ const SEALED_DATA: Record<string, { sources: Source[]; logicBridge: string[] }> 
       "Jira closure timestamp: 4 minutes after Slack thread concluded",
     ],
   },
-  "Closed Sovereign Architecture Epic": {
+  "Closed Architecture Epic": {
     sources: [
       {
         line:    "JIRA // PLAT-1240 // SOVEREIGN ARCH EPIC // CLOSED APR 24",

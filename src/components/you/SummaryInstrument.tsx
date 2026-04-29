@@ -228,7 +228,7 @@ function InternalView() {
   return (
     <div className="w-full max-w-3xl space-y-8 text-left">
       <div className="border-b-[0.5px] border-[var(--color-border)] pb-5">
-        <p className="label-card">Auditor observation</p>
+        <p className="label-card">Arbor's read</p>
         <p className="narrative-body mt-4">
           Subject demonstrates a repeatable pattern: high-fidelity execution paired with narrative
           closure under executive scrutiny. Signal density is strongest where outcomes are tied to
@@ -239,7 +239,7 @@ function InternalView() {
       </div>
 
       <div>
-        <p className="label-card mb-4">Forensic gaps</p>
+        <p className="label-card mb-4">What's missing</p>
         <ul className="space-y-4">
           {FORENSIC_GAPS.map((gap) => (
             <li
@@ -276,7 +276,7 @@ function InternalView() {
                   aria-hidden
                 />
               ) : null}
-              <span className="block pr-1">[ CONTINUE DEPOSITION ]</span>
+              <span className="block pr-1">[ CONTINUE ]</span>
             </button>
           </div>
         ) : (

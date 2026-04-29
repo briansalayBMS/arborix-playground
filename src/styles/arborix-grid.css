@@ -1,0 +1,751 @@
+/* ==========================================================================
+   ARBORIX GRID SYSTEM
+   Version 1.1 · April 2026
+   Governs: grid, layout, card structure, component heights
+   Does NOT govern: color, typography, data viz, animation (see arborix-ds.css)
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   APP SHELL
+   -------------------------------------------------------------------------- */
+
+.arb-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+
+/* --------------------------------------------------------------------------
+   LEFT NAV
+   200px fixed. Sits directly on #F5F5F3 — no card, no border, no shadow.
+   -------------------------------------------------------------------------- */
+
+.arb-nav {
+  width: var(--nav-width);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: var(--spacing-12x) 0 var(--spacing-16x) var(--spacing-6x);
+  /* No background override — inherits shell background */
+  /* No border, no shadow — infrastructure, not content */
+}
+
+/* Collapsed nav — below 1280px */
+@media (max-width: 1280px) {
+  .arb-nav {
+    width: var(--nav-width-collapsed);
+    padding: var(--spacing-12x) 0 var(--spacing-16x);
+    align-items: center;
+  }
+  .arb-nav .arb-nav-label { display: none; }
+
+  .arb-content {
+    /* Grid recalculates on expanded content area */
+    --_content-width: calc(100vw - var(--nav-width-collapsed));
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   CONTENT AREA
+   Max-width 1440px. Centers above that. 32px margins on both sides.
+   Account for 40px Command Strip at bottom.
+   -------------------------------------------------------------------------- */
+
+.arb-content {
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-16x) var(--grid-margin) calc(var(--height-lg) + var(--spacing-8x));
+  /* Bottom padding = Command Strip height (40px) + breathing room (32px) */
+}
+
+.arb-content-inner {
+  max-width: calc(var(--grid-max-width) - var(--nav-width));
+  width: 100%;
+}
+
+/* Ultra-wide: content caps and centers */
+@media (min-width: 1440px) {
+  .arb-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .arb-content-inner {
+    max-width: calc(var(--grid-max-width) - var(--nav-width) - (var(--grid-margin) * 2));
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   12-COLUMN GRID
+   Use for layout composition. Not for spacing — use spacing tokens for that.
+   -------------------------------------------------------------------------- */
+
+.arb-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gutter);
+}
+
+/* Column span utilities */
+.arb-col-4  { grid-column: span 4; }
+.arb-col-6  { grid-column: span 6; }
+.arb-col-8  { grid-column: span 8; }
+.arb-col-12 { grid-column: span 12; }
+
+/* Common asymmetric layouts */
+.arb-layout-8-4 {
+  display: grid;
+  grid-template-columns: var(--card-8col) 1fr;
+  gap: var(--grid-gutter);
+  align-items: start;
+}
+
+/* 3-column card grid — evidence cards */
+.arb-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--card-gap);
+}
+
+/* 2-column card grid — pattern cards */
+.arb-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--card-gap);
+}
+
+
+/* --------------------------------------------------------------------------
+   VERTICAL PAGE STACK
+   The primary layout pattern. Not a dashboard grid — a vertical scroll feed.
+   All major sections separated by --section-gap (64px).
+   -------------------------------------------------------------------------- */
+
+.arb-page-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+}
+
+/* Tighter grouping within a section */
+.arb-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+
+/* --------------------------------------------------------------------------
+   CARDS
+   White surface on #F5F5F3 background. No border at rest — surface contrast only.
+   Hover adds shadow + translateY(-4px). No shadows at rest.
+   -------------------------------------------------------------------------- */
+
+/* Base card */
+.arb-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding);
+  /* No border, no shadow at rest */
+  transition: var(--transition-hover);
+}
+
+.arb-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+/* Large card — narrative, inquiry, observation */
+.arb-card-large {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding-large);
+  transition: var(--transition-hover);
+}
+
+.arb-card-large:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+/* Inquiry card — faint blue border signals interactivity */
+.arb-card-inquiry {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(0, 113, 227, 0.08);
+  padding: var(--card-padding) var(--card-padding-large);
+  /* 40px vertical, 48px horizontal — per spec */
+  cursor: pointer;
+  transition: var(--transition-hover);
+}
+
+.arb-card-inquiry:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* Evidence card — 3-column grid child */
+.arb-card-evidence {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 36px 32px; /* 9x / 8x — per spec */
+  transition: var(--transition-hover);
+}
+
+.arb-card-evidence:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* Pattern card — 2-column grid child */
+.arb-card-pattern {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 32px 36px; /* 8x / 9x — per spec */
+  cursor: pointer;
+  transition: var(--transition-hover);
+}
+
+.arb-card-pattern:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+/* Surface card — subtle background, used for secondary info blocks */
+.arb-card-surface {
+  background: var(--color-background);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding);
+}
+
+
+/* --------------------------------------------------------------------------
+   CARD INTERNAL LAYOUT
+   Consistent internal spacing for common card patterns.
+   -------------------------------------------------------------------------- */
+
+/* Evidence card internals */
+.arb-evidence-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.arb-evidence-inner .arb-label {
+  margin-bottom: var(--spacing-8x); /* 32px label to number */
+}
+
+.arb-evidence-inner .arb-number {
+  margin-bottom: var(--spacing-6x); /* 24px number to description */
+}
+
+.arb-evidence-inner .arb-description {
+  margin-bottom: var(--spacing-5x); /* 20px description to delta */
+}
+
+/* Radar card internals — horizontal layout */
+.arb-radar-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding-large);
+  display: flex;
+  align-items: center;
+  gap: var(--section-gap); /* 64px between SVG and text */
+}
+
+.arb-radar-svg {
+  width: 200px;   /* 50x */
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.arb-radar-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.arb-radar-axis-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+  margin-bottom: var(--spacing-4x);
+  height: 28px; /* 7x — per spec */
+}
+
+.arb-radar-axis-row:last-child {
+  margin-bottom: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   COMMAND STRIP
+   Fixed to viewport floor. Full width — spans nav and content.
+   Internal product only. Never on external share URL.
+   -------------------------------------------------------------------------- */
+
+.arb-command-strip {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--height-lg); /* 40px */
+  background: var(--color-strip-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-10x);
+  z-index: 100;
+  /* Full viewport width — over left nav */
+}
+
+.arb-command-strip__zone {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: var(--tracking-mono);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+}
+
+.arb-command-strip__name    { color: var(--color-strip-text); }
+.arb-command-strip__muted   { color: var(--color-strip-muted); }
+.arb-command-strip__verified { color: var(--color-green); }
+.arb-command-strip__conflict {
+  color: var(--color-amber);
+  cursor: pointer;
+}
+.arb-command-strip__conflict:hover {
+  opacity: 0.8;
+}
+
+
+/* --------------------------------------------------------------------------
+   TAB GROUP
+   Gradient indicator. Active tab: 1.5px bottom border, blue → green gradient.
+   -------------------------------------------------------------------------- */
+
+.arb-tabs-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0;
+}
+
+.arb-tabs {
+  display: inline-flex;
+}
+
+.arb-tab {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  padding: var(--spacing-2x) var(--spacing-5x); /* 8px 20px */
+  border: none;
+  background: transparent;
+  color: var(--color-secondary);
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-default);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.arb-tab:hover {
+  color: var(--color-primary);
+}
+
+.arb-tab.active {
+  color: var(--color-blue);
+  font-weight: 400;
+}
+
+.arb-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--gradient-data);
+}
+
+/* Container tab style — alternative to underline tabs */
+.arb-tab-container {
+  display: inline-flex;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-1x);
+  gap: var(--spacing-1x);
+}
+
+.arb-tab-container .arb-tab {
+  border-radius: calc(var(--radius-sm) - 2px);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.arb-tab-container .arb-tab.active {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-tab-active);
+}
+
+.arb-tab-container .arb-tab.active::after {
+  display: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+   -------------------------------------------------------------------------- */
+
+/* Primary */
+.arb-btn-primary {
+  height: var(--height-md);       /* 36px */
+  padding: var(--spacing-2x) var(--spacing-5x); /* 8px 20px */
+  border-radius: var(--radius-pill);
+  background: var(--color-blue);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-default);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+  white-space: nowrap;
+}
+
+.arb-btn-primary:hover {
+  background: #0066CC;
+}
+
+.arb-btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Ghost */
+.arb-btn-ghost {
+  height: var(--height-md);
+  padding: var(--spacing-2x) var(--spacing-5x);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-blue);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: var(--transition-default);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+  white-space: nowrap;
+}
+
+.arb-btn-ghost:hover {
+  border-color: var(--color-blue);
+  background: rgba(0, 113, 227, 0.04);
+}
+
+.arb-btn-ghost:active {
+  transform: scale(0.98);
+}
+
+/* Text link / delta */
+.arb-text-delta {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--color-blue);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition-default);
+}
+
+.arb-text-delta:hover {
+  opacity: 0.7;
+}
+
+
+/* --------------------------------------------------------------------------
+   STATUS PILL
+   -------------------------------------------------------------------------- */
+
+.arb-pill {
+  height: var(--height-sm);            /* 32px */
+  padding: var(--spacing-2x) var(--spacing-4x); /* 8px 16px */
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: var(--color-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+  background: transparent;
+}
+
+/* Verified dot inside pill */
+.arb-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-verified);
+  box-shadow: 0 0 0 2px rgba(48, 209, 88, 0.2);
+  flex-shrink: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   INPUTS
+   -------------------------------------------------------------------------- */
+
+.arb-input {
+  height: var(--height-lg);   /* 40px */
+  padding: 0 var(--spacing-4x);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  width: 100%;
+  transition: var(--transition-default);
+  outline: none;
+}
+
+.arb-input::placeholder {
+  color: var(--color-tertiary);
+}
+
+.arb-input:focus {
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+}
+
+.arb-textarea {
+  padding: var(--spacing-3x) var(--spacing-4x);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  transition: var(--transition-default);
+  outline: none;
+  line-height: var(--leading-body);
+}
+
+.arb-textarea::placeholder {
+  color: var(--color-tertiary);
+}
+
+.arb-textarea:focus {
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+}
+
+
+/* --------------------------------------------------------------------------
+   AVATAR
+   -------------------------------------------------------------------------- */
+
+.arb-avatar {
+  width: 40px;   /* 10x */
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gradient-data-135);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-greeting);
+  font-weight: 500;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   PAGE HEADER — Identity Anchor
+   User name above tabs. Tab-reactive headline below tabs.
+   -------------------------------------------------------------------------- */
+
+.arb-page-header {
+  margin-bottom: var(--spacing-4x);
+}
+
+.arb-user-name {
+  font-family: var(--font-sans);
+  font-size: var(--text-greeting);   /* 13px */
+  font-weight: 300;
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-5x);  /* 20px to tab bar */
+  letter-spacing: 0;
+}
+
+.arb-identity-anchor {
+  font-family: var(--font-serif);
+  font-size: var(--text-hero);       /* 40px */
+  font-weight: 400;
+  line-height: var(--leading-serif);
+  color: var(--color-primary);
+  margin-top: var(--spacing-6x);     /* 24px below tabs */
+  margin-bottom: 0;
+  max-width: var(--measure-inquiry);
+}
+
+/* Below internal anchor only — when completeness < 80% */
+.arb-anchor-cta {
+  margin-top: var(--spacing-3x); /* 12px below anchor */
+}
+
+
+/* --------------------------------------------------------------------------
+   NOTIFICATION DOT — Nav items only, never section headers
+   -------------------------------------------------------------------------- */
+
+.arb-nav-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: -8px;
+  flex-shrink: 0;
+}
+
+.arb-nav-dot--attention { background: var(--color-amber); }
+.arb-nav-dot--signal    { background: var(--color-blue); }
+
+
+/* --------------------------------------------------------------------------
+   FLOATING DELTA
+   Appears on record seal. Fades in, drifts up, holds, fades out.
+   3400ms total. JS adds .visible to trigger.
+   -------------------------------------------------------------------------- */
+
+.arb-delta {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--color-blue);
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(0);
+}
+
+.arb-delta.visible {
+  animation: arbDelta 3400ms ease forwards;
+}
+
+@keyframes arbDelta {
+  0%   { opacity: 0; transform: translateY(0); }
+  10%  { opacity: 1; transform: translateY(-8px); }
+  70%  { opacity: 1; transform: translateY(-8px); }
+  100% { opacity: 0; transform: translateY(-12px); }
+}
+
+
+/* --------------------------------------------------------------------------
+   LOADING / SKELETON STATES
+   Never show empty cards — skeleton or content.
+   -------------------------------------------------------------------------- */
+
+.arb-skeleton {
+  background: var(--color-track);
+  border-radius: var(--radius-sm);
+  animation: arbPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes arbPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.arb-skeleton--line {
+  height: 16px;
+  width: 100%;
+  margin-bottom: var(--spacing-3x);
+}
+
+.arb-skeleton--line-short {
+  height: 16px;
+  width: 60%;
+  margin-bottom: var(--spacing-3x);
+}
+
+.arb-skeleton--number {
+  height: 42px;
+  width: 80px;
+}
+
+.arb-skeleton--block {
+  height: 120px;
+  width: 100%;
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — Desktop first. Mobile deferred.
+   -------------------------------------------------------------------------- */
+
+/* Below 1280px: collapse nav */
+@media (max-width: 1280px) {
+  .arb-nav { width: var(--nav-width-collapsed); }
+  .arb-grid-3col { grid-template-columns: repeat(2, 1fr); }
+  .arb-layout-8-4 { grid-template-columns: 1fr; }
+}
+
+/* Below 1024px: full responsive deferred */
+@media (max-width: 1024px) {
+  .arb-content { padding: var(--spacing-10x) var(--spacing-6x) calc(var(--height-lg) + var(--spacing-8x)); }
+  .arb-page-stack { gap: var(--spacing-10x); }
+  .arb-grid-3col { grid-template-columns: 1fr; }
+  .arb-grid-2col { grid-template-columns: 1fr; }
+  .arb-radar-card { flex-direction: column; gap: var(--spacing-10x); }
+  .arb-identity-anchor { font-size: 28px; }
+}
+
+@media (max-width: 768px) {
+  .arb-command-strip {
+    padding: 0 var(--spacing-6x);
+    justify-content: space-around;
+  }
+
+  .arb-command-strip__zone--identity,
+  .arb-command-strip__zone--trust,
+  .arb-command-strip__zone--health {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .arb-command-strip__text {
+    display: none;
+  }
+
+  .arb-command-strip__icon {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/arborix-grid.css";
+@import "../styles/arborix-ds.css";
 
 /* Arborix — technical design system tokens */
 @theme inline {
@@ -11,21 +14,22 @@
 
 @layer base {
   :root {
-    /* 32px — matches main horizontal padding (px-8) for symmetric viewport gutters */
-    --nav-gutter: 2rem;
-    --nav-w: 13.5rem;
-    --main-with-nav-ml: calc(var(--nav-gutter) + var(--nav-w));
+    --nav-gutter: 0px;
+    --nav-w: 200px;
+    --main-with-nav-ml: 200px;
     /* Legacy alias — Source Code Pro */
     --font-geist-mono: var(--font-code);
   }
 
   html {
     color-scheme: light;
-    background-color: var(--color-card);
+    background-color: var(--color-background);
   }
 
   body {
-    @apply text-sm font-normal antialiased;
+    font-size: 16px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
     background-color: var(--color-bg);
     color: var(--color-primary);
     font-feature-settings: "ss01" on, "cv01" on;
@@ -213,4 +217,12 @@
 @keyframes proposed-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
+}
+
+main {
+  padding-left: 64px !important;
+}
+
+.page-content {
+  max-width: 900px;
 }

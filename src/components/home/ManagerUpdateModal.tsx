@@ -7,13 +7,13 @@ import { useEffect, useRef, useState } from "react";
 export const DEFAULT_UPDATE = {
   subject: "Weekly update - Brian Salay",
   intro:
-    "This week was defined by structural hardening. By anchoring the Q3 scope and closing the Sovereign foundation, I have moved the record from tactical delivery to platform strategy.",
+    "This week was defined by structural hardening. By anchoring the Q3 scope and closing the architecture foundation, I have moved the record from tactical delivery to platform strategy.",
   keyWinsHeader: "Key wins:",
   win1: "· Settled Q3 Roadmap Scope - alignment anchored across 4 teams",
-  win2: "· Closed Sovereign Architecture Epic - H2 scalability foundation sealed",
+  win2: "· Closed Architecture Epic - H2 scalability foundation sealed",
   win3: "· VP Strategy Review - executive calibration secured on platform vision",
   closing:
-    "Next week I am focused on closing the Sovereign feedback loop and securing budget alignment for H2.",
+    "Next week I am focused on closing the feedback loop and securing budget alignment for H2.",
 };
 
 // ─── EditableText ─────────────────────────────────────────────────

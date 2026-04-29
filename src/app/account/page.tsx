@@ -5,7 +5,7 @@ export default function AccountPage() {
         Account
       </h1>
       <p className="mt-4 font-ui text-[12px] font-normal uppercase tracking-[0.1em] text-[var(--color-secondary)]">
-        Sovereign credential and audit settings
+        Account and session settings
       </p>
       <p className="mt-6 font-ui text-sm font-normal leading-relaxed text-[var(--color-secondary)]">
         Preferences for this workspace will appear here.

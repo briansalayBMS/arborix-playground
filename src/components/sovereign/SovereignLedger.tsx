@@ -285,7 +285,7 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
     setMountOpen(false);
   }, [mountInput, domain]);
 
-  const headerLabel = domain === "YOU" ? "SOVEREIGN LEDGER" : `${domain} LEDGER`;
+  const headerLabel = domain === "YOU" ? "YOUR RECORD" : `${domain} RECORD`;
 
   const selectionKeyForRow = useCallback(
     (rowKey: string) => `${domain}:${rowKey}`,
@@ -327,7 +327,7 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
               onClick={() => setMountOpen((v) => !v)}
               className="label-card rounded-none border-0 bg-transparent px-0 py-1 text-[var(--color-primary)] outline-none hover:opacity-80 focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
             >
-              [ + MOUNT NEW ASSET ]
+              [ + ADD TO RECORD ]
             </button>
             <span
               className="label-card text-[var(--color-primary)]"
@@ -390,7 +390,7 @@ export function SovereignLedger({ domain, className }: SovereignLedgerProps) {
                   <div
                     className="min-w-[min(100%,920px)] border-collapse text-left"
                     role="table"
-                    aria-label="Sovereign verified registry"
+                    aria-label="Verified record"
                   >
                     <div
                       role="row"

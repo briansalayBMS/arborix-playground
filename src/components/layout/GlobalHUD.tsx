@@ -204,7 +204,7 @@ function LedgerHealthScan({
               FILE INTEGRITY: {auditPercent}% VERIFIED // {CONFLICT_COUNT} OPEN VARIANCE{CONFLICT_COUNT !== 1 ? "S" : ""}
             </p>
             <span style={{ ...mono, fontSize: 12, color: "var(--color-blue)", whiteSpace: "nowrap", flexShrink: 0 }}>
-              TARGET: AUDIT 02 (+20%)
+              TARGET: SESSION 02 (+20%)
             </span>
           </div>
         </div>
@@ -291,7 +291,7 @@ export function GlobalHUD() {
   const [scanOpen, setScanOpen] = useState(false);
 
   const conflictLabel =
-    CONFLICT_COUNT === 1 ? "1 CONFLICT DETECTED" : `${CONFLICT_COUNT} CONFLICTS DETECTED`;
+    CONFLICT_COUNT === 1 ? "1 WORTH A CLOSER LOOK" : `${CONFLICT_COUNT} CLOSER LOOK`;
 
   function scrollToResolution() {
     document.getElementById("resolution-center")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -349,11 +349,11 @@ export function GlobalHUD() {
         </span>
       ) : (
         <>
-          {/* AUDIT 01 → /you with tooltip */}
+          {/* SESSION 01 → /you with tooltip */}
           <AuditTooltip definition="Current verified snapshot. Resolving conflicts triggers Audit 02.">
             <HudLink href="/you">
               <span style={{ borderBottom: "1px dotted var(--color-secondary)", paddingBottom: 1 }}>
-                AUDIT 01
+                SESSION 01
               </span>
             </HudLink>
           </AuditTooltip>

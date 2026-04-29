@@ -23,7 +23,7 @@ function CommandStrip({ viewMode = "internal" }: { viewMode?: "internal" | "exte
   const router = useRouter();
 
   const conflictLabel =
-    CONFLICT_COUNT === 1 ? "1 CONFLICT DETECTED" : `${CONFLICT_COUNT} CONFLICTS DETECTED`;
+    CONFLICT_COUNT === 1 ? "1 WORTH A CLOSER LOOK" : `${CONFLICT_COUNT} CLOSER LOOK`;
 
   function scrollToConflict() {
     if (pathname === "/you") {
@@ -37,20 +37,35 @@ function CommandStrip({ viewMode = "internal" }: { viewMode?: "internal" | "exte
   }
 
   return (
-    <div className="command-strip" style={viewMode === "external" ? { visibility: "hidden", pointerEvents: "none" } : undefined}>
-      <span className="command-strip-identity">
-        {IDENTITY_ANCHOR.name.toUpperCase()} // AUDIT 01
+    <div style={viewMode === "external" ? { visibility: "hidden", pointerEvents: "none" } : {
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: '40px',
+      background: '#1D1D1F',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '0 20px',
+      zIndex: 50,
+      fontFamily: 'var(--font-mono)',
+      fontSize: '13px',
+      letterSpacing: '0.03em',
+    }}>
+      <span className="arb-command-strip__zone arb-command-strip__name">
+        {IDENTITY_ANCHOR.name.toUpperCase()} // SESSION 01
       </span>
 
-      <div className="command-strip-trust">
-        <span className="command-strip-verified">{auditCalibrationPercent}% VERIFIED</span>
+      <div className="arb-command-strip__zone">
+        <span className="arb-command-strip__verified">{auditCalibrationPercent}% VERIFIED</span>
         <span>//</span>
         <span>MODERATE CONFIDENCE</span>
       </div>
 
-      <div className="command-strip-health">
+      <div className="arb-command-strip__zone">
         <span
-          className="command-strip-conflict"
+          className="arb-command-strip__conflict"
           onClick={scrollToConflict}
           role="button"
           tabIndex={0}
@@ -79,15 +94,15 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
         <div className="flex min-h-screen">
           <LeftNav />
 
-          <main
-            className={cn(
-              "min-w-0 flex-1 bg-[var(--color-bg)] px-8",
-              isWelcome
-                ? "min-h-screen flex items-center justify-center pb-12"
-                : "min-h-screen pt-16 pb-10",
-              "ml-[var(--main-with-nav-ml)]",
-            )}
-          >
+          <main style={{
+              marginLeft: '264px',
+              minHeight: '100vh',
+              background: '#F5F5F3',
+              padding: '48px 96px calc(40px + 72px) 96px',
+              paddingLeft: '96px',
+              maxWidth: 'calc(1440px - 240px)',
+              overflowX: 'hidden',
+            }}>
             <Suspense
               fallback={
                 <div className={cn("w-full text-[var(--color-secondary)]", isWelcome ? "max-w-3xl" : "max-w-6xl")}>
@@ -99,7 +114,7 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
                 <div className="w-full max-w-3xl">{children}</div>
               ) : (
                 <>
-                  <div className="w-full max-w-6xl">{children}</div>
+                  {children}
                   {!isExternalView && <UtilityDock />}
                 </>
               )}

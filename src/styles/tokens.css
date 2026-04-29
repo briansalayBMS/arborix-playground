@@ -1,119 +1,237 @@
-/* =============================================================
-   ARBORIX DESIGN SYSTEM — CSS TOKENS
-   Version 0.1 · April 2026 · 4px grid
-   ============================================================= */
+/* ==========================================================================
+   ARBORIX DESIGN TOKENS
+   Version 1.1 · April 2026
+   Source of truth: arborix-design-system.md + arborix-grid-system.md
+   ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+/* --------------------------------------------------------------------------
+   COLORS — Primary palette
+   Three colors only. Color appears only where data is alive.
+   -------------------------------------------------------------------------- */
 
 :root {
-  /* ─── Color ─── */
-  --color-primary: #1D1D1F;
-  --color-secondary: #86868B;
-  --color-tertiary: #D2D2D7;
-  --color-blue: #0071E3;
-  --color-amber: #FF9F0A;
-  --color-green: #30D158;
-  --color-red: #FF3B30;
+  /* Core */
+  --color-primary:       #1D1D1F; /* All primary text, data numbers, strong axis bars */
+  --color-blue:          #0071E3; /* Live data, radar nodes, delta links, CTAs */
+  --color-amber:         #FF9F0A; /* Flagged axes, pattern labels, warning states */
+  --color-green:         #30D158; /* Verified status, active states, sealed deltas */
+  --color-red:           #FF3B30; /* VARIANCE node in Command Strip only */
 
-  /* ─── Neutral scale ─── */
-  --color-bg: #F5F5F3;
-  --color-card: #FFFFFF;
-  --color-border: #E8E8E8;
-  --color-track: #F0F0F0;
-  --color-divider: #E8E8E8;
+  /* Neutral scale */
+  --color-background:    #F5F5F3; /* Page / shell background */
+  --color-surface:       #FFFFFF; /* All card surfaces */
+  --color-secondary:     #86868B; /* Labels, descriptions, axis labels, metadata */
+  --color-tertiary:      #D2D2D7; /* Weak data, timestamps, inactive elements */
+  --color-border:        #E8E8E8; /* Footer separator, section dividers */
+  --color-track:         #F0F0F0; /* Axis bar backgrounds, inactive tracks */
 
-  /* ─── Spacing (4px grid) ─── */
-  --spacing-1x: 4px;
-  --spacing-2x: 8px;
-  --spacing-3x: 12px;
-  --spacing-4x: 16px;
-  --spacing-5x: 20px;
-  --spacing-6x: 24px;
-  --spacing-8x: 32px;
-  --spacing-10x: 40px;
-  --spacing-12x: 48px;
-  --spacing-16x: 64px;
+  /* Semantic */
+  --color-verified:      #30D158; /* Status dot glow, verified count highlight */
+  --color-flagged:       #FF9F0A; /* Pace axis, pattern flags, hold recommendations */
+  --color-weak:          #D2D2D7; /* Craft axis thin signal, toggled-off states */
+  --color-inferred:      #D2D2D7; /* Radar nodes before first session seals data */
 
-  /* ─── Radius ─── */
-  --radius-sm: 8px;    /* tabs, inputs */
-  --radius-md: 16px;   /* medium elements */
-  --radius-lg: 20px;   /* cards */
-  --radius-shell: 20px; /* page shell */
-  --radius-pill: 980px; /* pills, buttons */
+  /* Data viz gradient — shared by radar, ring charts, trend lines */
+  --gradient-data:       linear-gradient(90deg, #0071E3, #30D158);
+  --gradient-data-135:   linear-gradient(135deg, #0071E3, #30D158);
+  --gradient-flagged:    linear-gradient(90deg, #FFD60A, #FF9F0A);
 
-  /* ─── Typography — Font families ─── */
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-code: 'Source Code Pro', ui-monospace, monospace;
+  /* Command Strip */
+  --color-strip-bg:      #1D1D1F;
+  --color-strip-text:    #FFFFFF;
+  --color-strip-muted:   rgba(255, 255, 255, 0.4);
 
-  /* ─── Typography — Statement (Instrument Serif) ─── */
-  --statement-hero-size: 40px;
-  --statement-hero-weight: 400;
-  --statement-hero-lh: 1.25;
-  --statement-hero-ls: 0;
+  /* Aliases */
+  --color-card:          #FFFFFF;
+  --color-bg:            #F5F5F3;
+}
 
-  --statement-question-size: 24px;
-  --statement-question-weight: 400;
-  --statement-question-lh: 1.25;
-  --statement-question-ls: 0;
 
-  --statement-title-size: 20px;
-  --statement-title-weight: 400;
-  --statement-title-lh: 1.25;
-  --statement-title-ls: 0;
+/* --------------------------------------------------------------------------
+   TYPOGRAPHY — Three voices, no overlap
+   -------------------------------------------------------------------------- */
 
-  /* ─── Typography — Data (Instrument Serif) ─── */
-  --data-number-size: 42px;
-  --data-number-weight: 400;
-  --data-number-lh: 1.25;
+:root {
+  /* Font families */
+  --font-serif:    'Instrument Serif', Georgia, serif;   /* Arbor's voice — verdicts, numbers, inquiry */
+  --font-sans:     'Inter', system-ui, sans-serif;       /* Product voice — body, labels, nav */
+  --font-mono:     'Source Code Pro', 'Courier New', monospace; /* Machine voice — ledger, strip, status */
 
-  --data-unit-size: 18px;
-  --data-unit-weight: 400;
-  --data-unit-lh: 1.25;
+  /* Instrument Serif scale */
+  --text-hero:          40px;  /* Section headlines, archetype names */
+  --text-data-number:   42px;  /* Large data numbers */
+  --text-question:      24px;  /* Inquiry questions */
+  --text-title:         20px;  /* Pattern titles, card headlines */
+  --text-data-unit:     18px;  /* Data units */
 
-  /* ─── Typography — Narrative (Inter) ─── */
-  --narrative-body-size: 18px;
-  --narrative-body-weight: 500;
-  --narrative-body-lh: 1.6;
+  /* Inter scale */
+  --text-body:          18px;  /* Body text, section descriptions */
+  --text-observation:   20px;  /* Arbor's read paragraph */
+  --text-gap:           16px;  /* What's missing descriptions */
+  --text-label:         14px;  /* Numbered section labels */
+  --text-greeting:      13px;  /* Page greeting, user name above tabs */
+  --text-description:   13px;  /* Descriptions */
+  --text-sm:            12px;  /* Radar axis labels, instrument readouts, buttons */
+  --text-card-label:    11px;  /* Card labels */
+  --text-xs:            11px;  /* Delta links, flag labels */
 
-  --narrative-bold-size: 18px;
-  --narrative-bold-weight: 600;
-  --narrative-bold-lh: 1.75;
+  /* Source Code Pro */
+  --text-mono:          12px;  /* All Auditor data — minimum size, no exceptions */
 
-  /* ─── Typography — Labels (Inter) ─── */
-  --label-card-size: 14px;
-  --label-card-weight: 400;
-  --label-card-lh: 1.35;
-  --label-card-ls: 0.05em;
+  /* Line heights */
+  --leading-serif:  1.25;  /* All Instrument Serif — one rule, no exceptions */
+  --leading-body:   1.75;  /* Narrative body text */
+  --leading-label:  1.35;  /* Label/Card */
+  --leading-meta:   1.33;  /* Metadata, timestamps */
+  --leading-sm:     1.00;  /* inter-sm axis labels */
 
-  --inter-sm-size: 12px;
-  --inter-sm-weight: 400;
-  --inter-sm-lh: 1.0;
-  --inter-sm-ls: 0.05em;
+  /* Letter spacing */
+  --tracking-label: 0.05em; /* Label/Card, inter-sm — uppercase styles only */
+  --tracking-mono:  0.03em; /* Command Strip, ledger data */
+  --tracking-none:  0;
+}
 
-  /* ─── Data visualization ─── */
-  --dataviz-gradient-start: #0071E3;
-  --dataviz-gradient-end: #30D158;
-  --dataviz-fill-opacity: 0.08;
-  --dataviz-stroke-width: 1px;
-  --dataviz-ring-stroke-width: 3px;
-  --dataviz-node-size: 8px;
-  --dataviz-node-weak-size: 5px;
-  --dataviz-halo-opacity: 0.1;
-  --dataviz-amber-start: #FFD60A;
-  --dataviz-amber-end: #FF9F0A;
 
-  /* ─── Shadows ─── */
+/* --------------------------------------------------------------------------
+   SPACING — 4px baseline grid
+   All spacing values are multiples of 4px.
+   Font sizes and line-heights are exempt.
+   Border widths (1px, 2px) are exempt.
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Micro scale — inside components only */
+  --spacing-1x:   4px;   /* Micro gaps: indicator dot margins, tab group internal gaps */
+  --spacing-2x:   8px;   /* Tight grouping: label to input, icon to text, pill padding */
+  --spacing-3x:   12px;  /* Component internal gaps */
+
+  /* Macro scale — between components and sections */
+  /* DO NOT compress these values. */
+  --spacing-4x:   16px;  /* Card grid gaps */
+  --spacing-5x:   20px;  /* Section label to content */
+  --spacing-6x:   24px;  /* Card internal spacing between related elements */
+  --spacing-8x:   32px;  /* Label to data number, content group gaps */
+  --spacing-10x:  40px;  /* Card internal padding — standard */
+  --spacing-12x:  48px;  /* Card internal padding — large (narrative, inquiry) */
+  --spacing-16x:  64px;  /* Between major sections on a page */
+
+  /* Card internal spacing — named for context */
+  --card-padding:           var(--spacing-10x); /* 40px standard */
+  --card-padding-large:     var(--spacing-12x); /* 48px narrative, inquiry */
+  --card-gap:               var(--spacing-4x);  /* 16px between cards in a grid */
+  --section-gap:            var(--spacing-16x); /* 64px between major sections */
+  --label-to-content:       var(--spacing-5x);  /* 20px section label to content */
+  --label-to-number:        var(--spacing-8x);  /* 32px label to data number */
+  --number-to-description:  var(--spacing-6x);  /* 24px number to description */
+  --description-to-delta:   var(--spacing-5x);  /* 20px description to delta */
+  --inquiry-label-to-q:     var(--spacing-5x);  /* 20px inquiry label to question */
+  --inquiry-q-to-cta:       var(--spacing-8x);  /* 32px question to CTA */
+  --narrative-label-to-body:var(--spacing-8x);  /* 32px narrative label to body */
+}
+
+
+/* --------------------------------------------------------------------------
+   GRID — 12-column system
+   Base: 1440px. Nav: 200px fixed. Content area: 1240px.
+   Column: 76px. Gutter: 24px. Margin: 32px.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --grid-columns:       12;
+  --grid-gutter:        24px;
+  --grid-margin:        32px;
+  --grid-column-width:  76px;  /* (1176px - 11 × 24px) ÷ 12 */
+  --grid-max-width:     1440px;
+  --nav-width:          200px;
+  --nav-width-collapsed: 48px; /* Icon-only below 1280px */
+  --nav-gutter:         0px;
+  --main-with-nav-ml:   var(--nav-width);
+
+  /* Functional card widths — pre-calculated */
+  /* Formula: (cols × 76px) + ((cols − 1) × 24px) */
+  --card-4col:   376px;  /* (4 × 76) + (3 × 24) */
+  --card-6col:   576px;  /* (6 × 76) + (5 × 24) */
+  --card-8col:   776px;  /* (8 × 76) + (7 × 24) */
+  --card-12col:  1176px; /* (12 × 76) + (11 × 24) */
+}
+
+
+/* --------------------------------------------------------------------------
+   COMPONENT HEIGHTS — Interactive elements only
+   Cards: height is determined by content + padding, never fixed.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --height-sm:      32px;  /* Pills, status badges, tight secondary actions */
+  --height-md:      36px;  /* Buttons — primary and ghost */
+  --height-lg:      40px;  /* Inputs, Command Strip */
+  --height-xl:      48px;  /* Card internal padding reference (large content blocks) */
+  --command-strip-height: 40px;
+}
+
+
+/* --------------------------------------------------------------------------
+   BORDER RADIUS — 4px grid multiples
+   -------------------------------------------------------------------------- */
+
+:root {
+  --radius-sm:    8px;   /* Small elements: tab container, avatar */
+  --radius-md:    16px;  /* Medium elements */
+  --radius-card:  20px;  /* All cards — Apple-standard, on grid */
+  --radius-pill:  980px; /* Full pill: buttons, status badges */
+}
+
+
+/* --------------------------------------------------------------------------
+   LINE LENGTH — Per text style, not universal
+   Apply via max-width on prose containers inside wide cards.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --measure-body:        65ch;  /* Narrative/Body, Observation/Body */
+  --measure-inquiry:     60ch;  /* Statement/Question (Instrument Serif 24px) */
+  --measure-gap:         70ch;  /* Gap/Body (Inter 16px) */
+  --measure-full:        100%;  /* No constraint — data tables, charts, UI */
+}
+
+
+/* --------------------------------------------------------------------------
+   SHADOWS — Hover only, never at rest
+   -------------------------------------------------------------------------- */
+
+:root {
   --shadow-card-hover: 0 2px 20px rgba(0, 0, 0, 0.04);
   --shadow-tab-active: 0 1px 4px rgba(0, 0, 0, 0.04);
-  --shadow-status-dot: 0 0 8px rgba(48, 209, 88, 0.5);
+}
 
-  /* ─── Transitions ─── */
-  --transition-default: all 0.3s ease;
-  --transition-hover-lift: translateY(-4px);
 
-  /* ─── Command Strip ─── */
-  --command-strip-height: 40px;
-  --command-strip-font-size: 10px;
-  --command-strip-letter-spacing: 0.1em;
+/* --------------------------------------------------------------------------
+   TRANSITIONS
+   -------------------------------------------------------------------------- */
+
+:root {
+  --transition-default: all 0.2s ease;
+  --transition-hover:   all 0.3s ease;
+  --transition-fast:    all 0.15s ease;
+}
+
+
+/* --------------------------------------------------------------------------
+   DATA VIZ — Specific values for SVG and canvas elements
+   -------------------------------------------------------------------------- */
+
+:root {
+  --viz-polygon-opacity:     0.08;  /* Radar polygon fill opacity */
+  --viz-area-opacity-top:    0.12;  /* Area chart top opacity */
+  --viz-area-opacity-mid:    0.06;  /* Area chart mid opacity */
+  --viz-node-strong:         8px;   /* Strong radar node diameter */
+  --viz-node-weak:           5px;   /* Weak radar node diameter */
+  --viz-node-halo-opacity:   0.1;   /* Radial halo opacity */
+  --viz-stroke-width:        1px;   /* Radar polygon, trend line */
+  --viz-ring-stroke:         3px;   /* Ring chart stroke width */
+  --viz-ring-diameter:       68px;  /* Ring chart diameter (17x grid) */
+  --viz-guide-stroke:        0.5px; /* Concentric guide rings */
+  --viz-spoke-stroke:        0.5px; /* Radar spoke lines */
+  --viz-axis-bar-height:     2px;   /* Axis bar fill height */
 }

@@ -306,7 +306,7 @@ function SharePopover({ onClose }: { onClose: () => void }) {
           padding: "16px 20px",
         }}
         role="dialog"
-        aria-label="Share sovereign record"
+        aria-label="Share your profile"
       >
         <p style={{ ...monoStyle, fontSize: 12, color: "var(--color-secondary)", margin: "0 0 12px 0" }}>
           SOVEREIGN SHARE LINK
@@ -680,6 +680,7 @@ export function YouHubPage() {
   if (!mounted) return null;
 
   return (
+    <div className="page-content">
     <div className="w-full text-left">
       {/* Tab bar — 16px below HUD (GlobalHUD controls top gap) */}
       <div
@@ -708,7 +709,7 @@ export function YouHubPage() {
           <div style={{ position: "relative", marginLeft: "auto", paddingBottom: "var(--spacing-4x)" }}>
             <button
               type="button"
-              aria-label="Share sovereign record"
+              aria-label="Share your profile"
               onClick={() => setShareOpen((v) => !v)}
               style={{
                 display: "flex",
@@ -774,6 +775,7 @@ export function YouHubPage() {
           <SovereignLedger domain="YOU" />
         </div>
       )}
+    </div>
     </div>
   );
 }

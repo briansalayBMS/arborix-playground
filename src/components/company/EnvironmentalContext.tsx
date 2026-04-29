@@ -150,7 +150,7 @@ export function EnvironmentalContext() {
             <>[ STATUS: FILE STAGED — ANALYSIS QUEUED ]</>
           ) : (
             <>
-              [ STATUS: ANALYSIS PENDING. MOUNT VALUES TO COMPARE AGAINST PERSONALITY RADAR. ]
+              [ STATUS: ANALYSIS IN PROGRESS. MOUNT VALUES TO COMPARE AGAINST PERSONALITY RADAR. ]
             </>
           )}
         </p>

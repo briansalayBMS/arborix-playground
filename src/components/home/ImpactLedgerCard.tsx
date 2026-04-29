@@ -7,12 +7,12 @@ import { SignalTraceDrawer, type SignalCard } from "@/components/home/SignalTrac
 
 const IMPACT_CARDS = [
   { category: "STRATEGY",  title: "Settled Q3 Roadmap Scope",         impact: "Alignment anchored across 4 teams",                status: "SEALED"   as const },
-  { category: "EXECUTION", title: "Closed Sovereign Architecture Epic", impact: "H2 scalability foundation sealed",                status: "SEALED"   as const },
+  { category: "EXECUTION", title: "Closed Architecture Epic", impact: "H2 scalability foundation sealed",                status: "SEALED"   as const },
   { category: "INFLUENCE", title: "VP Strategy Review",                 impact: "Executive calibration secured on platform vision", status: "INFERRED" as const },
 ] as const;
 
 const SYNTHESIS_BODY =
-  "This week was defined by structural hardening. By anchoring the Q3 scope and closing the Sovereign foundation, you have moved the record from tactical delivery to platform strategy. This shift reinforces your executive signal.";
+  "This week was defined by structural hardening. By anchoring the Q3 scope and closing the architecture foundation, you have moved the record from tactical delivery to platform strategy. This shift reinforces your executive signal.";
 
 // ─── Tokens ──────────────────────────────────────────────────────
 

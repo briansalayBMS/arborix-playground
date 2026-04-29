@@ -135,7 +135,7 @@ export function ResolutionCenter({
           }}
         />
 
-        {/* Right pane — 60% — Surgical Inquiry */}
+        {/* Right pane — 60% — Your Next Question */}
         <div
           style={{
             flex: 1,
@@ -150,7 +150,7 @@ export function ResolutionCenter({
             className="m-0 mb-3 uppercase"
             style={{ fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 400, letterSpacing: "0.05em", color: "var(--color-blue)" }}
           >
-            SURGICAL INQUIRY
+            YOUR NEXT QUESTION
           </p>
 
           <div className="mb-5 flex flex-wrap gap-2">

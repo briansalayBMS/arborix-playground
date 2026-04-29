@@ -94,13 +94,16 @@ export function LeftNav() {
     <Link href={href} className="block outline-none">
       <motion.span
         tabIndex={-1}
-        className={cn(
-          "font-ui text-[12px] uppercase tracking-[0.15em]",
-          "block py-2.5 transition-[color,font-weight]",
-          active
-            ? "font-bold text-[var(--color-primary)]"
-            : "font-normal text-[var(--color-secondary)] hover:text-[var(--color-primary)]",
-        )}
+        style={{
+          display: 'block',
+          padding: '8px 0',
+          fontSize: '14px',
+          fontWeight: active ? 600 : 400,
+          letterSpacing: '0.05em',
+          color: active ? 'var(--color-primary)' : 'var(--color-secondary)',
+          textTransform: 'uppercase',
+          transition: 'color 0.15s ease, font-weight 0.15s ease',
+        }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 420, damping: 28 }}
       >
@@ -110,83 +113,105 @@ export function LeftNav() {
   );
 
   return (
-    <aside className="fixed top-0 bottom-0 left-[var(--nav-gutter)] z-40 flex w-[var(--nav-w)] flex-col bg-transparent">
-      <div className="flex min-h-0 flex-1 flex-col px-4 pb-6 pt-10">
+    <aside style={{ position: 'fixed', top: 0, bottom: 0, left: '24px', width: '216px', display: 'flex', flexDirection: 'column', background: 'var(--color-background)', zIndex: 40 }}>
+      {/* Logo — fixed at top, never scrolls */}
+      <div style={{ padding: '24px 20px 0', flexShrink: 0 }}>
+        <Link href="/home" className="block">
+          <motion.div
+            tabIndex={-1}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+            transition={{ type: "spring", stiffness: 520, damping: 34 }}
+            className="inline-block"
+          >
+            <Image
+              src="/arborix-logo.png"
+              alt="Arborix"
+              width={40}
+              height={48}
+              priority
+              className="h-12 w-auto"
+            />
+          </motion.div>
+        </Link>
+      </div>
 
-        {/* Logo */}
-        <div className="mb-8 flex shrink-0 justify-start">
-          <Link href="/home" className="block">
-            <motion.div
-              tabIndex={-1}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              transition={{ type: "spring", stiffness: 520, damping: 34 }}
-              className="inline-block"
-            >
-              <Image
-                src="/arborix-logo.png"
-                alt="Arborix"
-                width={40}
-                height={48}
-                priority
-                className="h-12 w-auto"
-              />
-            </motion.div>
-          </Link>
-        </div>
+      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '16px 20px 0' }}>
 
         {/* HOME — root link */}
-        <div className="mb-8">
+        <div style={{ marginTop: '24px', marginBottom: '36px' }}>
           {navLink("/home", "HOME", pathname === "/home")}
         </div>
 
         {/* Navigation groups */}
-        <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto" aria-label="Primary">
-          <div className="min-w-0 flex-1 space-y-10">
+        <nav aria-label="Primary">
+          <div>
             {NAV_GROUPS.map((group) => {
               const groupActive = domain === group.domain;
               return (
-                <div key={group.domain}>
+                <div key={group.domain} style={{ marginBottom: '36px' }}>
                   {/* Domain header */}
                   <span
-                    className={cn(
-                      "font-ui text-[12px] uppercase tracking-[0.22em] mb-3 block",
-                      groupActive
-                        ? "font-bold text-[var(--color-primary)]"
-                        : "font-normal text-[var(--color-secondary)]",
-                    )}
+                    style={{
+                      display: 'block',
+                      padding: '8px 0',
+                      fontSize: '14px',
+                      fontWeight: 400,
+                      letterSpacing: '0.1em',
+                      color: 'var(--color-secondary)',
+                      textTransform: 'uppercase',
+                    }}
                   >
                     {group.domain}
                   </span>
 
                   {/* Items */}
-                  <ul className="list-none space-y-0.5 pl-0">
-                    {group.items.map((item) => {
-                      const active = activeNavHref === item.href;
-                      const isPendingYou = group.domain === "YOU" && item.href === "/you";
-                      return (
-                        <li key={`${group.domain}-${item.href}`} className="relative">
-                          {navLink(item.href, item.label, active)}
-                          {/* Amber dot — pending conflict indicator on Dossier */}
-                          {isPendingYou ? (
-                            <span
-                              aria-label="Pending conflict"
-                              style={{
-                                position: "absolute",
-                                top: "50%",
+                  <div style={{ position: 'relative', paddingLeft: '16px' }}>
+                    {/* Left rail */}
+                    <span style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: 2,
+                      bottom: 2,
+                      width: '2px',
+                      background: 'var(--color-border)',
+                      borderRadius: '1px',
+                    }} />
+                    <ul className="list-none pl-0" style={{ margin: 0 }}>
+                      {group.items.map((item) => {
+                        const active = activeNavHref === item.href;
+                        const isPendingYou = group.domain === "YOU" && item.href === "/you";
+                        return (
+                          <li key={`${group.domain}-${item.href}`} style={{ position: 'relative' }}>
+                            {active && (
+                              <span style={{
+                                position: 'absolute',
+                                left: '-16px',
+                                top: 0,
+                                bottom: 0,
+                                width: '2px',
+                                background: 'var(--color-primary)',
+                                borderRadius: '1px',
+                              }} />
+                            )}
+                            {navLink(item.href, item.label, active)}
+                            {isPendingYou && (
+                              <span style={{
+                                position: 'absolute',
+                                top: '8px',
                                 right: 0,
-                                transform: "translateY(-50%)",
-                                width: 4,
-                                height: 4,
-                                borderRadius: "50%",
-                                backgroundColor: "var(--color-amber)",
-                              }}
-                            />
-                          ) : null}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                                width: '6px',
+                                height: '6px',
+                                borderRadius: '50%',
+                                background: 'var(--color-amber)',
+                                flexShrink: 0,
+                              }} aria-label="Pending conflict" />
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </div>
               );
             })}
@@ -194,49 +219,26 @@ export function LeftNav() {
         </nav>
       </div>
 
-      {/* Identity anchor */}
-      <Link
-        href={IDENTITY_ANCHOR.href}
-        className={cn(
-          "group shrink-0 border-t-[0.5px] border-[var(--color-border)] bg-transparent px-4 pt-4 text-left outline-none transition-colors",
-          "hover:bg-[rgba(0,0,0,0.04)] focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[var(--color-blue)]/40",
-        )}
-        style={{ paddingBottom: "calc(var(--command-strip-height, 40px) + var(--spacing-6x))" }}
-        aria-label="Account and settings"
-        onPointerDown={() => {
-          identityLongPressConsumed.current = false;
-          clearIdentityLongPress();
-          identityLongPressTimer.current = setTimeout(() => {
-            identityLongPressConsumed.current = true;
-            toggleSimulation();
-          }, IDENTITY_LONG_PRESS_MS);
-        }}
-        onPointerUp={() => { clearIdentityLongPress(); }}
-        onPointerLeave={() => { clearIdentityLongPress(); }}
-        onClick={(e) => {
-          if (identityLongPressConsumed.current) {
-            e.preventDefault();
-            identityLongPressConsumed.current = false;
-          }
-        }}
-      >
-        <div className="flex items-start gap-3 text-left">
-          <div
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] font-ui text-[12px] font-medium text-white"
-            aria-hidden
-          >
-            {IDENTITY_ANCHOR.initials}
-          </div>
-          <div className="min-w-0 flex-1 pt-0.5">
-            <p
-              className="m-0 text-[14px] font-semibold leading-tight text-[var(--color-primary)]"
-              style={{ fontFamily: "var(--font-sans)" }}
-            >
-              {IDENTITY_ANCHOR.name}
-            </p>
-          </div>
+      {/* Identity — pinned to bottom */}
+      <div style={{
+        padding: '16px 20px 56px',
+        borderTop: '0.5px solid var(--color-border)',
+        flexShrink: 0,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+      }}>
+        <div style={{
+          width: '32px', height: '32px', borderRadius: '50%',
+          background: 'var(--color-primary)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center',
+          fontSize: '12px', fontWeight: 500, color: 'white', flexShrink: 0,
+        }}>BS</div>
+        <div>
+          <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-primary)', lineHeight: 1.3 }}>Brian Salay</div>
+          <div style={{ fontSize: '12px', fontWeight: 400, color: 'var(--color-secondary)', lineHeight: 1.3 }}>Senior Product Designer</div>
         </div>
-      </Link>
+      </div>
     </aside>
   );
 }

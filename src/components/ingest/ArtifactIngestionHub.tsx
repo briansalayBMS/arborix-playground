@@ -100,7 +100,7 @@ export function ArtifactIngestionHub() {
       <header className="space-y-3">
         <h1 className="statement-hero m-0">Artifact Ingestion</h1>
         <p className="narrative-body m-0 max-w-3xl">
-          Feed the Auditor. Mount URLs, documents, or raw text into the sovereign record for
+          Feed the Auditor. Mount URLs, documents, or raw text into your profile for
           forensic mapping.
         </p>
       </header>
@@ -185,12 +185,12 @@ export function ArtifactIngestionHub() {
         </div>
 
         <button type="button" onClick={onMount} className="cta-active">
-          MOUNT ARTIFACT
+          ADD TO RECORD
         </button>
       </section>
 
       <section className="space-y-4">
-        <h2 className="label-card m-0 text-[var(--color-primary)]">Forensic ledger</h2>
+        <h2 className="label-card m-0 text-[var(--color-primary)]">Your record</h2>
         <div className="w-full overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-left">
             <thead>
@@ -250,7 +250,7 @@ export function ArtifactIngestionHub() {
                               aria-hidden
                             />
                             <span className="font-normal text-[var(--color-primary)]">
-                              [ VERIFICATION REQUIRED ]
+                              [ NEEDS REVIEW ]
                             </span>
                           </>
                         ) : (

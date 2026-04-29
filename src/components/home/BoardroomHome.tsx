@@ -11,14 +11,14 @@ export function BoardroomHome() {
   const unverifiedClaims = loggedTestimony.length > 0 ? loggedTestimony.length : 2;
 
   return (
-    <div className="flex min-h-[calc(100vh-10rem)] w-full flex-col gap-4 bg-[var(--color-card)] text-left">
+    <div className="arb-page-stack">
       <header className="border-b-[0.5px] border-[var(--color-border)] pb-4">
         <p className="label-card m-0">boardroom</p>
         <h1
           className="statement-hero m-0 mt-2"
           style={{ fontSize: "28px" }}
         >
-          Sovereign Command Center
+          Arborix
         </h1>
         <p className="text-description m-0 mt-2">
           Status across pillars. Select a domain to deepen calibration.
@@ -31,7 +31,7 @@ export function BoardroomHome() {
         <Link
           href="/you"
           className={cn(
-            "group flex min-h-[168px] flex-col gap-3 border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] p-4 outline-none transition-colors",
+            "group flex min-h-[168px] flex-col gap-3 rounded-[20px] border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] p-4 outline-none transition-colors",
             "hover:bg-[var(--color-bg)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]",
           )}
         >
@@ -55,7 +55,7 @@ export function BoardroomHome() {
         <Link
           href="/company"
           className={cn(
-            "group flex min-h-[168px] flex-col gap-3 border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] p-4 outline-none transition-colors",
+            "group flex min-h-[168px] flex-col gap-3 rounded-[20px] border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] p-4 outline-none transition-colors",
             "hover:bg-[var(--color-bg)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]",
           )}
         >
@@ -79,7 +79,7 @@ export function BoardroomHome() {
         <Link
           href="/work"
           className={cn(
-            "group flex min-h-[168px] flex-col gap-3 border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] p-4 outline-none transition-colors",
+            "group flex min-h-[168px] flex-col gap-3 rounded-[20px] border-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] p-4 outline-none transition-colors",
             "hover:bg-[var(--color-bg)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]",
           )}
         >

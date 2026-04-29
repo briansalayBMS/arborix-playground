@@ -1,524 +1,673 @@
-/* =============================================================
-   ARBORIX DESIGN SYSTEM — TYPOGRAPHY & COMPONENTS
-   Apply after tokens.css
-   ============================================================= */
+/* ==========================================================================
+   ARBORIX DESIGN SYSTEM — Component Classes & Typography
+   Version 1.1 · April 2026
+   Governs: typography, component classes, data viz helpers, interaction states
+   Requires: tokens.css (must load first)
+   ========================================================================== */
 
-/* ─── Base ─── */
+
+/* --------------------------------------------------------------------------
+   BASE RESET
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: var(--leading-body);
   color: var(--color-primary);
-  background: var(--color-bg);
+  background: var(--color-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* =============================================================
-   TYPOGRAPHY — Named styles matching Figma tokens
-   ============================================================= */
 
-/* Statement/Hero — Section headlines, archetype names */
+/* --------------------------------------------------------------------------
+   TYPOGRAPHY — Named font styles
+   Match Figma token names exactly.
+   -------------------------------------------------------------------------- */
+
+/* Instrument Serif — Arbor's voice */
+/* Rule: appears ONLY on verdicts, archetype names, data numbers, inquiry questions */
+
 .statement-hero {
   font-family: var(--font-serif);
-  font-size: var(--statement-hero-size);
-  font-weight: var(--statement-hero-weight);
-  line-height: var(--statement-hero-lh);
-  letter-spacing: var(--statement-hero-ls);
+  font-size: var(--text-hero);      /* 40px */
+  font-weight: 400;
+  line-height: var(--leading-serif);
   color: var(--color-primary);
-}
-
-/* Statement/Question — Inquiry questions, ring chart centers */
-.statement-question {
-  font-family: var(--font-serif);
-  font-size: var(--statement-question-size);
-  font-weight: var(--statement-question-weight);
-  line-height: var(--statement-question-lh);
-  letter-spacing: var(--statement-question-ls);
-  color: var(--color-primary);
-}
-
-/* Statement/Title — Pattern titles, card headlines */
-.statement-title {
-  font-family: var(--font-serif);
-  font-size: var(--statement-title-size);
-  font-weight: var(--statement-title-weight);
-  line-height: var(--statement-title-lh);
-  letter-spacing: var(--statement-title-ls);
-  color: var(--color-primary);
-}
-
-/* Data number — Large data readouts */
-.data-number {
-  font-family: var(--font-serif);
-  font-size: var(--data-number-size);
-  font-weight: var(--data-number-weight);
-  line-height: var(--data-number-lh);
-  color: var(--color-primary);
+  letter-spacing: var(--tracking-none);
   font-feature-settings: 'lnum' 1, 'pnum' 1;
 }
 
-/* Data unit — Units beside data numbers */
+.statement-question {
+  font-family: var(--font-serif);
+  font-size: var(--text-question);  /* 24px */
+  font-weight: 400;
+  line-height: var(--leading-serif);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-none);
+  max-width: var(--measure-inquiry); /* 60ch */
+}
+
+.statement-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-title);     /* 20px */
+  font-weight: 400;
+  line-height: var(--leading-serif);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-none);
+}
+
+.data-number {
+  font-family: var(--font-serif);
+  font-size: var(--text-data-number); /* 42px */
+  font-weight: 400;
+  line-height: var(--leading-serif);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-none);
+  font-feature-settings: 'lnum' 1, 'pnum' 1;
+}
+
 .data-unit {
   font-family: var(--font-serif);
-  font-size: var(--data-unit-size);
-  font-weight: var(--data-unit-weight);
-  line-height: var(--data-unit-lh);
+  font-size: var(--text-data-unit); /* 18px */
+  font-weight: 400;
+  line-height: var(--leading-serif);
   color: var(--color-secondary);
+  font-feature-settings: 'lnum' 1, 'pnum' 1;
 }
 
-/* Narrative/Body — Body text, section descriptions */
+
+/* Inter — Product voice */
+
 .narrative-body {
   font-family: var(--font-sans);
-  font-size: var(--narrative-body-size);
-  font-weight: var(--narrative-body-weight);
-  line-height: var(--narrative-body-lh);
-  color: var(--color-primary);
-}
-
-/* Observation body — Auditor observation paragraph (20px/500/175%) */
-.observation-body {
-  font-family: var(--font-sans);
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.75;
-  color: var(--color-primary);
-}
-
-/* Gap body — Forensic gap card descriptions (16px/300/175%) */
-.gap-body {
-  font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: var(--text-body);      /* 18px */
   font-weight: 300;
-  line-height: 1.75;
+  line-height: var(--leading-body);
   color: var(--color-primary);
+  max-width: var(--measure-body);   /* 65ch */
 }
 
-/* Narrative/Bold — Bold emphasis within body text */
 .narrative-bold {
   font-family: var(--font-sans);
-  font-size: var(--narrative-bold-size);
-  font-weight: var(--narrative-bold-weight);
-  line-height: var(--narrative-bold-lh);
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: var(--leading-body);
   color: var(--color-primary);
 }
 
-/* Label/Card — Section labels, numbered headers */
+.observation-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-observation); /* 20px */
+  font-weight: 300;
+  line-height: var(--leading-body);
+  color: var(--color-primary);
+  max-width: var(--measure-body);
+}
+
+.gap-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-gap);       /* 16px */
+  font-weight: 300;
+  line-height: var(--leading-body);
+  color: var(--color-primary);
+  max-width: var(--measure-gap);    /* 70ch */
+}
+
 .label-card {
   font-family: var(--font-sans);
-  font-size: var(--label-card-size);
-  font-weight: var(--label-card-weight);
-  line-height: var(--label-card-lh);
-  letter-spacing: var(--label-card-ls);
+  font-size: var(--text-label);     /* 14px */
+  font-weight: 400;
+  line-height: var(--leading-label);
   color: var(--color-secondary);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
 
-/* inter sm — Radar axis labels, instrument readouts */
 .inter-sm {
   font-family: var(--font-sans);
-  font-size: var(--inter-sm-size);
-  font-weight: var(--inter-sm-weight);
-  line-height: var(--inter-sm-lh);
-  letter-spacing: var(--inter-sm-ls);
-  color: var(--color-secondary);
-  text-transform: uppercase;
-}
-
-/* inter sm active — Active/flagged axis label */
-.inter-sm-active {
-  font-family: var(--font-sans);
-  font-size: var(--inter-sm-size);
-  font-weight: var(--inter-sm-weight);
-  line-height: var(--inter-sm-lh);
-  letter-spacing: var(--inter-sm-ls);
-  color: var(--color-blue);
-  text-transform: uppercase;
-}
-
-/* ─── Supporting text styles ─── */
-
-.text-description {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 300;
-  line-height: 1.54;
-  color: var(--color-secondary);
-}
-
-.text-delta {
-  font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: var(--text-sm);        /* 12px */
   font-weight: 400;
-  line-height: 1.45;
+  line-height: var(--leading-sm);
+  color: var(--color-secondary);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.inter-sm--active {
   color: var(--color-blue);
 }
 
-.text-flag {
+.text-meta {
   font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.45;
-  color: var(--color-amber);
-}
-
-.text-metadata {
-  font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 300;
-  line-height: 1.33;
+  line-height: var(--leading-meta);
   color: var(--color-secondary);
 }
 
 .text-timestamp {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 300;
-  line-height: 1.33;
+  line-height: var(--leading-meta);
   color: var(--color-tertiary);
 }
 
-/* =============================================================
-   SURFACES
-   ============================================================= */
-
-.surface-bg {
-  background: var(--color-bg);
-}
-
-.surface-card {
-  background: var(--color-card);
-  border-radius: var(--radius-lg);
-  transition: var(--transition-default);
-}
-
-.surface-card:hover {
-  box-shadow: var(--shadow-card-hover);
-  transform: var(--transition-hover-lift);
-}
-
-.surface-card-static {
-  background: var(--color-card);
-  border-radius: var(--radius-lg);
-}
-
-/* =============================================================
-   COMPONENTS
-   ============================================================= */
-
-/* ─── Buttons ─── */
-.btn-primary {
+.text-live {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 400;
-  padding: var(--spacing-2x) var(--spacing-5x);
-  border-radius: var(--radius-pill);
-  background: var(--color-blue);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: var(--transition-default);
-}
-
-.btn-primary:hover {
-  background: #0077ED;
-}
-
-.btn-ghost {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 400;
-  padding: var(--spacing-2x) var(--spacing-5x);
-  border-radius: var(--radius-pill);
-  background: transparent;
+  line-height: var(--leading-meta);
   color: var(--color-blue);
-  border: 1px solid var(--color-border);
-  cursor: pointer;
-  transition: var(--transition-default);
 }
 
-.btn-ghost:hover {
-  background: #F5F5F7;
-}
-
-/* ─── Status pill ─── */
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2x);
-  padding: var(--spacing-2x) var(--spacing-4x);
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border);
+.text-flag {
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--color-secondary);
-}
-
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-green);
-  box-shadow: var(--shadow-status-dot);
-}
-
-/* ─── Tab group ─── */
-.tab-container {
-  display: flex;
-  background: rgba(0, 0, 0, 0.04);
-  border-radius: var(--radius-sm);
-  padding: 2px;
-}
-
-.tab {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 300;
-  padding: var(--spacing-1x) var(--spacing-3x);
-  border-radius: 6px;
-  border: none;
-  background: transparent;
-  color: var(--color-secondary);
-  cursor: pointer;
-  transition: var(--transition-default);
-}
-
-.tab-active {
-  background: var(--color-card);
-  color: var(--color-primary);
-  font-weight: 400;
-  box-shadow: var(--shadow-tab-active);
-}
-
-/* ─── Feed tabs (gradient bottom indicator) ─── */
-.tab-feed-row {
-  display: flex;
-  gap: var(--spacing-8x);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.tab-feed {
-  position: relative;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--color-secondary);
-  background: transparent;
-  border: none;
-  padding: 0 0 var(--spacing-4x) 0;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.tab-feed:hover {
-  color: var(--color-primary);
-}
-
-.tab-feed-active {
-  color: var(--color-primary);
+  font-size: var(--text-xs);        /* 11px */
   font-weight: 500;
+  line-height: var(--leading-label);
+  color: var(--color-amber);
 }
 
-.tab-feed-active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(to right, var(--dataviz-gradient-start), var(--dataviz-gradient-end));
+.text-delta-link {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  line-height: var(--leading-label);
+  color: var(--color-blue);
+  cursor: pointer;
+  text-decoration: none;
 }
 
-/* ─── Axis bar ─── */
-.axis-row {
+.text-delta-link:hover {
+  opacity: 0.7;
+}
+
+
+/* Source Code Pro — Machine voice */
+/* Rule: never below 12px. Use ONLY for Auditor data, ledger, Command Strip, status */
+
+.source-code {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);      /* 12px — minimum */
+  font-weight: 400;
+  line-height: var(--leading-meta);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-mono);
+}
+
+.source-code--muted {
+  color: var(--color-secondary);
+}
+
+.source-code--verified {
+  color: var(--color-verified);
+}
+
+.source-code--flagged {
+  color: var(--color-amber);
+}
+
+/* Typography rules enforcement */
+/* Archetype names: initial caps, never ALL CAPS */
+/* ALL CAPS only on: label-card and inter-sm (both have 5% letter spacing) */
+
+
+/* --------------------------------------------------------------------------
+   SECTION LABEL — Numbered section labels (e.g. "01 YOUR PROFILE")
+   -------------------------------------------------------------------------- */
+
+.arb-section-label {
   display: flex;
   align-items: center;
   gap: var(--spacing-3x);
-  margin-bottom: var(--spacing-4x);
+  margin-bottom: var(--label-to-content);
 }
 
-.axis-label {
+.arb-section-label__num {
   font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 300;
+  font-size: var(--text-label);
+  font-weight: 400;
   color: var(--color-secondary);
-  width: 72px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.arb-section-label__text {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 400;
+  color: var(--color-secondary);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Blue label variant — "YOUR NEXT QUESTION", "YOUR NARRATIVE" */
+.arb-section-label--blue .arb-section-label__text {
+  color: var(--color-blue);
+}
+
+
+/* --------------------------------------------------------------------------
+   CONFIDENCE SCORE PILL — Internal view, top-right of narrative card
+   -------------------------------------------------------------------------- */
+
+.arb-confidence-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+  height: var(--height-sm);
+  padding: var(--spacing-2x) var(--spacing-4x);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.arb-confidence-pill:hover {
+  border-color: var(--color-verified);
+}
+
+.arb-confidence-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-verified);
+  box-shadow: 0 0 0 2px rgba(48, 209, 88, 0.2);
   flex-shrink: 0;
 }
 
-.axis-track {
+.arb-confidence-pill__text {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: var(--color-secondary);
+}
+
+
+/* --------------------------------------------------------------------------
+   SOVEREIGN VERIFICATION BADGE — External view, bottom of narrative card
+   -------------------------------------------------------------------------- */
+
+.arb-verify-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--spacing-6x);
+  margin-top: var(--spacing-6x);
+}
+
+.arb-verify-badge__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2x);
+}
+
+.arb-verify-badge__icon {
+  width: 14px;
+  height: 14px;
+  color: var(--color-verified);
+  flex-shrink: 0;
+}
+
+.arb-verify-badge__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--color-secondary);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+}
+
+.arb-verify-badge__timestamp {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: var(--color-tertiary);
+}
+
+
+/* --------------------------------------------------------------------------
+   EVIDENCE FOOTNOTE LINK — Inline within observation-body
+   At rest: invisible. On hover: dotted underline + superscript arrow.
+   -------------------------------------------------------------------------- */
+
+.arb-footnote {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.arb-footnote:hover {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(0, 113, 227, 0.3);
+}
+
+.arb-footnote:hover::after {
+  content: ' ›';
+  color: var(--color-blue);
+  font-size: 0.8em;
+  vertical-align: super;
+}
+
+
+/* --------------------------------------------------------------------------
+   AXIS BAR — Per-axis breakdown in radar card
+   -------------------------------------------------------------------------- */
+
+.arb-axis-bar {
   flex: 1;
-  height: 2px;
+  height: var(--viz-axis-bar-height); /* 2px — design choice, not spacing */
   background: var(--color-track);
   border-radius: 1px;
+  position: relative;
   overflow: hidden;
 }
 
-.axis-fill {
+.arb-axis-bar__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   border-radius: 1px;
-  background: var(--color-primary);
+  transition: width 0.6s ease-out;
 }
 
-.axis-fill-flagged {
-  background: var(--color-amber);
+.arb-axis-bar__fill--strong  { background: var(--color-primary); }
+.arb-axis-bar__fill--flagged { background: var(--color-amber); }
+.arb-axis-bar__fill--weak    { background: var(--color-weak); }
+.arb-axis-bar__fill--inferred { background: var(--color-inferred); }
+
+
+/* --------------------------------------------------------------------------
+   DOSSIER CTA ROW — External view, below radar card
+   -------------------------------------------------------------------------- */
+
+.arb-dossier-cta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-3x);
 }
 
-.axis-fill-weak {
-  background: var(--color-tertiary);
-}
-
-.axis-value {
+.arb-dossier-cta__label {
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 300;
   color: var(--color-secondary);
-  width: 32px;
-  text-align: right;
+  margin-right: auto;
 }
 
-/* ─── Section header ─── */
-.section-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-8x);
+
+/* --------------------------------------------------------------------------
+   NAV — Left navigation
+   -------------------------------------------------------------------------- */
+
+.arb-nav-section {
+  margin-bottom: var(--spacing-8x); /* 32px between section groups */
 }
 
-/* ─── Footer bar ─── */
-.footer-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: var(--spacing-6x);
-  border-top: 1px solid var(--color-divider);
+.arb-nav-section:last-child {
+  margin-bottom: 0;
 }
 
-/* =============================================================
-   DATA VISUALIZATION — SVG gradients (define in SVG defs)
-   ============================================================= */
-
-/*
-  Radar polygon & ring chart gradients — define these in SVG <defs>:
-
-  <linearGradient id="dataviz-gradient" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#0071E3"/>
-    <stop offset="100%" stop-color="#30D158"/>
-  </linearGradient>
-
-  Stroke: url(#dataviz-gradient), 1px
-  Fill: url(#dataviz-gradient), 8% opacity
-
-  Node halo (radial gradient):
-  <radialGradient id="node-halo">
-    <stop offset="0%" stop-color="rgba(0,113,227,0.1)"/>
-    <stop offset="100%" stop-color="rgba(0,113,227,0)"/>
-  </radialGradient>
-
-  Guide rings: #E8E8E8 (outer) → #F4F4F4 (inner), 0.5px stroke
-  Spoke lines: #F0F0F0, 0.5px stroke
-*/
-
-/* =============================================================
-   LAYOUT
-   ============================================================= */
-
-.page-shell {
-  background: var(--color-bg);
-  border-radius: var(--radius-shell);
-  padding: var(--spacing-12x);
-}
-
-.section-gap {
-  margin-bottom: var(--spacing-16x);
-}
-
-.card-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-4x);
-}
-
-.card-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-4x);
-}
-
-/* ─── Responsive ─── */
-@media (max-width: 600px) {
-  .page-shell {
-    padding: var(--spacing-6x);
-  }
-
-  .section-gap {
-    margin-bottom: var(--spacing-10x);
-  }
-
-  .card-grid-3 {
-    grid-template-columns: 1fr;
-  }
-
-  .card-grid-2 {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* =============================================================
-   COMMAND STRIP — persistent bottom bar
-   ============================================================= */
-
-.command-strip {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--command-strip-height);
-  padding: 0 var(--spacing-8x);
-  background: var(--color-card);
-  border-top: 1px solid var(--color-border);
-  font-family: var(--font-code);
-  font-size: var(--command-strip-font-size);
-  font-weight: 500;
-  letter-spacing: var(--command-strip-letter-spacing);
+.arb-nav-header {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);        /* 12px */
+  font-weight: 400;
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+  margin-bottom: var(--spacing-4x); /* 16px to first sub-item */
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.arb-nav-item {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 300;
   color: var(--color-secondary);
-}
-
-.command-strip-identity {
-  /* inherits all from .command-strip */
-}
-
-.command-strip-trust {
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x);
+  position: relative;
+  padding-left: var(--spacing-4x); /* 16px indent for sub-items */
+  margin-bottom: var(--spacing-4x);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--transition-default);
 }
 
-.command-strip-verified {
+.arb-nav-item:hover {
   color: var(--color-primary);
 }
 
-.command-strip-health {
-  display: flex;
+.arb-nav-item.active {
+  font-weight: 600;
+  color: var(--color-primary);
+  /* Bold only — no background, no indicator */
+}
+
+
+/* --------------------------------------------------------------------------
+   SURFACE CARD — Used for secondary info, observation boxes
+   -------------------------------------------------------------------------- */
+
+.surface-card {
+  background: var(--color-background);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding);
+}
+
+
+/* --------------------------------------------------------------------------
+   LEDGER STATUS STATES — Source Code Pro throughout
+   -------------------------------------------------------------------------- */
+
+.arb-status {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  display: inline-flex;
   align-items: center;
   gap: var(--spacing-2x);
+  padding: var(--spacing-1x) var(--spacing-3x);
+  border-radius: var(--radius-sm);
 }
 
-.command-strip-conflict {
+.arb-status--verified {
+  color: var(--color-verified);
+  background: rgba(48, 209, 88, 0.08);
+}
+
+.arb-status--in-progress {
+  color: var(--color-secondary);
+  background: var(--color-track);
+  border: 1px dashed var(--color-border);
+}
+
+.arb-status--needs-review {
   color: var(--color-amber);
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: 0;
-  font: inherit;
-  letter-spacing: inherit;
-  text-transform: inherit;
-  transition: opacity 0.15s ease;
+  background: rgba(255, 159, 10, 0.08);
 }
 
-.command-strip-conflict:hover {
-  opacity: 0.7;
+.arb-status--closer-look {
+  color: var(--color-amber);
+  background: rgba(255, 159, 10, 0.08);
 }
+
+/* Ghost outline — toggled-off sealed record on radar */
+/* Applied in SVG: stroke-dasharray: 4 4, stroke: var(--color-weak) */
+
+
+/* --------------------------------------------------------------------------
+   FILE DROP ZONE — Onboarding upload
+   -------------------------------------------------------------------------- */
+
+.arb-drop-zone {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding-large);
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-default);
+  background: var(--color-surface);
+}
+
+.arb-drop-zone:hover,
+.arb-drop-zone.dragover {
+  border-color: var(--color-blue);
+  background: rgba(0, 113, 227, 0.02);
+}
+
+.arb-drop-zone.has-file {
+  border-color: var(--color-verified);
+  border-style: solid;
+  background: rgba(48, 209, 88, 0.03);
+}
+
+.arb-drop-zone__label {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-secondary);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--spacing-5x);
+}
+
+.arb-drop-zone__instruction {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: var(--color-secondary);
+  margin-top: var(--spacing-3x);
+}
+
+.arb-drop-zone__confirm {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: var(--color-verified);
+  margin-top: var(--spacing-3x);
+  font-style: italic;
+  display: none;
+}
+
+.arb-drop-zone.has-file .arb-drop-zone__confirm {
+  display: block;
+}
+
+
+/* --------------------------------------------------------------------------
+   HOVER STATES — Consolidated
+   -------------------------------------------------------------------------- */
+
+/* Ledger row hover pulses radar coordinate (handled in JS via DiagnosticFocusContext) */
+.arb-ledger-row {
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+
+.arb-ledger-row:hover {
+  background: rgba(0, 113, 227, 0.03);
+}
+
+/* Radar axis label hover — external view tooltip */
+.arb-radar-axis-tooltip {
+  position: absolute;
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-3x) var(--spacing-4x);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: var(--color-primary);
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--transition-default);
+}
+
+.arb-radar-axis-tooltip.visible {
+  opacity: 1;
+}
+
+
+/* --------------------------------------------------------------------------
+   ANIMATION — Data visualization
+   -------------------------------------------------------------------------- */
+
+/* Radar polygon draws from center outward */
+@keyframes arbRadarDraw {
+  from { clip-path: circle(0% at 50% 50%); }
+  to   { clip-path: circle(100% at 50% 50%); }
+}
+
+.arb-radar-animate {
+  animation: arbRadarDraw 600ms ease-out forwards;
+}
+
+/* Node pulse on seal */
+@keyframes arbNodeSeal {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.arb-node-seal {
+  animation: arbNodeSeal 300ms ease forwards;
+}
+
+/* Ghost outline appears */
+@keyframes arbGhostAppear {
+  from { opacity: 0; }
+  to   { opacity: 0.4; }
+}
+
+.arb-ghost-appear {
+  animation: arbGhostAppear 400ms ease forwards;
+}
+
+
+/* --------------------------------------------------------------------------
+   UTILITY CLASSES
+   -------------------------------------------------------------------------- */
+
+/* Text alignment */
+.arb-text-right { text-align: right; }
+.arb-text-center { text-align: center; }
+
+/* Flex helpers */
+.arb-flex         { display: flex; }
+.arb-flex-between { display: flex; align-items: center; justify-content: space-between; }
+.arb-flex-center  { display: flex; align-items: center; justify-content: center; }
+.arb-flex-gap-2   { gap: var(--spacing-2x); }
+.arb-flex-gap-3   { gap: var(--spacing-3x); }
+.arb-flex-gap-4   { gap: var(--spacing-4x); }
+
+/* Visibility */
+.arb-external-only { display: none; }
+.external-view .arb-external-only { display: block; }
+.external-view .arb-internal-only { display: none; }
+
+/* Zero em dashes — global enforcement */
+/* Use colons, slashes, or periods instead throughout all copy */

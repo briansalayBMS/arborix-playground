@@ -237,14 +237,14 @@ export function DepositionOverlay() {
                   disabled={!response.trim()}
                   className="min-h-[48px] w-full border-[0.5px] border-[var(--color-border)] bg-[rgba(0,113,227,0.06)] px-4 py-3 text-left font-code text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)] outline-none transition-colors hover:bg-[rgba(0,113,227,0.04)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)] disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  [ CONTINUE DEPOSITION ]
+                  [ CONTINUE ]
                 </button>
                 <button
                   type="button"
                   onClick={onFinishForNow}
                   className="min-h-[44px] w-full border-[0.5px] border-transparent bg-transparent px-4 py-2 text-left font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-primary)] outline-none hover:text-[var(--color-primary)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
                 >
-                  [ FINISH FOR NOW ]
+                  [ SAVE AND EXIT ]
                 </button>
               </div>
             </div>

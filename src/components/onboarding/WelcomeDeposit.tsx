@@ -89,7 +89,7 @@ export function WelcomeDeposit() {
     <section className="w-full">
       <header className="border-b-[0.5px] border-[var(--color-border)] pb-6">
         <h1 className="font-ui m-0 text-[32px] font-semibold leading-tight text-[var(--color-primary)]">
-          Mount Your Record
+          I'm Arbor, your professional coach. The more context you give me, the more useful I can be. Start with your LinkedIn and resume and what's actually on your mind.
         </h1>
         <p className="font-ui m-0 mt-3 text-[16px] font-normal leading-relaxed text-[var(--color-secondary)]">
           Upload your LinkedIn PDF or Resume to begin the forensic audit.
@@ -147,7 +147,7 @@ export function WelcomeDeposit() {
         >
           <div className="pointer-events-none relative z-0">
             <p className="font-code m-0 text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)]">
-              [ MOUNT PROFESSIONAL RECORD ]
+              [ ADD YOUR DOCUMENTS ]
             </p>
             <p className="font-ui m-0 mt-2 text-[14px] leading-relaxed text-[var(--color-secondary)]">
               Drop LinkedIn export PDF and resume PDF here, or click to add files. You can mount
@@ -205,7 +205,7 @@ export function WelcomeDeposit() {
             disabled={!canInitiate}
             className="cta-active disabled:cursor-not-allowed disabled:opacity-45"
           >
-            [ INITIATE FORENSIC AUDIT ]
+            [ START MY SESSION ]
           </button>
         </div>
       </div>

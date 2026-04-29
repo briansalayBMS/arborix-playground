@@ -37,7 +37,7 @@ export function DraftSovereignNarrative() {
           href={RESUME_HREF}
           className="mt-4 inline-block bg-[rgba(0,113,227,0.06)] px-4 py-2 font-code text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] outline-none ring-inset transition-colors hover:bg-[rgba(0,113,227,0.04)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
         >
-          [ CONTINUE DEPOSITION TO SEAL RECORD ]
+          [ CONTINUE TO SEAL RECORD ]
         </Link>
       </div>
     </section>

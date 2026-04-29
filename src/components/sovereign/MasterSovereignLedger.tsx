@@ -51,7 +51,7 @@ export function MasterSovereignLedger({ className }: MasterSovereignLedgerProps)
         <div className="overflow-hidden border-[0.5px] border-[var(--color-border)] bg-[var(--color-bg)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.6)]">
           <div className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b-[0.5px] border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 sm:px-5">
             <p className="label-card m-0 text-[var(--color-primary)]">
-              00 MASTER SOVEREIGN LEDGER
+              00 MASTER RECORD
             </p>
             <button
               type="button"

@@ -21,7 +21,7 @@ export function WorkHub() {
           Delivery and proof
         </h1>
         <p className="font-ui m-0 mt-2 max-w-2xl text-[14px] font-normal leading-relaxed text-[var(--color-secondary)]">
-          WORK: Execution graph, OKRs, and weekly load. Tie outcomes to the sovereign record so
+          WORK: Execution graph, OKRs, and weekly load. Tie outcomes to your profile so
           reviews stay evidence-first.
         </p>
       </header>

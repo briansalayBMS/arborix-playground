@@ -118,7 +118,7 @@ export function PersonalityHookOverlay() {
                 onClick={onMinimizeDeposition}
                 className="font-code text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-primary)] outline-none hover:text-[var(--color-secondary)] focus-visible:ring-1 focus-visible:ring-[var(--color-blue)]"
               >
-                [ MINIMIZE DEPOSITION ]
+                [ MINIMIZE ]
               </button>
             </div>
 
@@ -195,7 +195,7 @@ export function PersonalityHookOverlay() {
               {phase === "payoff" && verdict ? (
                 <div className="w-full max-w-3xl text-left">
                   <p className="font-ui m-0 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]">
-                    Archetype verdict
+                    Your profile type
                   </p>
                   <p className="font-ui m-0 mt-4 text-[20px] font-semibold leading-relaxed text-[var(--color-primary)]">
                     {verdict.verdictLine}

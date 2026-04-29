@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 
 const SYNTHESIS = {
   title: "Your Weekly Strategic Synthesis",
-  body:  "This week, I shifted the narrative from feature delivery to strategic alignment. Key wins include settling the Q3 Roadmap scope and hardening the Sovereign Architecture epic. I have framed these for your manager as Foundational Scalability rather than tactical closures.",
+  body:  "This week, I shifted the narrative from feature delivery to strategic alignment. Key wins include settling the Q3 Roadmap scope and hardening the architecture epic. I have framed these for your manager as Foundational Scalability rather than tactical closures.",
 };
 
 // ─── Observations ────────────────────────────────────────────────
