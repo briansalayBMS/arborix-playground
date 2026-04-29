@@ -681,6 +681,7 @@ body {
   line-height: 1.25;
   color: var(--color-primary);
   letter-spacing: 0;
+  max-width: 720px;
 }
 
 .statement-question {
@@ -707,6 +708,7 @@ body {
   font-weight: 300;
   line-height: 1.75;
   color: var(--color-primary);
+  max-width: 640px;
 }
 
 .label-card {

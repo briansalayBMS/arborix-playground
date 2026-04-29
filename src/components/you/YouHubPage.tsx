@@ -219,60 +219,40 @@ function RadarCard({
             <p className="text-description mt-2">{archetypeSubtitle}</p>
           </div>
 
-          {/* Axis bars — label | track | value; tooltips in external view only */}
-          <div className="space-y-4">
-            {AXES.map((axis, i) => {
+          {/* Axis bars — label | track | value */}
+          <div>
+            {AXES.map((axisName, i) => {
               const value = ADAPTIVE[i];
-              const isFlagged = i === gapIndex;
-              const def = AXIS_DEFINITIONS[axis];
-              const showTip = withTooltips && activeTooltip === axis;
+              const flagged = i === gapIndex;
               return (
-                <div
-                  key={axis}
-                  className="axis-row"
-                  style={{ position: "relative" }}
-                  onMouseEnter={withTooltips ? () => scheduleTooltip(axis) : undefined}
-                  onMouseLeave={withTooltips ? clearTooltip : undefined}
-                >
-                  <span
-                    className="axis-label"
-                    style={isFlagged ? { color: "var(--color-amber)" } : undefined}
-                  >
-                    {axis === "Conscientiousness" ? "Consc." : axis}
-                  </span>
-                  <div className="axis-track">
-                    <div
-                      className={cn("axis-fill", isFlagged && "axis-fill-flagged")}
-                      style={{ width: `${value * 100}%` }}
-                    />
+                <div key={axisName} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                  <span style={{
+                    fontSize: '13px',
+                    fontWeight: 400,
+                    letterSpacing: '0.05em',
+                    color: flagged ? 'var(--color-amber)' : 'var(--color-secondary)',
+                    width: '90px',
+                    flexShrink: 0,
+                  }}>{axisName}</span>
+                  <div style={{ flex: 1, height: '2px', background: 'var(--color-border)', borderRadius: '1px', position: 'relative' }}>
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      height: '2px',
+                      width: `${value * 100}%`,
+                      background: flagged ? 'var(--color-amber)' : 'var(--color-primary)',
+                      borderRadius: '1px',
+                    }} />
                   </div>
-                  {!withTooltips && (
-                    <span className="axis-value">{value.toFixed(2)}</span>
-                  )}
-
-                  {showTip && def ? (
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: "calc(100% + 6px)",
-                        left: 0,
-                        zIndex: 50,
-                        backgroundColor: "var(--color-card)",
-                        borderRadius: 8,
-                        boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-                        padding: "8px 12px",
-                        whiteSpace: "nowrap",
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <p className="m-0" style={{ fontFamily: "var(--font-sans)", fontSize: 12, fontWeight: 600, color: "var(--color-primary)", marginBottom: 2 }}>
-                        {def.label}
-                      </p>
-                      <p className="m-0" style={{ fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 400, color: "var(--color-secondary)" }}>
-                        {def.definition}
-                      </p>
-                    </div>
-                  ) : null}
+                  <span style={{
+                    fontSize: '13px',
+                    fontWeight: 400,
+                    color: flagged ? 'var(--color-amber)' : 'var(--color-secondary)',
+                    width: '32px',
+                    textAlign: 'right' as const,
+                    flexShrink: 0,
+                  }}>{value.toFixed(2)}</span>
                 </div>
               );
             })}
@@ -422,6 +402,7 @@ function HeaderBlock({
           lineHeight: 1.65,
           color: "var(--color-secondary)",
           marginBottom: "var(--spacing-6x)",
+          maxWidth: '640px',
         }}
       >
         {isExternal ? (

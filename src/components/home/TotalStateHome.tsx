@@ -91,12 +91,12 @@ export function TotalStateHome() {
 
       {/* ── Section 1: Verdict ───────────────────────────────── */}
       <section>
-        <p className="statement-hero m-0" style={{ marginBottom: "var(--spacing-3x)" }}>
+        <p className="statement-hero m-0" style={{ marginBottom: "var(--spacing-3x)", maxWidth: '720px' }}>
           {HEADLINE}
         </p>
         <p
           className="m-0"
-          style={{ fontFamily: "var(--font-sans)", fontSize: 18, fontWeight: 300, lineHeight: 1.65, color: "var(--color-secondary)" }}
+          style={{ fontFamily: "var(--font-sans)", fontSize: 18, fontWeight: 300, lineHeight: 1.65, color: "var(--color-secondary)", maxWidth: '640px' }}
         >
           {BODY}
         </p>
