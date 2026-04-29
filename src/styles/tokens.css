@@ -11,40 +11,17 @@
    -------------------------------------------------------------------------- */
 
 :root {
-  /* Core */
-  --color-primary:       #1D1D1F; /* All primary text, data numbers, strong axis bars */
-  --color-blue:          #0071E3; /* Live data, radar nodes, delta links, CTAs */
-  --color-amber:         #FF9F0A; /* Flagged axes, pattern labels, warning states */
-  --color-green:         #30D158; /* Verified status, active states, sealed deltas */
-  --color-red:           #FF3B30; /* VARIANCE node in Command Strip only */
-
-  /* Neutral scale */
-  --color-background:    #F5F5F3; /* Page / shell background */
-  --color-surface:       #FFFFFF; /* All card surfaces */
-  --color-secondary:     #86868B; /* Labels, descriptions, axis labels, metadata */
-  --color-tertiary:      #D2D2D7; /* Weak data, timestamps, inactive elements */
-  --color-border:        #E8E8E8; /* Footer separator, section dividers */
-  --color-track:         #F0F0F0; /* Axis bar backgrounds, inactive tracks */
-
-  /* Semantic */
-  --color-verified:      #30D158; /* Status dot glow, verified count highlight */
-  --color-flagged:       #FF9F0A; /* Pace axis, pattern flags, hold recommendations */
-  --color-weak:          #D2D2D7; /* Craft axis thin signal, toggled-off states */
-  --color-inferred:      #D2D2D7; /* Radar nodes before first session seals data */
-
-  /* Data viz gradient — shared by radar, ring charts, trend lines */
-  --gradient-data:       linear-gradient(90deg, #0071E3, #30D158);
-  --gradient-data-135:   linear-gradient(135deg, #0071E3, #30D158);
-  --gradient-flagged:    linear-gradient(90deg, #FFD60A, #FF9F0A);
-
-  /* Command Strip */
-  --color-strip-bg:      #1D1D1F;
-  --color-strip-text:    #FFFFFF;
-  --color-strip-muted:   rgba(255, 255, 255, 0.4);
-
-  /* Aliases */
-  --color-card:          #FFFFFF;
-  --color-bg:            #F5F5F3;
+  --color-primary:    #1D1D1F;
+  --color-blue:       #0071E3;
+  --color-amber:      #FF9F0A;
+  --color-green:      #30D158;
+  --color-background: #F5F5F3;
+  --color-surface:    #FFFFFF;
+  --color-secondary:  #86868B;
+  --color-border:     #D2D2D7;
+  --color-track:      #F0F0F0;
+  --color-card:       #FFFFFF;
+  --color-bg:         #F5F5F3;
 }
 
 
@@ -54,41 +31,29 @@
 
 :root {
   /* Font families */
-  --font-serif:    'Instrument Serif', Georgia, serif;   /* Arbor's voice — verdicts, numbers, inquiry */
-  --font-sans:     'Inter', system-ui, sans-serif;       /* Product voice — body, labels, nav */
-  --font-mono:     'Source Code Pro', 'Courier New', monospace; /* Machine voice — ledger, strip, status */
+  --font-serif:    'Instrument Serif', Georgia, serif;
+  --font-sans:     'Inter', system-ui, sans-serif;
+  --font-mono:     'Source Code Pro', 'Courier New', monospace;
 
-  /* Instrument Serif scale */
-  --text-hero:          40px;  /* Section headlines, archetype names */
-  --text-data-number:   42px;  /* Large data numbers */
-  --text-question:      24px;  /* Inquiry questions */
-  --text-title:         20px;  /* Pattern titles, card headlines */
-  --text-data-unit:     18px;  /* Data units */
-
-  /* Inter scale */
-  --text-body:          18px;  /* Body text, section descriptions */
-  --text-observation:   20px;  /* Arbor's read paragraph */
-  --text-gap:           16px;  /* What's missing descriptions */
-  --text-label:         14px;  /* Numbered section labels */
-  --text-greeting:      13px;  /* Page greeting, user name above tabs */
-  --text-description:   13px;  /* Descriptions */
-  --text-sm:            12px;  /* Radar axis labels, instrument readouts, buttons */
-  --text-card-label:    11px;  /* Card labels */
-  --text-xs:            11px;  /* Delta links, flag labels */
-
-  /* Source Code Pro */
-  --text-mono:          12px;  /* All Auditor data — minimum size, no exceptions */
+  /* Type scale */
+  --text-hero:       44px;
+  --text-question:   24px;
+  --text-title:      20px;
+  --text-body:       18px;
+  --text-secondary:  16px;
+  --text-small:      13px;
+  --text-mono:       13px;
 
   /* Line heights */
-  --leading-serif:  1.25;  /* All Instrument Serif — one rule, no exceptions */
-  --leading-body:   1.75;  /* Narrative body text */
-  --leading-label:  1.35;  /* Label/Card */
-  --leading-meta:   1.33;  /* Metadata, timestamps */
-  --leading-sm:     1.00;  /* inter-sm axis labels */
+  --leading-serif:  1.25;
+  --leading-body:   1.75;
+  --leading-label:  1.35;
+  --leading-meta:   1.33;
+  --leading-sm:     1.00;
 
   /* Letter spacing */
-  --tracking-label: 0.05em; /* Label/Card, inter-sm — uppercase styles only */
-  --tracking-mono:  0.03em; /* Command Strip, ledger data */
+  --tracking-label: 0.05em;
+  --tracking-mono:  0.03em;
   --tracking-none:  0;
 }
 

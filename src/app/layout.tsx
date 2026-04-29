@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Source_Code_Pro } from "next/font/google";
+import { Inter, Source_Code_Pro, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import "@/styles/tokens.css";
 import "@/styles/arborix-ds.css";
@@ -22,6 +22,12 @@ const sourceCodePro = Source_Code_Pro({
   display: "swap",
 });
 
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-serif",
+});
+
 export const metadata: Metadata = {
   title: "Arborix",
   description: "High-status career performance",
@@ -35,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sourceCodePro.variable}`}
+      className={`${inter.variable} ${sourceCodePro.variable} ${instrumentSerif.variable}`}
     >
       <body className="min-h-screen font-[family-name:var(--font-sans)]">
         <IngestLedgerProvider>

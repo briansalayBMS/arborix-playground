@@ -405,7 +405,7 @@ function HeaderBlock({
       {/* Headline — Instrument Serif 40px */}
       <p
         className="statement-hero m-0"
-        style={{ marginBottom: "var(--spacing-3x)" }}
+        style={{ marginBottom: "var(--spacing-3x)", maxWidth: '720px' }}
       >
         {isExternal
           ? "Brian Salay is a high-velocity design leader who translates complex technical strategy into verified commercial outcomes."
