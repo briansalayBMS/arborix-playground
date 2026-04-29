@@ -29,7 +29,7 @@ export const TOOLTIP_DEFINITIONS = {
 
 const monoStyle: React.CSSProperties = {
   fontFamily: "var(--font-code), ui-monospace, monospace",
-  fontSize: 12,
+  fontSize: 13,
   fontWeight: 500,
   letterSpacing: "0.1em",
   textTransform: "uppercase",
@@ -67,7 +67,7 @@ export function ResolutionCenter({
     >
       {/* Container header */}
       <div style={{ borderBottom: "1px solid var(--color-border)", padding: "var(--spacing-4x) var(--spacing-8x)" }}>
-        <p className="label-card m-0">CONFLICT RECONCILIATION</p>
+        <span className="arb-card-label">CONFLICT RECONCILIATION</span>
       </div>
 
       {/* Two-column body */}
@@ -77,7 +77,7 @@ export function ResolutionCenter({
         <div
           style={{
             width: "40%",
-            padding: "var(--spacing-8x)",
+            padding: "24px",
             background: highlightGaps ? "rgba(0,113,227,0.05)" : "transparent",
             transition: "background 0.3s ease",
           }}
@@ -90,7 +90,7 @@ export function ResolutionCenter({
               style={{
                 paddingBottom: i < FORENSIC_GAPS.length - 1 ? "var(--spacing-6x)" : 0,
                 marginBottom:  i < FORENSIC_GAPS.length - 1 ? "var(--spacing-6x)" : 0,
-                borderBottom:  i < FORENSIC_GAPS.length - 1 ? "1px dashed var(--color-border)" : "none",
+                borderBottom:  i < FORENSIC_GAPS.length - 1 ? "0.5px solid var(--color-border)" : "none",
               }}
             >
               <AuditTooltip definition={TOOLTIP_DEFINITIONS.auditRecord}>
@@ -115,7 +115,7 @@ export function ResolutionCenter({
               </AuditTooltip>
               <div>
                 <p className="arb-card-title m-0">{gap.title}</p>
-                <p className="arb-card-body m-0">{gap.body}</p>
+                <p className="arb-card-body m-0" style={{ lineHeight: '1.5', marginTop: '8px' }}>{gap.body}</p>
               </div>
             </div>
           ))}
@@ -128,45 +128,20 @@ export function ResolutionCenter({
         <div
           style={{
             flex: 1,
-            padding: "var(--spacing-8x)",
+            padding: "24px",
             display: "flex",
             flexDirection: "column",
             background: isAnyHovered ? "rgba(0,0,0,0.01)" : "transparent",
             transition: "background 0.2s ease",
           }}
         >
-          <p
-            className="m-0 mb-3 uppercase"
-            style={{ fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 400, letterSpacing: "0.05em", color: "var(--color-blue)" }}
-          >
+          <span className="arb-card-label" style={{ color: "var(--color-blue)", marginBottom: 12 }}>
             YOUR NEXT QUESTION
-          </p>
+          </span>
 
-          <div className="mb-5 flex flex-wrap gap-2">
-            {FORENSIC_GAPS.map((gap) => {
-              const isTargeted = hoveredGap === gap.ref;
-              return (
-                <AuditTooltip key={gap.ref} definition={TOOLTIP_DEFINITIONS.targeting} side="bottom">
-                  <span
-                    style={{
-                      ...monoStyle,
-                      fontSize: 12,
-                      color: isTargeted ? "var(--color-amber)" : "var(--color-secondary)",
-                      fontWeight: isTargeted ? 600 : 400,
-                      textShadow: isTargeted ? "0 0 10px rgba(255,159,10,0.5)" : "none",
-                      background: isTargeted ? "rgba(255,159,10,0.08)" : "transparent",
-                      borderRadius: 3,
-                      padding: isTargeted ? "2px 6px" : "2px 0",
-                      transition: "color 0.15s ease, text-shadow 0.15s ease, background 0.15s ease",
-                      display: "inline-block",
-                    }}
-                  >
-                    RESOLVING: CONFLICT {gap.ref}
-                  </span>
-                </AuditTooltip>
-              );
-            })}
-          </div>
+          <span className="source-code" style={{ color: "var(--color-secondary)", display: "block", marginBottom: "16px" }}>
+            RESOLVING: VAR-01 + VAR-02
+          </span>
 
           <p className="statement-question m-0" style={{ flex: 1 }}>{inquiryText}</p>
 

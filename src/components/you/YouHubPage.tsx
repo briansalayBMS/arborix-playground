@@ -205,7 +205,7 @@ function RadarCard({
 
   return (
     <div className="arb-card">
-      <p className="label-card mb-6">IDENTITY RADAR</p>
+      <span className="arb-card-label">IDENTITY RADAR</span>
       <div className="flex flex-col lg:flex-row lg:items-start" style={{ gap: "var(--spacing-16x)" }}>
         <div className="relative shrink-0" style={{ width: 280, height: 280 }}>
           <IdentityRadar auditPercent={auditPercent} showPanel={false} />
