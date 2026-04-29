@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { AuditTooltip } from "@/components/layout/GlobalHUD";
 
 // ─── Data ─────────────────────────────────────────────────────────
 
@@ -26,15 +25,6 @@ export const TOOLTIP_DEFINITIONS = {
   delta:
     "Variance Score. Measures the friction between your natural instincts and your current adaptive professional output. Lower is more sustainable.",
 } as const;
-
-const monoStyle: React.CSSProperties = {
-  fontFamily: "var(--font-code), ui-monospace, monospace",
-  fontSize: 13,
-  fontWeight: 500,
-  letterSpacing: "0.1em",
-  textTransform: "uppercase",
-  color: "var(--color-secondary)",
-};
 
 // ─── Component ───────────────────────────────────────────────────
 
@@ -62,61 +52,95 @@ export function ResolutionCenter({
     <div
       id="resolution-center"
       ref={inquiryRef}
-      className="arb-card"
-      style={{ padding: 0, overflow: "hidden" }}
+      style={{
+        background: "var(--color-surface)",
+        borderRadius: "20px",
+        overflow: "hidden",
+      }}
     >
-      {/* Container header */}
-      <div style={{ borderBottom: "1px solid var(--color-border)", padding: "var(--spacing-4x) var(--spacing-8x)" }}>
-        <span className="arb-card-label">CONFLICT RECONCILIATION</span>
+      {/* Card header */}
+      <div style={{
+        borderBottom: "0.5px solid var(--color-border)",
+        padding: "16px 32px",
+        display: "flex",
+        alignItems: "center",
+      }}>
+        <span style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: "13px",
+          fontWeight: 400,
+          letterSpacing: "0.05em",
+          textTransform: "uppercase" as const,
+          color: "var(--color-secondary)",
+        }}>
+          Conflict Reconciliation
+        </span>
       </div>
 
       {/* Two-column body */}
-      <div style={{ display: "flex", alignItems: "stretch", gap: 32 }}>
+      <div style={{ display: "flex", alignItems: "stretch" }}>
 
-        {/* Left pane — 40% — Dossier clips */}
-        <div
-          style={{
-            width: "40%",
-            padding: "24px",
-            background: highlightGaps ? "rgba(0,113,227,0.05)" : "transparent",
-            transition: "background 0.3s ease",
-          }}
-        >
+        {/* Left pane */}
+        <div style={{
+          width: "40%",
+          padding: "32px",
+          background: highlightGaps ? "rgba(0,113,227,0.03)" : "transparent",
+          transition: "background 0.3s ease",
+        }}>
           {FORENSIC_GAPS.map((gap, i) => (
             <div
               key={gap.ref}
               onMouseEnter={() => setHoveredGap(gap.ref)}
               onMouseLeave={() => setHoveredGap(null)}
               style={{
-                paddingBottom: i < FORENSIC_GAPS.length - 1 ? "var(--spacing-6x)" : 0,
-                marginBottom:  i < FORENSIC_GAPS.length - 1 ? "var(--spacing-6x)" : 0,
-                borderBottom:  i < FORENSIC_GAPS.length - 1 ? "0.5px solid var(--color-border)" : "none",
+                paddingBottom: i < FORENSIC_GAPS.length - 1 ? "24px" : 0,
+                marginBottom: i < FORENSIC_GAPS.length - 1 ? "24px" : 0,
+                borderBottom: i < FORENSIC_GAPS.length - 1 ? "0.5px solid var(--color-border)" : "none",
               }}
             >
-              <AuditTooltip definition={TOOLTIP_DEFINITIONS.auditRecord}>
-                <button
-                  type="button"
-                  onClick={() => handleGapClick(gap.ref)}
-                  className="m-0 mb-3 border-0 bg-transparent p-0 text-left"
-                  style={{
-                    ...monoStyle,
-                    color: "var(--color-amber)",
-                    fontSize: 12,
-                    cursor: "pointer",
-                    textDecoration: "underline",
-                    textDecorationColor: "rgba(255,159,10,0.35)",
-                    textDecorationStyle: "dotted",
-                    textUnderlineOffset: 2,
+              {i === 0 && (
+                <>
+                  <span style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "13px",
+                    fontWeight: 400,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase" as const,
+                    color: "var(--color-secondary)",
                     display: "block",
-                  }}
-                >
-                  [ OPEN CONFLICT // REF: {gap.ref} ]
-                </button>
-              </AuditTooltip>
-              <div>
-                <p className="arb-card-title m-0">{gap.title}</p>
-                <p className="arb-card-body m-0" style={{ lineHeight: '1.5', marginTop: '8px' }}>{gap.body}</p>
-              </div>
+                    marginBottom: "12px",
+                  }}>Open Conflicts</span>
+                  <span style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "13px",
+                    color: "var(--color-amber)",
+                    display: "block",
+                    marginBottom: "16px",
+                  }}>VAR-01 · VAR-02</span>
+                </>
+              )}
+
+              <p style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "20px",
+                fontWeight: 400,
+                lineHeight: 1.3,
+                color: "var(--color-primary)",
+                margin: "0 0 10px 0",
+              }}>
+                {gap.title}
+              </p>
+
+              <p style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "16px",
+                fontWeight: 300,
+                lineHeight: 1.6,
+                color: "var(--color-primary)",
+                margin: 0,
+              }}>
+                {gap.body}
+              </p>
             </div>
           ))}
         </div>
@@ -124,41 +148,101 @@ export function ResolutionCenter({
         {/* Column divider */}
         <div style={{ width: "0.5px", flexShrink: 0, background: "var(--color-border)" }} />
 
-        {/* Right pane — 60% — Your Next Question */}
-        <div
-          style={{
+        {/* Right pane */}
+        <div style={{
+          flex: 1,
+          padding: "32px",
+          display: "flex",
+          flexDirection: "column",
+          background: isAnyHovered ? "rgba(0,0,0,0.01)" : "transparent",
+          transition: "background 0.2s ease",
+        }}>
+
+          <span style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "13px",
+            fontWeight: 400,
+            letterSpacing: "0.05em",
+            textTransform: "uppercase" as const,
+            color: "var(--color-blue)",
+            display: "block",
+            marginBottom: "12px",
+          }}>
+            Your Next Question
+          </span>
+
+          <span style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "13px",
+            fontWeight: 400,
+            letterSpacing: "0.04em",
+            textTransform: "uppercase" as const,
+            color: "var(--color-secondary)",
+            display: "block",
+            marginBottom: "20px",
+          }}>
+            Resolving: VAR-01 + VAR-02
+          </span>
+
+          <p style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "24px",
+            fontWeight: 400,
+            lineHeight: 1.25,
+            color: "var(--color-primary)",
+            margin: "0 0 auto 0",
             flex: 1,
-            padding: "24px",
+          }}>
+            {inquiryText}
+          </p>
+
+          <div style={{
             display: "flex",
-            flexDirection: "column",
-            background: isAnyHovered ? "rgba(0,0,0,0.01)" : "transparent",
-            transition: "background 0.2s ease",
-          }}
-        >
-          <span className="arb-card-label" style={{ color: "var(--color-blue)", marginBottom: 12 }}>
-            YOUR NEXT QUESTION
-          </span>
-
-          <span className="source-code" style={{ color: "var(--color-secondary)", display: "block", marginBottom: "16px" }}>
-            RESOLVING: VAR-01 + VAR-02
-          </span>
-
-          <p className="statement-question m-0" style={{ flex: 1 }}>{inquiryText}</p>
-
-          <div className="mt-6 flex items-center justify-between">
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginTop: "32px",
+          }}>
             <button
               type="button"
               onClick={() => onOpenDeposition(inquiryText)}
-              className="text-delta cursor-pointer border-0 bg-transparent p-0"
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "16px",
+                fontWeight: 400,
+                color: "var(--color-blue)",
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+              }}
             >
               Respond to this ›
             </button>
-            <span className="text-timestamp">~3 min</span>
+            <span style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "13px",
+              fontWeight: 300,
+              color: "var(--color-secondary)",
+            }}>
+              ~3 min
+            </span>
           </div>
 
-          <div style={{ marginTop: "var(--spacing-5x)", borderTop: "1px solid var(--color-border)", paddingTop: "var(--spacing-4x)" }}>
-            <p className="m-0" style={{ ...monoStyle, color: "var(--color-blue)", fontSize: 12 }}>
-              [ +15% RECORD RESOLUTION ON COMPLETION ]
+          <div style={{
+            marginTop: "20px",
+            borderTop: "0.5px solid var(--color-border)",
+            paddingTop: "16px",
+          }}>
+            <p style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "13px",
+              fontWeight: 400,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase" as const,
+              color: "var(--color-blue)",
+              margin: 0,
+            }}>
+              [ +15% Record Resolution on Completion ]
             </p>
           </div>
         </div>

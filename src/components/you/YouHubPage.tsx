@@ -204,8 +204,18 @@ function RadarCard({
   useEffect(() => () => { if (tooltipTimer.current) clearTimeout(tooltipTimer.current); }, []);
 
   return (
-    <div className="arb-card">
-      <span className="arb-card-label">IDENTITY RADAR</span>
+    <div style={{ background: "var(--color-surface)", borderRadius: "20px", overflow: "hidden" }}>
+      <div style={{ borderBottom: "0.5px solid var(--color-border)", padding: "16px 32px", display: "flex", alignItems: "center" }}>
+        <span style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: "13px",
+          fontWeight: 400,
+          letterSpacing: "0.05em",
+          textTransform: "uppercase",
+          color: "var(--color-secondary)",
+        }}>Identity Radar</span>
+      </div>
+      <div style={{ padding: "32px" }}>
       <div className="flex flex-col lg:flex-row lg:items-start" style={{ gap: "var(--spacing-16x)" }}>
         <div className="relative shrink-0" style={{ width: 280, height: 280 }}>
           <IdentityRadar auditPercent={auditPercent} showPanel={false} />
@@ -258,6 +268,7 @@ function RadarCard({
             })}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
