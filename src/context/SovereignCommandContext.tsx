@@ -46,6 +46,10 @@ export type SovereignCommandState = {
   depositionSession: DepositionSession | null;
   /** Short snippet of the last committed answer (summary card). */
   latestDepositionPreview: string;
+  /** Onboarding response from API */
+  onboardingData: unknown | null;
+  /** One-pager data from API */
+  onePagerData: unknown | null;
 };
 
 const DEFAULTS: SovereignCommandState = {
@@ -59,6 +63,8 @@ const DEFAULTS: SovereignCommandState = {
   archetypeVerdict: null,
   depositionSession: null,
   latestDepositionPreview: "",
+  onboardingData: null,
+  onePagerData: null,
 };
 
 function loadState(): SovereignCommandState {
@@ -106,6 +112,8 @@ function loadState(): SovereignCommandState {
         "string"
           ? String((parsed as { latestDepositionPreview: string }).latestDepositionPreview)
           : DEFAULTS.latestDepositionPreview,
+      onboardingData: (parsed as { onboardingData?: unknown }).onboardingData ?? DEFAULTS.onboardingData,
+      onePagerData: (parsed as { onePagerData?: unknown }).onePagerData ?? DEFAULTS.onePagerData,
     };
   } catch {
     return DEFAULTS;
@@ -140,6 +148,8 @@ type SovereignCommandContextValue = SovereignCommandState & {
     pendingEvidence: boolean;
     sourceLabel: string | null;
   }) => void;
+  setOnboardingData: (data: unknown) => void;
+  setOnePagerData: (data: unknown) => void;
 };
 
 type DepositionContinueResult = {
@@ -315,6 +325,14 @@ export function SovereignCommandProvider({ children }: { children: ReactNode }) 
     setState((s) => ({ ...s, personalityPhase2Complete: true }));
   }, []);
 
+  const setOnboardingData = useCallback((data: unknown) => {
+    setState((s) => ({ ...s, onboardingData: data }));
+  }, []);
+
+  const setOnePagerData = useCallback((data: unknown) => {
+    setState((s) => ({ ...s, onePagerData: data }));
+  }, []);
+
   const value = useMemo<SovereignCommandContextValue>(
     () => ({
       ...state,
@@ -331,6 +349,8 @@ export function SovereignCommandProvider({ children }: { children: ReactNode }) 
       openDeposition,
       closeDeposition,
       continueDeposition,
+      setOnboardingData,
+      setOnePagerData,
     }),
     [
       state,
@@ -347,6 +367,8 @@ export function SovereignCommandProvider({ children }: { children: ReactNode }) 
       openDeposition,
       closeDeposition,
       continueDeposition,
+      setOnboardingData,
+      setOnePagerData,
     ],
   );
 

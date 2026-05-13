@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDemoFirstTime } from "@/context/DemoFirstTimeContext";
+import { useSovereignCommand } from "@/context/SovereignCommandContext";
 import { IdentityRadar } from "@/components/you/IdentityRadar";
 import { ImpactLedgerCard } from "@/components/home/ImpactLedgerCard";
 import { ManagerUpdateModal } from "@/components/home/ManagerUpdateModal";
@@ -73,8 +74,22 @@ const mono: React.CSSProperties = {
 
 export function TotalStateHome() {
   const { effectiveAuditCalibrationPercent } = useDemoFirstTime();
+  const { onePagerData } = useSovereignCommand();
   const [previewOpen, setPreviewOpen] = useState(false);
   const router = useRouter();
+
+  const content = (onePagerData as { performance_content?: unknown })?.performance_content as {
+    headline?: string;
+    pitch?: string;
+    summary?: string;
+    market_position?: string;
+  } | undefined;
+
+  const headline = content?.headline || HEADLINE;
+  const body = content?.pitch || content?.summary || BODY;
+  const attribution = onePagerData && typeof onePagerData === 'object' && 'completeness_pct' in onePagerData
+    ? `Generated from resume · ${Math.round((onePagerData.completeness_pct as number) || 0)}% complete`
+    : "Hardcoded for demo";
 
   function openDirective(text: string) {
     document.dispatchEvent(
@@ -92,13 +107,19 @@ export function TotalStateHome() {
       {/* ── Section 1: Verdict ───────────────────────────────── */}
       <section>
         <p className="statement-hero m-0" style={{ marginBottom: "var(--spacing-3x)", maxWidth: '720px' }}>
-          {HEADLINE}
+          {headline}
         </p>
         <p
           className="m-0"
           style={{ fontFamily: "var(--font-sans)", fontSize: 18, fontWeight: 300, lineHeight: 1.65, color: "var(--color-secondary)", maxWidth: '640px' }}
         >
-          {BODY}
+          {body}
+        </p>
+        <p
+          className="m-0"
+          style={{ fontFamily: "var(--font-code)", fontSize: 12, fontWeight: 400, color: "var(--color-secondary)", marginTop: "var(--spacing-4x)" }}
+        >
+          {attribution}
         </p>
       </section>
 

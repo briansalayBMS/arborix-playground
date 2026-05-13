@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useId, useState } from "react";
 import { cn } from "@/lib/cn";
+import { uploadResume, getOnePager } from "@/lib/api/client";
+import { useSovereignCommand } from "@/context/SovereignCommandContext";
 
 type MountedArtifact = {
   id: string;
@@ -41,14 +43,20 @@ function addPdfArtifacts(
 
 export function WelcomeDeposit() {
   const router = useRouter();
+  const { setOnboardingData, setOnePagerData } = useSovereignCommand();
   const fileInputId = useId();
   const nameId = useId();
   const emailId = useId();
+  const stressorId = useId();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [stressor, setStressor] = useState("");
   const [artifacts, setArtifacts] = useState<MountedArtifact[]>([]);
   const [dragOver, setDragOver] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const emailValid = /\S+@\S+\.\S+/.test(email.trim());
   const canInitiate =
@@ -56,7 +64,11 @@ export function WelcomeDeposit() {
 
   const ingestFiles = useCallback((fileList: FileList | null) => {
     if (!fileList?.length) return;
-    setArtifacts((prev) => addPdfArtifacts(prev, Array.from(fileList)));
+    const files = Array.from(fileList);
+    setArtifacts((prev) => addPdfArtifacts(prev, files));
+    if (files.length > 0) {
+      setSelectedFile(files[0]);
+    }
   }, []);
 
   const onDrop = useCallback(
@@ -80,16 +92,30 @@ export function WelcomeDeposit() {
     }
   }, []);
 
-  const onIngest = useCallback(() => {
-    if (!canInitiate) return;
-    router.push("/you");
-  }, [canInitiate, router]);
+  const onIngest = useCallback(async () => {
+    if (!canInitiate || !selectedFile) return;
+    setError("");
+    setLoading(true);
+    try {
+      const response = await uploadResume(selectedFile, undefined, stressor);
+      setOnboardingData(response);
+      const onePagerResponse = await getOnePager();
+      setOnePagerData(onePagerResponse);
+      router.push("/home");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to upload resume";
+      setError(message);
+      setLoading(false);
+    }
+  }, [canInitiate, selectedFile, stressor, router, setOnboardingData, setOnePagerData]);
 
   return (
     <section className="w-full">
       <header className="border-b-[0.5px] border-[var(--color-border)] pb-6">
         <h1 className="font-ui m-0 text-[32px] font-semibold leading-tight text-[var(--color-primary)]">
-          I'm Arbor, your professional coach. The more context you give me, the more useful I can be. Start with your LinkedIn and resume and what's actually on your mind.
+          {selectedFile
+            ? "Your resume is in. What's actually on your mind right now?"
+            : "I'm Arbor, your professional coach. The more context you give me, the more useful I can be. Start with your LinkedIn and resume and what's actually on your mind."}
         </h1>
         <p className="font-ui m-0 mt-3 text-[16px] font-normal leading-relaxed text-[var(--color-secondary)]">
           Upload your LinkedIn PDF or Resume to begin the forensic audit.
@@ -134,6 +160,23 @@ export function WelcomeDeposit() {
               className="h-10 rounded-none border-[0.5px] border-[var(--color-secondary)] bg-white px-3 font-code text-[14px] text-[var(--color-primary)] outline-none placeholder:text-[var(--color-secondary)]/45 focus:border-[var(--color-blue)]/60"
             />
           </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor={stressorId}
+            className="font-ui text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]"
+          >
+            WHAT'S ACTUALLY ON YOUR MIND?
+          </label>
+          <textarea
+            id={stressorId}
+            value={stressor}
+            onChange={(e) => setStressor(e.target.value)}
+            placeholder="Share what's pressing you right now..."
+            rows={4}
+            className="rounded-none border-[0.5px] border-[var(--color-secondary)] bg-white px-3 py-2 font-code text-[14px] text-[var(--color-primary)] outline-none placeholder:text-[var(--color-secondary)]/45 focus:border-[var(--color-blue)]/60"
+          />
         </div>
 
         <div
@@ -202,11 +245,14 @@ export function WelcomeDeposit() {
           <button
             type="button"
             onClick={onIngest}
-            disabled={!canInitiate}
+            disabled={!canInitiate || loading}
             className="cta-active disabled:cursor-not-allowed disabled:opacity-45"
           >
-            [ START MY SESSION ]
+            {loading ? "[ BUILDING YOUR PROFILE... ]" : "[ START MY SESSION ]"}
           </button>
+          {error && (
+            <p className="mt-3 text-[14px] text-[var(--color-conflict)]">{error}</p>
+          )}
         </div>
       </div>
     </section>

@@ -33,6 +33,10 @@ export const metadata: Metadata = {
   description: "High-status career performance",
 };
 
+if (typeof process !== 'undefined') {
+  console.log('[Arborix] NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL || 'not set (will default to http://localhost:8000)')
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
