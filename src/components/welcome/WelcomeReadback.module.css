@@ -1,0 +1,79 @@
+.message {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--color-text-primary);
+  text-align: left;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.textarea {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-control);
+  padding: var(--space-3) var(--space-4);
+  min-height: 6rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--duration-quick) var(--ease-standard);
+}
+
+.textarea:focus {
+  border-color: var(--color-action-default);
+}
+
+.textarea::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submitButton {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 500;
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--color-action-default);
+  color: var(--color-action-text);
+  cursor: pointer;
+  transition: background var(--duration-quick) var(--ease-standard);
+}
+
+.submitButton:hover {
+  background: var(--color-action-hover);
+}
+
+.footerLink {
+  margin-top: var(--space-8);
+  text-align: center;
+}
+
+.footerLink a {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--duration-quick) var(--ease-standard);
+}
+
+.footerLink a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-action-default);
+}

@@ -3,7 +3,6 @@ import { Public_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import "@/styles/tokens.css";
 import "@/styles/arborix-ds.css";
-import { AppShell } from "@/components/layout/AppShell";
 import { DepositionOverlay } from "@/components/deposition/DepositionOverlay";
 import { PersonalityHookOverlay } from "@/components/personality/PersonalityHookOverlay";
 import { IngestLedgerProvider } from "@/components/providers/IngestLedgerProvider";
@@ -54,7 +53,7 @@ export default function RootLayout({
             <DemoFirstTimeProvider>
               <PersonalityHookOverlay />
               <DepositionOverlay />
-              <AppShell>{children}</AppShell>
+              {children}
             </DemoFirstTimeProvider>
           </SovereignCommandProvider>
         </IngestLedgerProvider>

@@ -1,0 +1,18 @@
+.message {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--color-text-primary);
+  text-align: center;
+  margin: 0;
+}
+
+.footer {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  margin: 0;
+}
