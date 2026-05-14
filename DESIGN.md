@@ -268,6 +268,62 @@ Skip corporate buzzwords and AI-product jargon (synergy, leverage, unlock, super
 
 Read it aloud. If it sounds like a person talking, ship it. If it sounds like a deck, rewrite.
 
+## Coaching Principles
+
+These principles govern how Arbor behaves, not how Arbor looks. They sit underneath every surface and every interaction. The design system serves them; it does not override them.
+
+### Mode as frame, not setting
+
+Arbor coaches the user toward their outcomes. Arbor also presents the user to audiences outside the relationship. The first is performance. The second is the pitch. Both read from the same record. Both are coaching.
+
+The user does not toggle signals on or off. The user tells Arbor what they are targeting — a kind of work, a kind of role, a specific company, a longer arc — and Arbor curates the presentation. The targeting is the input. The curation is Arbor's job.
+
+One exception. The user can mark specific evidence as excluded from external pitches. This is a binary opt-out at the row level, not a tuning slider. A user who left a role badly and never wants it in a pitch should be able to say so once and trust that it stays said. The exclusion lives in the record, not in the conversation.
+
+### Every insight shows its evidence
+
+Arbor never presents synthesis without traceable attribution. Every substantive claim Arbor makes about the user is anchored to one or more rows in the ledger. The user can always ask *how do you know that* and get a real answer.
+
+This runs in two directions.
+
+Backward: an insight points to the evidence that produced it. Click on a sentence and the underlying rows are one tap away. *I think your strength is coalition-building* is one click from the four rows in the YOU ledger that support it.
+
+Forward: an action points to the outcome it improves. *Working on this will sharpen your influence signal, which is the signal that opens director-level conversations.* The action points to the signal it strengthens, and the signal points to the outcome it serves.
+
+Attribution also includes what Arbor is not using. The user can see what Arbor leaned into and what Arbor set aside. *I'm not leading with the HackerRank role because the work you've done since is more directly relevant. Here is what I'm leading with instead.* Choices are visible, not hidden.
+
+If Arbor cannot attribute, Arbor does not say it. Generic coaching language with no ledger root is not in the vocabulary.
+
+### Every action has a visible outcome
+
+Every input the user gives — an upload, an answer, a validation, an edit, an exclusion — produces a visible change in the same moment. The trust loop must close.
+
+The shape of the response is three parts.
+
+*Acknowledgment.* Arbor saw what you did. Often a quiet mono line: *Resume added. Claim validated. File excluded from pitches.* Immediate.
+
+*Recognition.* Arbor has a point of view on what you did. A Fraunces italic line, longer than the acknowledgment. *Reading. The leadership rows just got sharper.* This is where the user feels the difference between Arborix and a database.
+
+*Change.* Something on the surface is different. A signal ticked up. A new row appeared. The synthesized view updated. The user can see that their action mattered without taking Arbor's word for it.
+
+When the impact cannot show in the current surface — synthesis regenerations take time; validation cascades into completeness recalculations — Arbor names the impact and links to where it will land. *I added six rows to your record. Your one-pager will resynthesize overnight; you will see the updated version tomorrow at this link.* The user trusts the system because Arbor told them what to expect and where to look.
+
+The discipline behind this principle is engineering as much as design. Every input flow must be wired to a visible record-side change, or to a specific promise about where the change will appear and when.
+
+### Chat is the way in
+
+The primary way material enters the record is through the chat with Arbor. Files and text are the same kind of input: a resume, a meeting transcript, a draft email, a paragraph about what happened at work this week. All of it is material Arbor reads.
+
+The chat field accepts drag-and-drop and click-to-attach for files. It also accepts typed text. A persistent affordance — a quiet paperclip and hint line at the bottom of the chat — reminds the user that this is how it works. *Drop or type anything here. Arbor will read it.*
+
+When the user adds material, they can choose what they want from Arbor. *Drop-off* means Arbor reads and absorbs without responding beyond the acknowledgment. The record grows; the conversation does not start. *Hand-off* means Arbor reads and shares a real point of view, asking if the user wants to go deeper. Both produce the same change in the record. Only the response register differs. The default is hand-off. A per-upload override is always present. Users with a strong preference can set a default in settings.
+
+When the user drops a file, a small optional context field appears next to it: *what is this?* The user can type a phrase or skip. If they skip and Arbor can tell what the material is from the content, Arbor proceeds. If Arbor cannot tell, Arbor asks during the response. The structure lives in the drop interaction. The conversation stays for conversation.
+
+The chat is the upload interface. What the user shares, Arbor reads.
+
+Voice input is on the roadmap. Until then, text and files carry the load.
+
 ## Composition Rule
 
 Composition flows one direction. Always.
