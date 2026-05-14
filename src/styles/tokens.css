@@ -1,204 +1,214 @@
-/* ==========================================================================
-   ARBORIX DESIGN TOKENS
-   Version 1.1 · April 2026
-   Source of truth: arborix-design-system.md + arborix-grid-system.md
-   ========================================================================== */
-
-
-/* --------------------------------------------------------------------------
-   COLORS — Primary palette
-   Three colors only. Color appears only where data is alive.
-   -------------------------------------------------------------------------- */
-
+/* ============================================================
+   TIER 1 — PRIMITIVES
+   Raw values. The atomic alphabet of the system.
+   Components and surfaces never reference this tier directly.
+   ============================================================ */
 :root {
-  --color-primary:    #1D1D1F;
-  --color-blue:       #0071E3;
-  --color-amber:      #FF9F0A;
-  --color-green:      #30D158;
-  --color-red:        #EF4444;
-  --color-conflict:   #EF4444;
-  --color-background: #F5F5F3;
-  --color-surface:    #FFFFFF;
-  --color-secondary:  #86868B;
-  --color-border:     #D2D2D7;
-  --color-track:      #F0F0F0;
-  --color-card:       #FFFFFF;
-  --color-bg:         #F5F5F3;
-}
+  /* Color — Ink scale (cool buff) */
+  --ink-0:   #ffffff;
+  --ink-50:  #f2efe6;
+  --ink-100: #e6e2d5;
+  --ink-200: #d2ccba;
+  --ink-300: #b0a896;
+  --ink-400: #857d6c;
+  --ink-500: #5e5749;
+  --ink-600: #423d33;
+  --ink-700: #2b2823;
+  --ink-800: #181613;
+  --ink-900: #0a0908;
 
+  /* Color — Sienna (default brand) */
+  --sienna-100: #f4e5d9;
+  --sienna-200: #e5c4a7;
+  --sienna-300: #d19a6e;
+  --sienna-500: #b05030;
+  --sienna-700: #843620;
+  --sienna-800: #5e2516;
+  --sienna-900: #3a150a;
 
-/* --------------------------------------------------------------------------
-   TYPOGRAPHY — Three voices, no overlap
-   -------------------------------------------------------------------------- */
+  /* Color — Tide (brand option) */
+  --tide-100: #e3eced;
+  --tide-200: #c1d3d6;
+  --tide-300: #95b3b8;
+  --tide-500: #4d7c83;
+  --tide-700: #234b52;
+  --tide-800: #173238;
+  --tide-900: #0c1f23;
 
-:root {
-  /* Font families */
-  --font-serif:    'Instrument Serif', Georgia, serif;
-  --font-sans:     'Inter', system-ui, sans-serif;
-  --font-mono:     'Source Code Pro', 'Courier New', monospace;
+  /* Color — Forest (brand option) */
+  --forest-100: #e0e8dc;
+  --forest-200: #bdcdb3;
+  --forest-300: #8da681;
+  --forest-500: #547548;
+  --forest-700: #2e4a25;
+  --forest-800: #1c3014;
+  --forest-900: #0d1c08;
 
-  /* Type scale */
-  --text-hero:       44px;
-  --text-question:   24px;
-  --text-title:      20px;
-  --text-body:       18px;
-  --text-secondary:  16px;
-  --text-small:      13px;
-  --text-mono:       13px;
+  /* Spacing — base-4 scale */
+  --space-0:  0;
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
 
-  /* Line heights */
-  --leading-serif:  1.25;
-  --leading-body:   1.75;
-  --leading-label:  1.35;
-  --leading-meta:   1.33;
-  --leading-sm:     1.00;
+  /* Typography — Families */
+  --font-sans:  "Public Sans", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, monospace;
 
-  /* Letter spacing */
-  --tracking-label: 0.05em;
-  --tracking-mono:  0.03em;
-  --tracking-none:  0;
-}
+  /* Typography — Sizes */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.375rem;
+  --text-2xl:  1.75rem;
+  --text-3xl:  2.25rem;
+  --text-4xl:  3rem;
+  --text-5xl:  4.5rem;
 
+  /* Typography — Weights */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
 
-/* --------------------------------------------------------------------------
-   SPACING — 4px baseline grid
-   All spacing values are multiples of 4px.
-   Font sizes and line-heights are exempt.
-   Border widths (1px, 2px) are exempt.
-   -------------------------------------------------------------------------- */
+  /* Typography — Line heights */
+  --leading-tight:  1.15;
+  --leading-snug:   1.35;
+  --leading-normal: 1.55;
 
-:root {
-  /* Micro scale — inside components only */
-  --spacing-1x:   4px;   /* Micro gaps: indicator dot margins, tab group internal gaps */
-  --spacing-2x:   8px;   /* Tight grouping: label to input, icon to text, pill padding */
-  --spacing-3x:   12px;  /* Component internal gaps */
+  /* Radius */
+  --radius-none: 0;
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.875rem;
+  --radius-full: 999px;
 
-  /* Macro scale — between components and sections */
-  /* DO NOT compress these values. */
-  --spacing-4x:   16px;  /* Card grid gaps */
-  --spacing-5x:   20px;  /* Section label to content */
-  --spacing-6x:   24px;  /* Card internal spacing between related elements */
-  --spacing-8x:   32px;  /* Label to data number, content group gaps */
-  --spacing-10x:  40px;  /* Card internal padding — standard */
-  --spacing-12x:  48px;  /* Card internal padding — large (narrative, inquiry) */
-  --spacing-16x:  64px;  /* Between major sections on a page */
+  /* Border */
+  --border-thin:   1px;
+  --border-medium: 2px;
 
-  /* Card internal spacing — named for context */
-  --card-padding:           var(--spacing-10x); /* 40px standard */
-  --card-padding-large:     var(--spacing-12x); /* 48px narrative, inquiry */
-  --card-gap:               var(--spacing-4x);  /* 16px between cards in a grid */
-  --section-gap:            var(--spacing-16x); /* 64px between major sections */
-  --label-to-content:       var(--spacing-5x);  /* 20px section label to content */
-  --label-to-number:        var(--spacing-8x);  /* 32px label to data number */
-  --number-to-description:  var(--spacing-6x);  /* 24px number to description */
-  --description-to-delta:   var(--spacing-5x);  /* 20px description to delta */
-  --inquiry-label-to-q:     var(--spacing-5x);  /* 20px inquiry label to question */
-  --inquiry-q-to-cta:       var(--spacing-8x);  /* 32px question to CTA */
-  --narrative-label-to-body:var(--spacing-8x);  /* 32px narrative label to body */
-}
+  /* Elevation — Shadows */
+  --shadow-sm: 0 1px 2px rgba(14, 13, 11, 0.04);
+  --shadow-md: 0 4px 16px rgba(14, 13, 11, 0.06), 0 1px 2px rgba(14, 13, 11, 0.04);
+  --shadow-lg: 0 12px 40px rgba(14, 13, 11, 0.08), 0 2px 6px rgba(14, 13, 11, 0.04);
 
+  /* Motion — Duration */
+  --duration-quick: 80ms;
+  --duration-base:  180ms;
 
-/* --------------------------------------------------------------------------
-   GRID — 12-column system
-   Base: 1440px. Nav: 200px fixed. Content area: 1240px.
-   Column: 76px. Gutter: 24px. Margin: 32px.
-   -------------------------------------------------------------------------- */
+  /* Motion — Easing */
+  --ease-standard: cubic-bezier(0.3, 0, 0.2, 1);
 
-:root {
-  --grid-columns:       12;
-  --grid-gutter:        24px;
-  --grid-margin:        32px;
-  --grid-column-width:  76px;  /* (1176px - 11 × 24px) ÷ 12 */
-  --grid-max-width:     1440px;
-  --nav-width:          200px;
-  --nav-width-collapsed: 48px; /* Icon-only below 1280px */
-  --nav-gutter:         0px;
-  --main-with-nav-ml:   var(--nav-width);
+  /* ============================================================
+     TIER 2 — SEMANTIC (Brand)
+     Active brand is Sienna. Swappable at this layer.
+     ============================================================ */
 
-  /* Functional card widths — pre-calculated */
-  /* Formula: (cols × 76px) + ((cols − 1) × 24px) */
-  --card-4col:   376px;  /* (4 × 76) + (3 × 24) */
-  --card-6col:   576px;  /* (6 × 76) + (5 × 24) */
-  --card-8col:   776px;  /* (8 × 76) + (7 × 24) */
-  --card-12col:  1176px; /* (12 × 76) + (11 × 24) */
-}
+  --brand-100: var(--sienna-100);
+  --brand-300: var(--sienna-300);
+  --brand-500: var(--sienna-500);
+  --brand-700: var(--sienna-700);
+  --brand-800: var(--sienna-800);
 
+  /* ============================================================
+     TIER 2 — SEMANTIC (Color)
+     Surfaces, text, borders, action, accent
+     ============================================================ */
 
-/* --------------------------------------------------------------------------
-   COMPONENT HEIGHTS — Interactive elements only
-   Cards: height is determined by content + padding, never fixed.
-   -------------------------------------------------------------------------- */
+  /* Surface */
+  --color-surface-default: var(--ink-50);
+  --color-surface-raised:  var(--ink-0);
+  --color-surface-sunken:  var(--ink-100);
 
-:root {
-  --height-sm:      32px;  /* Pills, status badges, tight secondary actions */
-  --height-md:      36px;  /* Buttons — primary and ghost */
-  --height-lg:      40px;  /* Inputs, Command Strip */
-  --height-xl:      48px;  /* Card internal padding reference (large content blocks) */
-  --command-strip-height: 40px;
-}
+  /* Text */
+  --color-text-primary:   var(--ink-900);
+  --color-text-secondary: var(--ink-600);
+  --color-text-tertiary:  var(--ink-500);
+  --color-text-inverse:   var(--ink-0);
 
+  /* Border */
+  --color-border-default: var(--ink-200);
+  --color-border-strong:  var(--ink-300);
 
-/* --------------------------------------------------------------------------
-   BORDER RADIUS — 4px grid multiples
-   -------------------------------------------------------------------------- */
+  /* Action */
+  --color-action-default: var(--brand-700);
+  --color-action-hover:   var(--brand-800);
+  --color-action-text:    var(--ink-0);
 
-:root {
-  --radius-sm:    8px;   /* Small elements: tab container, avatar */
-  --radius-md:    16px;  /* Medium elements */
-  --radius-card:  20px;  /* All cards — Apple-standard, on grid */
-  --radius-pill:  980px; /* Full pill: buttons, status badges */
-}
+  /* Accent */
+  --color-accent: var(--brand-500);
 
+  /* ============================================================
+     TIER 2 — SEMANTIC (Spacing)
+     Inset (component padding), stack (vertical rhythm), section
+     ============================================================ */
 
-/* --------------------------------------------------------------------------
-   LINE LENGTH — Per text style, not universal
-   Apply via max-width on prose containers inside wide cards.
-   -------------------------------------------------------------------------- */
+  --space-inset-sm: var(--space-2);
+  --space-inset-md: var(--space-4);
+  --space-inset-lg: var(--space-6);
 
-:root {
-  --measure-body:        65ch;  /* Narrative/Body, Observation/Body */
-  --measure-inquiry:     60ch;  /* Statement/Question (Instrument Serif 24px) */
-  --measure-gap:         70ch;  /* Gap/Body (Inter 16px) */
-  --measure-full:        100%;  /* No constraint — data tables, charts, UI */
-}
+  --space-stack-sm: var(--space-3);
+  --space-stack-md: var(--space-6);
+  --space-stack-lg: var(--space-12);
 
+  --space-section: var(--space-24);
 
-/* --------------------------------------------------------------------------
-   SHADOWS — Hover only, never at rest
-   -------------------------------------------------------------------------- */
+  /* ============================================================
+     TIER 2 — SEMANTIC (Radius)
+     Control (buttons, inputs), surface (cards, frames)
+     ============================================================ */
 
-:root {
-  --shadow-card-hover: 0 2px 20px rgba(0, 0, 0, 0.04);
-  --shadow-tab-active: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
+  --radius-control: var(--radius-sm);
+  --radius-surface: var(--radius-md);
 
+  /* ============================================================
+     TIER 2 — SEMANTIC (Typography)
+     Label, body, heading (three sizes), display
+     ============================================================ */
 
-/* --------------------------------------------------------------------------
-   TRANSITIONS
-   -------------------------------------------------------------------------- */
+  --type-label:   var(--text-sm);
+  --type-body:    var(--text-base);
+  --type-heading-sm: var(--text-lg);
+  --type-heading-md: var(--text-2xl);
+  --type-heading-lg: var(--text-4xl);
+  --type-display: var(--text-5xl);
 
-:root {
-  --transition-default: all 0.2s ease;
-  --transition-hover:   all 0.3s ease;
-  --transition-fast:    all 0.15s ease;
-}
+  /* ============================================================
+     TIER 3 — COMPONENT
+     Components compose semantic tokens. Added as needed.
+     ============================================================ */
 
+  /* ============================================================
+     LEGACY ALIASES (removed in Step 1.3)
+     These keep arborix-ds.css and existing components rendering
+     until Step 1.3 sweeps them out. Do not add new references.
+     ============================================================ */
 
-/* --------------------------------------------------------------------------
-   DATA VIZ — Specific values for SVG and canvas elements
-   -------------------------------------------------------------------------- */
-
-:root {
-  --viz-polygon-opacity:     0.08;  /* Radar polygon fill opacity */
-  --viz-area-opacity-top:    0.12;  /* Area chart top opacity */
-  --viz-area-opacity-mid:    0.06;  /* Area chart mid opacity */
-  --viz-node-strong:         8px;   /* Strong radar node diameter */
-  --viz-node-weak:           5px;   /* Weak radar node diameter */
-  --viz-node-halo-opacity:   0.1;   /* Radial halo opacity */
-  --viz-stroke-width:        1px;   /* Radar polygon, trend line */
-  --viz-ring-stroke:         3px;   /* Ring chart stroke width */
-  --viz-ring-diameter:       68px;  /* Ring chart diameter (17x grid) */
-  --viz-guide-stroke:        0.5px; /* Concentric guide rings */
-  --viz-spoke-stroke:        0.5px; /* Radar spoke lines */
-  --viz-axis-bar-height:     2px;   /* Axis bar fill height */
+  --color-primary:    var(--color-text-primary);
+  --color-secondary:  var(--color-text-secondary);
+  --color-tertiary:   var(--color-text-tertiary);
+  --color-background: var(--color-surface-default);
+  --color-bg:         var(--color-surface-default);
+  --color-card:       var(--color-surface-raised);
+  --color-surface:    var(--color-surface-raised);
+  --color-border:     var(--color-border-default);
+  --color-track:      var(--color-surface-sunken);
+  --color-blue:       var(--brand-700);
+  --color-red:        #ff3b30;
+  --color-green:      #30d158;
+  --color-amber:      #ff9f0a;
+  --color-conflict:   var(--color-red);
+  --color-verified:   var(--color-green);
+  --color-weak:       var(--ink-300);
+  --color-inferred:   var(--ink-400);
+  --color-strip-bg:   var(--color-surface-sunken);
+  --color-strip-muted: var(--color-text-secondary);
+  --color-strip-text: var(--color-text-primary);
 }
