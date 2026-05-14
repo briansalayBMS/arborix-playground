@@ -1,0 +1,61 @@
+.main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: var(--space-24) var(--space-6) var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.section {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  background: var(--color-action-default);
+  color: var(--color-action-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 500;
+  padding: var(--space-3) var(--space-5);
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: background var(--duration-quick) var(--ease-standard);
+}
+
+.button:hover {
+  background: var(--color-action-hover);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-border-default);
+}
+
+.recordLink {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+
+.recordLink a {
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: text-decoration-color var(--duration-quick) var(--ease-standard);
+}
+
+.recordLink a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-action-default);
+  text-decoration-thickness: 1px;
+}
+
+.recordLink a:focus {
+  outline: none;
+  text-decoration: underline;
+  text-decoration-color: var(--color-action-default);
+  text-decoration-thickness: 1px;
+}

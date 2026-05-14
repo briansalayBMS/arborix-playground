@@ -1,5 +1,11 @@
-import { TotalStateHome } from "@/components/home/TotalStateHome";
+import TopBar from "@/components/top-bar/TopBar";
+import ZenHome from "@/components/zen-home/ZenHome";
 
 export default function HomePage() {
-  return <TotalStateHome />;
+  return (
+    <>
+      <TopBar />
+      <ZenHome />
+    </>
+  );
 }
