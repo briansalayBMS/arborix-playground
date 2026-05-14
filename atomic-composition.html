@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Atomic Composition — A System Specimen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400,50,0;0,9..144,500,50,0;0,9..144,600,50,0;1,9..144,400,50,0;1,9..144,500,50,1&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TIER 1 — PRIMITIVES
+     Raw values. No meaning. The atomic alphabet of the system.
+     ============================================================ */
+  :root {
+    /* Color — Neutrals (ink) */
+    --ink-0:   #ffffff;
+    --ink-50:  #f2efe6;
+    --ink-100: #e6e2d5;
+    --ink-200: #d2ccba;
+    --ink-300: #b0a896;
+    --ink-400: #857d6c;
+    --ink-500: #5e5749;
+    --ink-600: #423d33;
+    --ink-700: #2b2823;
+    --ink-800: #181613;
+    --ink-900: #0a0908;
+
+    /* Color — Brand scale: Sienna (default — Arborix) */
+    --sienna-100: #f4e5d9;
+    --sienna-200: #e5c4a7;
+    --sienna-300: #d19a6e;
+    --sienna-500: #b05030;
+    --sienna-700: #843620;
+    --sienna-800: #5e2516;
+    --sienna-900: #3a150a;
+
+    /* Color — Brand scale: Tide */
+    --tide-100: #e3eced;
+    --tide-200: #c1d3d6;
+    --tide-300: #95b3b8;
+    --tide-500: #4d7c83;
+    --tide-700: #234b52;
+    --tide-800: #173238;
+    --tide-900: #0c1f23;
+
+    /* Color — Brand scale: Forest */
+    --forest-100: #e0e8dc;
+    --forest-200: #bdcdb3;
+    --forest-300: #8da681;
+    --forest-500: #547548;
+    --forest-700: #2e4a25;
+    --forest-800: #1c3014;
+    --forest-900: #0d1c08;
+
+    /* Spacing — base-4 scale (rem) */
+    --space-0:  0;
+    --space-1:  0.25rem;
+    --space-2:  0.5rem;
+    --space-3:  0.75rem;
+    --space-4:  1rem;
+    --space-6:  1.5rem;
+    --space-8:  2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-24: 6rem;
+    --space-32: 8rem;
+
+    /* Typography — families */
+    --font-sans:    "Public Sans", system-ui, sans-serif;
+    --font-serif:   "Fraunces", Georgia, serif;
+    --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+    /* Typography — scale */
+    --text-xs:   0.75rem;
+    --text-sm:   0.875rem;
+    --text-base: 1rem;
+    --text-lg:   1.125rem;
+    --text-xl:   1.375rem;
+    --text-2xl:  1.75rem;
+    --text-3xl:  2.25rem;
+    --text-4xl:  3rem;
+    --text-5xl:  4.5rem;
+
+    /* Typography — weights & leading */
+    --weight-regular:  400;
+    --weight-medium:   500;
+    --weight-semibold: 600;
+    --leading-tight:   1.15;
+    --leading-snug:    1.35;
+    --leading-normal:  1.55;
+
+    /* Radii */
+    --radius-none: 0;
+    --radius-sm:   0.25rem;
+    --radius-md:   0.5rem;
+    --radius-lg:   0.875rem;
+    --radius-full: 999px;
+
+    /* Borders */
+    --border-thin:    1px;
+    --border-medium:  2px;
+
+    /* Elevation */
+    --shadow-sm: 0 1px 2px rgba(14, 13, 11, 0.04);
+    --shadow-md: 0 4px 16px rgba(14, 13, 11, 0.06), 0 1px 2px rgba(14, 13, 11, 0.04);
+    --shadow-lg: 0 12px 40px rgba(14, 13, 11, 0.08), 0 2px 6px rgba(14, 13, 11, 0.04);
+
+    /* Motion */
+    --duration-quick:  80ms;
+    --duration-base:   180ms;
+    --ease-standard:   cubic-bezier(0.3, 0, 0.2, 1);
+
+    /* ============================================================
+       TIER 2 — SEMANTIC
+       Tokens with meaning. They reference primitives, never values.
+       This is the layer concepts and components are allowed to use.
+       ============================================================ */
+
+    /* Brand — swappable. Default: Sienna */
+    --brand-100: var(--sienna-100);
+    --brand-300: var(--sienna-300);
+    --brand-500: var(--sienna-500);
+    --brand-700: var(--sienna-700);
+    --brand-800: var(--sienna-800);
+
+    /* Surface */
+    --color-surface:         var(--ink-50);
+    --color-surface-raised:  var(--ink-0);
+    --color-surface-sunken:  var(--ink-100);
+
+    /* Text */
+    --color-text-primary:    var(--ink-900);
+    --color-text-secondary:  var(--ink-600);
+    --color-text-tertiary:   var(--ink-500);
+    --color-text-inverse:    var(--ink-0);
+
+    /* Border */
+    --color-border:          var(--ink-200);
+    --color-border-strong:   var(--ink-300);
+
+    /* Action */
+    --color-action:          var(--brand-700);
+    --color-action-hover:    var(--brand-800);
+    --color-action-text:     var(--ink-0);
+    --color-accent:          var(--brand-500);
+
+    /* Semantic spacing */
+    --space-inset-sm:    var(--space-2);
+    --space-inset-md:    var(--space-4);
+    --space-inset-lg:    var(--space-6);
+    --space-stack-sm:    var(--space-3);
+    --space-stack-md:    var(--space-6);
+    --space-stack-lg:    var(--space-12);
+    --space-section:     var(--space-24);
+
+    /* Semantic radii */
+    --radius-control:    var(--radius-sm);
+    --radius-surface:    var(--radius-md);
+
+    /* Semantic type */
+    --text-label:        var(--text-sm);
+    --text-body:         var(--text-base);
+    --text-heading-sm:   var(--text-lg);
+    --text-heading-md:   var(--text-2xl);
+    --text-heading-lg:   var(--text-4xl);
+    --text-display:      var(--text-5xl);
+  }
+
+  /* ============================================================
+     PAGE
+     The chrome of this specimen is itself built from the system.
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--leading-normal);
+    font-weight: var(--weight-regular);
+    font-variant-numeric: slashed-zero;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-8);
+  }
+
+  /* Top bar */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--space-6);
+    border-bottom: var(--border-thin) solid var(--color-border);
+    margin-bottom: var(--space-24);
+  }
+  .topbar-mark {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+  .topbar-mark strong { color: var(--color-text-primary); font-weight: var(--weight-medium); }
+
+  .topbar-controls {
+    display: flex;
+    gap: var(--space-6);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .brand-switcher {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+  }
+  .brand-switcher span {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-tertiary);
+    margin-right: var(--space-2);
+  }
+  .brand-swatch {
+    width: 22px; height: 22px;
+    border-radius: var(--radius-full);
+    border: var(--border-thin) solid var(--color-border-strong);
+    cursor: pointer;
+    transition: transform var(--duration-quick) var(--ease-standard);
+  }
+  .brand-swatch:hover { transform: scale(1.1); }
+  .brand-swatch.active { outline: 2px solid var(--color-text-primary); outline-offset: 2px; }
+
+  /* Hero */
+  .hero { margin-bottom: var(--space-32); max-width: 920px; }
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--space-6);
+  }
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-regular);
+    font-size: clamp(2.5rem, 6.5vw, var(--text-display));
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-6);
+    color: var(--color-text-primary);
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--color-accent);
+  }
+  .hero-lede {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    max-width: 60ch;
+    line-height: var(--leading-snug);
+  }
+
+  /* Section heading */
+  .section { margin-bottom: var(--space-32); }
+  .section-head {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-8);
+    align-items: baseline;
+    padding-bottom: var(--space-6);
+    border-bottom: var(--border-thin) solid var(--color-border);
+    margin-bottom: var(--space-12);
+  }
+  .section-index {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-3xl);
+    color: var(--color-accent);
+    line-height: 1;
+  }
+  .section-meta { display: flex; flex-direction: column; gap: var(--space-2); }
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-3xl);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .section-note {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    max-width: 60ch;
+    margin-top: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  /* Subsection */
+  .sub {
+    margin-bottom: var(--space-16);
+  }
+  .sub-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+  .sub-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    font-weight: var(--weight-medium);
+  }
+  .sub-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+  .sub-count {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+  }
+
+  /* Token utilities */
+  .mono { font-family: var(--font-mono); font-size: var(--text-xs); }
+  .muted { color: var(--color-text-tertiary); }
+
+  /* ============================================================
+     01 — PRIMITIVES
+     ============================================================ */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--space-2);
+  }
+  .swatch {
+    display: flex; flex-direction: column;
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-surface-raised);
+  }
+  .swatch-color { height: 64px; }
+  .swatch-meta {
+    padding: var(--space-2) var(--space-3);
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .swatch-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-primary);
+  }
+  .swatch-value {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-tertiary);
+  }
+
+  .scale-row {
+    display: flex; gap: var(--space-2); align-items: flex-end;
+    padding: var(--space-4) 0;
+  }
+  .scale-block {
+    background: var(--ink-800);
+    display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 4px;
+    color: var(--ink-0);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    border-radius: var(--radius-sm);
+    min-width: 18px;
+  }
+
+  .type-stack { display: flex; flex-direction: column; gap: var(--space-4); }
+  .type-row {
+    display: grid;
+    grid-template-columns: 140px 90px 1fr;
+    gap: var(--space-6);
+    align-items: baseline;
+    padding-bottom: var(--space-3);
+    border-bottom: var(--border-thin) dashed var(--color-border);
+  }
+  .type-row .label { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-primary); }
+  .type-row .value { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); }
+  .type-row .preview { font-family: var(--font-sans); color: var(--color-text-primary); line-height: 1; }
+
+  .radii-row { display: flex; gap: var(--space-6); flex-wrap: wrap; align-items: flex-end; }
+  .radii-item { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+  .radii-square {
+    width: 64px; height: 64px;
+    background: var(--ink-800);
+    border: var(--border-thin) solid var(--color-border);
+  }
+
+  .shadow-row { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+  .shadow-item { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
+  .shadow-square {
+    width: 80px; height: 80px;
+    background: var(--ink-0);
+    border-radius: var(--radius-md);
+  }
+
+  /* ============================================================
+     02 — SEMANTIC
+     ============================================================ */
+  .ref-table { display: flex; flex-direction: column; gap: 0; }
+  .ref-row {
+    display: grid;
+    grid-template-columns: 1.2fr 24px 1fr 1fr 80px;
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-thin) dashed var(--color-border);
+  }
+  .ref-row:last-child { border-bottom: none; }
+  .ref-name, .ref-target {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-primary);
+  }
+  .ref-target { color: var(--color-text-secondary); }
+  .ref-arrow {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    font-size: var(--text-xs);
+    text-align: center;
+  }
+  .ref-purpose {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+  }
+  .ref-preview {
+    height: 28px;
+    border-radius: var(--radius-sm);
+    border: var(--border-thin) solid var(--color-border);
+  }
+  .ref-preview-text {
+    height: 28px;
+    display: flex; align-items: center;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+  }
+
+  /* ============================================================
+     03 — COMPONENTS
+     ============================================================ */
+  .components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: var(--space-4);
+  }
+  .component-card {
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: var(--radius-surface);
+    background: var(--color-surface-raised);
+    overflow: hidden;
+  }
+  .component-stage {
+    padding: var(--space-8);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--color-surface-sunken);
+    min-height: 120px;
+  }
+  .component-meta {
+    padding: var(--space-4) var(--space-6);
+    border-top: var(--border-thin) solid var(--color-border);
+  }
+  .component-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3);
+  }
+  .component-tokens {
+    display: flex; flex-direction: column; gap: 2px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-tertiary);
+  }
+  .component-tokens span strong { color: var(--color-text-primary); font-weight: var(--weight-medium); }
+
+  /* ----- The components themselves, defined ONLY via semantic tokens ----- */
+  .Button {
+    font-family: var(--font-sans);
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    line-height: 1;
+    padding: var(--space-inset-sm) var(--space-inset-md);
+    border-radius: var(--radius-control);
+    border: none;
+    background: var(--color-action);
+    color: var(--color-action-text);
+    cursor: pointer;
+    transition: background var(--duration-quick) var(--ease-standard);
+  }
+  .Button:hover { background: var(--color-action-hover); }
+  .Button.secondary {
+    background: transparent;
+    color: var(--color-text-primary);
+    border: var(--border-thin) solid var(--color-border-strong);
+  }
+  .Button.secondary:hover { background: var(--color-surface-sunken); }
+
+  .Input {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    padding: var(--space-inset-sm) var(--space-inset-md);
+    border-radius: var(--radius-control);
+    border: var(--border-thin) solid var(--color-border);
+    background: var(--color-surface-raised);
+    color: var(--color-text-primary);
+    width: 100%;
+    max-width: 280px;
+    outline: none;
+    transition: border-color var(--duration-quick) var(--ease-standard);
+  }
+  .Input:focus { border-color: var(--color-action); }
+
+  .Card {
+    padding: var(--space-inset-lg);
+    border-radius: var(--radius-surface);
+    background: var(--color-surface-raised);
+    border: var(--border-thin) solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    max-width: 280px;
+  }
+  .Card h3 {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-heading-sm);
+    margin: 0 0 var(--space-2);
+    color: var(--color-text-primary);
+  }
+  .Card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: var(--leading-snug);
+  }
+
+  .Badge {
+    display: inline-flex; align-items: center;
+    padding: 2px var(--space-2);
+    background: var(--color-surface-sunken);
+    color: var(--color-text-secondary);
+    font-size: var(--text-xs);
+    font-family: var(--font-sans);
+    border-radius: var(--radius-full);
+    border: var(--border-thin) solid var(--color-border);
+  }
+
+  /* ============================================================
+     04 — SURFACE
+     A real, composed product surface. Only uses components above.
+     ============================================================ */
+  .surface-frame {
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: var(--radius-surface);
+    overflow: hidden;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-lg);
+  }
+  .surface-bar {
+    display: flex; align-items: center; gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface-sunken);
+    border-bottom: var(--border-thin) solid var(--color-border);
+  }
+  .surface-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--color-border-strong); display: inline-block; }
+  .surface-body {
+    padding: var(--space-12) var(--space-12);
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+  .surface-greeting {
+    font-family: var(--font-serif);
+    font-size: var(--text-heading-lg);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-4);
+  }
+  .surface-greeting em { font-style: italic; color: var(--color-accent); }
+  .surface-sub {
+    font-size: var(--text-body);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+    max-width: 36ch;
+  }
+  .surface-form {
+    display: flex; flex-direction: column; gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+  .surface-form label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+  .surface-actions { display: flex; gap: var(--space-3); }
+  .surface-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-12); }
+
+  .surface-side { display: flex; flex-direction: column; gap: var(--space-4); }
+
+  /* Annotation labels for the surface */
+  .anno {
+    position: relative;
+  }
+  .anno-tag {
+    position: absolute;
+    top: -8px; right: -8px;
+    background: var(--color-text-primary);
+    color: var(--color-surface-raised);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-standard);
+    pointer-events: none;
+  }
+  .surface-frame.annotated .anno-tag { opacity: 1; }
+
+  .anno-toggle {
+    display: inline-flex; align-items: center; gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background: transparent;
+    border: var(--border-thin) solid var(--color-border-strong);
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    margin-bottom: var(--space-4);
+  }
+  .anno-toggle:hover { color: var(--color-text-primary); }
+  .anno-toggle.on { background: var(--color-text-primary); color: var(--color-surface-raised); border-color: var(--color-text-primary); }
+
+  /* ============================================================
+     Footer / rule
+     ============================================================ */
+  .rule-card {
+    margin-top: var(--space-32);
+    padding: var(--space-16);
+    background: var(--color-text-primary);
+    color: var(--color-text-inverse);
+    border-radius: var(--radius-surface);
+  }
+  .rule-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-400);
+    margin-bottom: var(--space-6);
+  }
+  .rule-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    line-height: 1.1;
+    margin: 0 0 var(--space-8);
+    font-weight: var(--weight-regular);
+    letter-spacing: -0.01em;
+  }
+  .rule-flow {
+    display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+  .rule-flow span {
+    padding: var(--space-2) var(--space-3);
+    border: var(--border-thin) solid var(--ink-700);
+    border-radius: var(--radius-sm);
+    color: var(--ink-100);
+  }
+  .rule-flow span.accent { background: var(--color-accent); color: var(--ink-0); border-color: var(--color-accent); }
+  .rule-flow em { color: var(--ink-400); font-style: normal; }
+
+  .footer {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: var(--border-thin) solid var(--color-border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .container { padding: var(--space-8) var(--space-4); }
+    .surface-body { grid-template-columns: 1fr; padding: var(--space-8) var(--space-6); }
+    .ref-row { grid-template-columns: 1fr 16px 1fr; }
+    .ref-row .ref-purpose, .ref-row .ref-preview, .ref-row .ref-preview-text { display: none; }
+    .section-head { grid-template-columns: 60px 1fr; }
+    .type-row { grid-template-columns: 110px 70px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="topbar">
+    <div class="topbar-mark"><strong>Arborix</strong> · System Specimen</div>
+    <div class="topbar-controls">
+      <div class="brand-switcher">
+        <span>Brand</span>
+        <div class="brand-swatch active" data-brand="sienna" style="background: #843620" title="Sienna"></div>
+        <div class="brand-swatch"        data-brand="tide"   style="background: #234b52" title="Tide"></div>
+        <div class="brand-swatch"        data-brand="forest" style="background: #2e4a25" title="Forest"></div>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-label">Arborix / 01 — Tuesday morning</div>
+    <h1 class="hero-title">A system that <em>shows up</em> already in the conversation.</h1>
+    <p class="hero-lede">Primitives become semantic tokens become components become surfaces. The system holds because each layer consumes only the one directly beneath it. Swap the brand above and watch the entire surface character change without a single component being edited.</p>
+  </header>
+
+  <!-- ============================================================
+       SECTION 01 — PRIMITIVES
+       ============================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-index">01</div>
+      <div class="section-meta">
+        <div class="section-eyebrow">Tier 01 — Primitives</div>
+        <h2 class="section-title">Raw matter. No meaning.</h2>
+        <p class="section-note">A finite catalog of values. Components and concepts never touch this layer directly. Adding a primitive is a deliberate, system-level decision.</p>
+      </div>
+    </div>
+
+    <!-- Color -->
+    <div class="sub">
+      <div class="sub-head">
+        <div class="sub-title">Color · Neutral</div>
+        <div class="sub-rule"></div>
+        <div class="sub-count">11 values</div>
+      </div>
+      <div class="color-grid">
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-0)"></div>   <div class="swatch-meta"><span class="swatch-name">--ink-0</span><span class="swatch-value">#ffffff</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-50)"></div>  <div class="swatch-meta"><span class="swatch-name">--ink-50</span><span class="swatch-value">#f2efe6</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-100)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-100</span><span class="swatch-value">#e6e2d5</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-200)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-200</span><span class="swatch-value">#d2ccba</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-300)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-300</span><span class="swatch-value">#b0a896</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-400)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-400</span><span class="swatch-value">#857d6c</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-500)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-500</span><span class="swatch-value">#5e5749</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-600)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-600</span><span class="swatch-value">#423d33</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-700)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-700</span><span class="swatch-value">#2b2823</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-800)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-800</span><span class="swatch-value">#181613</span></div></div>
+        <div class="swatch"><div class="swatch-color" style="background: var(--ink-900)"></div> <div class="swatch-meta"><span class="swatch-name">--ink-900</span><span class="swatch-value">#0a0908</span></div></div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head">
+        <div class="sub-title">Color · Brand scales (3 candidates, 1 active)</div>
+        <div class="sub-rule"></div>
+        <div class="sub-count">7 × 3</div>
+      </div>
+      <div class="color-grid" id="brand-grid"></div>
+    </div>
+
+    <!-- Spacing -->
+    <div class="sub">
+      <div class="sub-head">
+        <div class="sub-title">Spacing · base-4 scale</div>
+        <div class="sub-rule"></div>
+        <div class="sub-count">11 values</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-block" style="height: var(--space-1);  width: var(--space-1)"></div>
+        <div class="scale-block" style="height: var(--space-2);  width: var(--space-2)"></div>
+        <div class="scale-block" style="height: var(--space-3);  width: var(--space-3)"></div>
+        <div class="scale-block" style="height: var(--space-4);  width: var(--space-4)"></div>
+        <div class="scale-block" style="height: var(--space-6);  width: var(--space-6)"></div>
+        <div class="scale-block" style="height: var(--space-8);  width: var(--space-8)"></div>
+        <div class="scale-block" style="height: var(--space-12); width: var(--space-12)"></div>
+        <div class="scale-block" style="height: var(--space-16); width: var(--space-16)"></div>
+        <div class="scale-block" style="height: var(--space-24); width: var(--space-24)"></div>
+        <div class="scale-block" style="height: var(--space-32); width: var(--space-32)"></div>
+      </div>
+      <div class="mono muted">--space-1 · --space-2 · --space-3 · --space-4 · --space-6 · --space-8 · --space-12 · --space-16 · --space-24 · --space-32</div>
+    </div>
+
+    <!-- Typography -->
+    <div class="sub">
+      <div class="sub-head">
+        <div class="sub-title">Type · scale + families</div>
+        <div class="sub-rule"></div>
+        <div class="sub-count">9 sizes · 3 families</div>
+      </div>
+      <div class="type-stack">
+        <div class="type-row"><span class="label">--text-xs</span><span class="value">0.75rem</span><span class="preview" style="font-size: var(--text-xs)">The quick brown fox jumps over the lazy dog.</span></div>
+        <div class="type-row"><span class="label">--text-sm</span><span class="value">0.875rem</span><span class="preview" style="font-size: var(--text-sm)">The quick brown fox jumps over the lazy dog.</span></div>
+        <div class="type-row"><span class="label">--text-base</span><span class="value">1rem</span><span class="preview" style="font-size: var(--text-base)">The quick brown fox jumps over the lazy dog.</span></div>
+        <div class="type-row"><span class="label">--text-lg</span><span class="value">1.125rem</span><span class="preview" style="font-size: var(--text-lg)">The quick brown fox jumps over the lazy dog.</span></div>
+        <div class="type-row"><span class="label">--text-xl</span><span class="value">1.375rem</span><span class="preview" style="font-size: var(--text-xl)">The quick brown fox jumps.</span></div>
+        <div class="type-row"><span class="label">--text-2xl</span><span class="value">1.75rem</span><span class="preview" style="font-size: var(--text-2xl)">The quick brown fox.</span></div>
+        <div class="type-row"><span class="label">--text-3xl</span><span class="value">2.25rem</span><span class="preview" style="font-size: var(--text-3xl); font-family: var(--font-serif)">The quick brown fox.</span></div>
+        <div class="type-row"><span class="label">--text-4xl</span><span class="value">3rem</span><span class="preview" style="font-size: var(--text-4xl); font-family: var(--font-serif); font-style: italic">brown fox.</span></div>
+        <div class="type-row"><span class="label">--text-5xl</span><span class="value">4.5rem</span><span class="preview" style="font-size: var(--text-5xl); font-family: var(--font-serif); font-style: italic; line-height: 1">brown fox.</span></div>
+      </div>
+    </div>
+
+    <!-- Radii -->
+    <div class="sub">
+      <div class="sub-head">
+        <div class="sub-title">Radii</div>
+        <div class="sub-rule"></div>
+        <div class="sub-count">5 values</div>
+      </div>
+      <div class="radii-row">
+        <div class="radii-item"><div class="radii-square" style="border-radius: var(--radius-none)"></div><span class="mono">--radius-none</span></div>
+        <div class="radii-item"><div class="radii-square" style="border-radius: var(--radius-sm)"></div><span class="mono">--radius-sm</span></div>
+        <div class="radii-item"><div class="radii-square" style="border-radius: var(--radius-md)"></div><span class="mono">--radius-md</span></div>
+        <div class="radii-item"><div class="radii-square" style="border-radius: var(--radius-lg)"></div><span class="mono">--radius-lg</span></div>
+        <div class="radii-item"><div class="radii-square" style="border-radius: var(--radius-full)"></div><span class="mono">--radius-full</span></div>
+      </div>
+    </div>
+
+    <!-- Elevation -->
+    <div class="sub">
+      <div class="sub-head">
+        <div class="sub-title">Elevation</div>
+        <div class="sub-rule"></div>
+        <div class="sub-count">3 values</div>
+      </div>
+      <div class="shadow-row">
+        <div class="shadow-item"><div class="shadow-square" style="box-shadow: var(--shadow-sm)"></div><span class="mono">--shadow-sm</span></div>
+        <div class="shadow-item"><div class="shadow-square" style="box-shadow: var(--shadow-md)"></div><span class="mono">--shadow-md</span></div>
+        <div class="shadow-item"><div class="shadow-square" style="box-shadow: var(--shadow-lg)"></div><span class="mono">--shadow-lg</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 02 — SEMANTIC
+       ============================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-index">02</div>
+      <div class="section-meta">
+        <div class="section-eyebrow">Tier 02 — Semantic</div>
+        <h2 class="section-title">Primitives translated into intent.</h2>
+        <p class="section-note">Each token carries meaning instead of a value. Components consume only this layer. When the brand swaps above, watch the surface change without any component being edited.</p>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><div class="sub-title">Surface · Text · Border · Action</div><div class="sub-rule"></div><div class="sub-count">12 mappings</div></div>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-name">--color-surface</span>          <span class="ref-arrow">→</span> <span class="ref-target">--ink-50</span>      <span class="ref-purpose">page background</span>           <div class="ref-preview" style="background: var(--color-surface)"></div></div>
+        <div class="ref-row"><span class="ref-name">--color-surface-raised</span>   <span class="ref-arrow">→</span> <span class="ref-target">--ink-0</span>       <span class="ref-purpose">cards, inputs</span>              <div class="ref-preview" style="background: var(--color-surface-raised)"></div></div>
+        <div class="ref-row"><span class="ref-name">--color-surface-sunken</span>   <span class="ref-arrow">→</span> <span class="ref-target">--ink-100</span>     <span class="ref-purpose">recessed regions</span>           <div class="ref-preview" style="background: var(--color-surface-sunken)"></div></div>
+        <div class="ref-row"><span class="ref-name">--color-text-primary</span>     <span class="ref-arrow">→</span> <span class="ref-target">--ink-900</span>     <span class="ref-purpose">body, headings</span>             <div class="ref-preview-text" style="color: var(--color-text-primary)">Aa Bb Cc</div></div>
+        <div class="ref-row"><span class="ref-name">--color-text-secondary</span>   <span class="ref-arrow">→</span> <span class="ref-target">--ink-600</span>     <span class="ref-purpose">supporting copy</span>            <div class="ref-preview-text" style="color: var(--color-text-secondary)">Aa Bb Cc</div></div>
+        <div class="ref-row"><span class="ref-name">--color-text-tertiary</span>    <span class="ref-arrow">→</span> <span class="ref-target">--ink-500</span>     <span class="ref-purpose">labels, captions</span>           <div class="ref-preview-text" style="color: var(--color-text-tertiary)">Aa Bb Cc</div></div>
+        <div class="ref-row"><span class="ref-name">--color-border</span>           <span class="ref-arrow">→</span> <span class="ref-target">--ink-200</span>     <span class="ref-purpose">default rules</span>              <div class="ref-preview" style="background: var(--color-border)"></div></div>
+        <div class="ref-row"><span class="ref-name">--color-border-strong</span>    <span class="ref-arrow">→</span> <span class="ref-target">--ink-300</span>     <span class="ref-purpose">emphasized rules</span>           <div class="ref-preview" style="background: var(--color-border-strong)"></div></div>
+        <div class="ref-row"><span class="ref-name">--color-action</span>           <span class="ref-arrow">→</span> <span class="ref-target">--brand-700</span>   <span class="ref-purpose">primary call to action</span>     <div class="ref-preview" style="background: var(--color-action)"></div></div>
+        <div class="ref-row"><span class="ref-name">--color-action-hover</span>     <span class="ref-arrow">→</span> <span class="ref-target">--brand-800</span>   <span class="ref-purpose">hover state of action</span>      <div class="ref-preview" style="background: var(--color-action-hover)"></div></div>
+        <div class="ref-row"><span class="ref-name">--color-action-text</span>      <span class="ref-arrow">→</span> <span class="ref-target">--ink-0</span>       <span class="ref-purpose">text on action</span>             <div class="ref-preview" style="background: var(--color-action-text)"></div></div>
+        <div class="ref-row"><span class="ref-name">--color-accent</span>           <span class="ref-arrow">→</span> <span class="ref-target">--brand-500</span>   <span class="ref-purpose">italic editorial highlight</span> <div class="ref-preview" style="background: var(--color-accent)"></div></div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><div class="sub-title">Spacing · semantic</div><div class="sub-rule"></div><div class="sub-count">7 mappings</div></div>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-name">--space-inset-sm</span>    <span class="ref-arrow">→</span> <span class="ref-target">--space-2</span>  <span class="ref-purpose">tight component padding</span>   <div class="ref-preview-text mono muted">8 px</div></div>
+        <div class="ref-row"><span class="ref-name">--space-inset-md</span>    <span class="ref-arrow">→</span> <span class="ref-target">--space-4</span>  <span class="ref-purpose">standard padding</span>           <div class="ref-preview-text mono muted">16 px</div></div>
+        <div class="ref-row"><span class="ref-name">--space-inset-lg</span>    <span class="ref-arrow">→</span> <span class="ref-target">--space-6</span>  <span class="ref-purpose">card padding</span>               <div class="ref-preview-text mono muted">24 px</div></div>
+        <div class="ref-row"><span class="ref-name">--space-stack-sm</span>    <span class="ref-arrow">→</span> <span class="ref-target">--space-3</span>  <span class="ref-purpose">between related items</span>      <div class="ref-preview-text mono muted">12 px</div></div>
+        <div class="ref-row"><span class="ref-name">--space-stack-md</span>    <span class="ref-arrow">→</span> <span class="ref-target">--space-6</span>  <span class="ref-purpose">between groups</span>             <div class="ref-preview-text mono muted">24 px</div></div>
+        <div class="ref-row"><span class="ref-name">--space-stack-lg</span>    <span class="ref-arrow">→</span> <span class="ref-target">--space-12</span> <span class="ref-purpose">between sections (small)</span>   <div class="ref-preview-text mono muted">48 px</div></div>
+        <div class="ref-row"><span class="ref-name">--space-section</span>     <span class="ref-arrow">→</span> <span class="ref-target">--space-24</span> <span class="ref-purpose">between page sections</span>      <div class="ref-preview-text mono muted">96 px</div></div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><div class="sub-title">Radii · Type · Roles</div><div class="sub-rule"></div><div class="sub-count">8 mappings</div></div>
+      <div class="ref-table">
+        <div class="ref-row"><span class="ref-name">--radius-control</span>   <span class="ref-arrow">→</span> <span class="ref-target">--radius-sm</span>   <span class="ref-purpose">buttons, inputs</span>            <div class="ref-preview" style="border-radius: var(--radius-control); background: var(--color-surface-sunken)"></div></div>
+        <div class="ref-row"><span class="ref-name">--radius-surface</span>   <span class="ref-arrow">→</span> <span class="ref-target">--radius-md</span>   <span class="ref-purpose">cards, frames</span>              <div class="ref-preview" style="border-radius: var(--radius-surface); background: var(--color-surface-sunken)"></div></div>
+        <div class="ref-row"><span class="ref-name">--text-label</span>       <span class="ref-arrow">→</span> <span class="ref-target">--text-sm</span>     <span class="ref-purpose">buttons, tags, labels</span>      <div class="ref-preview-text mono muted">14 px</div></div>
+        <div class="ref-row"><span class="ref-name">--text-body</span>        <span class="ref-arrow">→</span> <span class="ref-target">--text-base</span>   <span class="ref-purpose">paragraph copy</span>             <div class="ref-preview-text mono muted">16 px</div></div>
+        <div class="ref-row"><span class="ref-name">--text-heading-sm</span>  <span class="ref-arrow">→</span> <span class="ref-target">--text-lg</span>     <span class="ref-purpose">card titles</span>                <div class="ref-preview-text mono muted">18 px</div></div>
+        <div class="ref-row"><span class="ref-name">--text-heading-md</span>  <span class="ref-arrow">→</span> <span class="ref-target">--text-2xl</span>    <span class="ref-purpose">section subtitles</span>          <div class="ref-preview-text mono muted">28 px</div></div>
+        <div class="ref-row"><span class="ref-name">--text-heading-lg</span>  <span class="ref-arrow">→</span> <span class="ref-target">--text-4xl</span>    <span class="ref-purpose">page titles</span>                <div class="ref-preview-text mono muted">48 px</div></div>
+        <div class="ref-row"><span class="ref-name">--text-display</span>     <span class="ref-arrow">→</span> <span class="ref-target">--text-5xl</span>    <span class="ref-purpose">hero, editorial</span>            <div class="ref-preview-text mono muted">72 px</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 03 — COMPONENTS
+       ============================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-index">03</div>
+      <div class="section-meta">
+        <div class="section-eyebrow">Tier 03 — Components</div>
+        <h2 class="section-title">Semantic tokens, assembled.</h2>
+        <p class="section-note">Components reference only semantic tokens. The chain is one-way. Each card shows what the component is, and which tokens it depends on.</p>
+      </div>
+    </div>
+
+    <div class="components-grid">
+
+      <div class="component-card">
+        <div class="component-stage">
+          <button class="Button">Continue thread</button>
+        </div>
+        <div class="component-meta">
+          <div class="component-name">Button · Primary</div>
+          <div class="component-tokens">
+            <span>bg <strong>--color-action</strong></span>
+            <span>color <strong>--color-action-text</strong></span>
+            <span>padding <strong>--space-inset-sm</strong> / <strong>--space-inset-md</strong></span>
+            <span>radius <strong>--radius-control</strong></span>
+            <span>type <strong>--text-label</strong> / <strong>--weight-medium</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-stage">
+          <button class="Button secondary">Open new thread</button>
+        </div>
+        <div class="component-meta">
+          <div class="component-name">Button · Secondary</div>
+          <div class="component-tokens">
+            <span>bg <strong>transparent</strong></span>
+            <span>color <strong>--color-text-primary</strong></span>
+            <span>border <strong>--color-border-strong</strong></span>
+            <span>padding <strong>--space-inset-sm</strong> / <strong>--space-inset-md</strong></span>
+            <span>radius <strong>--radius-control</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-stage">
+          <input class="Input" placeholder="What's the question right now?" />
+        </div>
+        <div class="component-meta">
+          <div class="component-name">Input</div>
+          <div class="component-tokens">
+            <span>bg <strong>--color-surface-raised</strong></span>
+            <span>border <strong>--color-border</strong></span>
+            <span>focus border <strong>--color-action</strong></span>
+            <span>padding <strong>--space-inset-sm</strong> / <strong>--space-inset-md</strong></span>
+            <span>radius <strong>--radius-control</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-stage">
+          <div class="Card">
+            <h3>Open · Thursday</h3>
+            <p>You committed to a level decision and the conversation stalled on IC versus Manager.</p>
+          </div>
+        </div>
+        <div class="component-meta">
+          <div class="component-name">Card</div>
+          <div class="component-tokens">
+            <span>bg <strong>--color-surface-raised</strong></span>
+            <span>border <strong>--color-border</strong></span>
+            <span>padding <strong>--space-inset-lg</strong></span>
+            <span>radius <strong>--radius-surface</strong></span>
+            <span>shadow <strong>--shadow-sm</strong></span>
+            <span>title <strong>--text-heading-sm</strong> / <strong>--font-serif</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-stage">
+          <div style="display: flex; gap: 8px;">
+            <span class="Badge">staff hire</span>
+            <span class="Badge">board narrative</span>
+            <span class="Badge">pricing pivot</span>
+          </div>
+        </div>
+        <div class="component-meta">
+          <div class="component-name">Badge</div>
+          <div class="component-tokens">
+            <span>bg <strong>--color-surface-sunken</strong></span>
+            <span>color <strong>--color-text-secondary</strong></span>
+            <span>border <strong>--color-border</strong></span>
+            <span>radius <strong>--radius-full</strong></span>
+            <span>type <strong>--text-xs</strong></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 04 — SURFACE
+       ============================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-index">04</div>
+      <div class="section-meta">
+        <div class="section-eyebrow">Tier 04 — Surface</div>
+        <h2 class="section-title">A concept, fully composed.</h2>
+        <p class="section-note">This surface is built entirely from the components above. None of its code touches primitives. Toggle the annotations to see the components light up.</p>
+      </div>
+    </div>
+
+    <button class="anno-toggle" id="annoToggle">Show component annotations</button>
+
+    <div class="surface-frame" id="surfaceFrame">
+      <div class="surface-bar"><i></i><i></i><i></i></div>
+      <div class="surface-body">
+        <div>
+          <h2 class="surface-greeting">Tuesday. Board update in <em>47 minutes.</em></h2>
+          <p class="surface-sub">You stalled on the staff hire last week. The level question went unresolved.</p>
+
+          <div class="surface-form anno">
+            <span class="anno-tag">Input</span>
+            <label>The question right now</label>
+            <input class="Input" placeholder="IC level or Manager…" style="max-width: 100%;" />
+          </div>
+
+          <div class="surface-actions">
+            <span class="anno"><span class="anno-tag">Button · primary</span><button class="Button">Continue thread</button></span>
+            <span class="anno"><span class="anno-tag">Button · secondary</span><button class="Button secondary">Open new</button></span>
+          </div>
+
+          <div class="surface-tags anno">
+            <span class="anno-tag">Badge</span>
+            <span class="Badge">staff hire</span>
+            <span class="Badge">board narrative</span>
+            <span class="Badge">pricing pivot</span>
+            <span class="Badge">Q1 review</span>
+          </div>
+        </div>
+
+        <div class="surface-side">
+          <div class="anno" style="position: relative;">
+            <span class="anno-tag">Card</span>
+            <div class="Card" style="max-width: 100%;">
+              <h3>Open · Thursday</h3>
+              <p>You committed to a level decision and the conversation stalled on whether to backfill at IC or Manager.</p>
+            </div>
+          </div>
+          <div class="anno" style="position: relative;">
+            <span class="anno-tag">Card</span>
+            <div class="Card" style="max-width: 100%;">
+              <h3>Resolved · last week</h3>
+              <p>Pricing test ran. Two of three follow-ups landed. The third needs sales context before we close it out.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rule card -->
+  <div class="rule-card">
+    <div class="rule-eyebrow">The one rule</div>
+    <h3 class="rule-title">Composition flows one direction. Always.</h3>
+    <div class="rule-flow">
+      <span>primitives</span>
+      <em>→</em>
+      <span>semantic</span>
+      <em>→</em>
+      <span>components</span>
+      <em>→</em>
+      <span class="accent">surfaces</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Arborix Specimen · v0.2</div>
+    <div id="active-brand-label">Brand · Sienna</div>
+  </div>
+
+</div>
+
+<script>
+  // -------------------------------------------------
+  // Brand scale visual grid (renders all 3 brand scales)
+  // -------------------------------------------------
+  const brandData = {
+    sienna: { name: "Sienna", steps: [["100","#f4e5d9"],["200","#e5c4a7"],["300","#d19a6e"],["500","#b05030"],["700","#843620"],["800","#5e2516"],["900","#3a150a"]] },
+    tide:   { name: "Tide",   steps: [["100","#e3eced"],["200","#c1d3d6"],["300","#95b3b8"],["500","#4d7c83"],["700","#234b52"],["800","#173238"],["900","#0c1f23"]] },
+    forest: { name: "Forest", steps: [["100","#e0e8dc"],["200","#bdcdb3"],["300","#8da681"],["500","#547548"],["700","#2e4a25"],["800","#1c3014"],["900","#0d1c08"]] },
+  };
+  const brandGrid = document.getElementById("brand-grid");
+  Object.entries(brandData).forEach(([key, data]) => {
+    data.steps.forEach(([step, hex]) => {
+      const el = document.createElement("div");
+      el.className = "swatch";
+      el.innerHTML = `
+        <div class="swatch-color" style="background:${hex}"></div>
+        <div class="swatch-meta">
+          <span class="swatch-name">--${key}-${step}</span>
+          <span class="swatch-value">${hex}</span>
+        </div>`;
+      brandGrid.appendChild(el);
+    });
+  });
+
+  // -------------------------------------------------
+  // Brand switcher — remaps semantic tokens at runtime.
+  // This is the demonstration: one swap, full propagation.
+  // -------------------------------------------------
+  const root = document.documentElement;
+  const swatches = document.querySelectorAll(".brand-swatch");
+  const label = document.getElementById("active-brand-label");
+  swatches.forEach(sw => {
+    sw.addEventListener("click", () => {
+      const brand = sw.dataset.brand;
+      swatches.forEach(s => s.classList.remove("active"));
+      sw.classList.add("active");
+      const map = brandData[brand].steps.reduce((acc,[step,hex]) => (acc[step]=hex, acc), {});
+      root.style.setProperty("--brand-100", map["100"]);
+      root.style.setProperty("--brand-300", map["300"]);
+      root.style.setProperty("--brand-500", map["500"]);
+      root.style.setProperty("--brand-700", map["700"]);
+      root.style.setProperty("--brand-800", map["800"]);
+      label.textContent = `Brand · ${brandData[brand].name}`;
+    });
+  });
+  // -------------------------------------------------
+  // Annotation toggle on the composed surface
+  // -------------------------------------------------
+  const toggle = document.getElementById("annoToggle");
+  const frame = document.getElementById("surfaceFrame");
+  toggle.addEventListener("click", () => {
+    frame.classList.toggle("annotated");
+    toggle.classList.toggle("on");
+    toggle.textContent = frame.classList.contains("annotated")
+      ? "Hide component annotations"
+      : "Show component annotations";
+  });
+</script>
+</body>
+</html>
