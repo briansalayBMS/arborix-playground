@@ -44,6 +44,11 @@
   --forest-800: #1c3014;
   --forest-900: #0d1c08;
 
+  /* Color — Status (system feedback) */
+  --green-500:  #30d158;
+  --amber-500:  #ff9f0a;
+  --red-500:    #ff3b30;
+
   /* Spacing — base-4 scale */
   --space-0:  0;
   --space-1:  0.25rem;
@@ -145,6 +150,11 @@
   /* Accent */
   --color-accent: var(--brand-500);
 
+  /* Status */
+  --color-status-verified:  var(--green-500);
+  --color-status-attention: var(--amber-500);
+  --color-status-conflict:  var(--red-500);
+
   /* ============================================================
      TIER 2 — SEMANTIC (Spacing)
      Inset (component padding), stack (vertical rhythm), section
@@ -201,11 +211,11 @@
   --color-border:     var(--color-border-default);
   --color-track:      var(--color-surface-sunken);
   --color-blue:       var(--brand-700);
-  --color-red:        #ff3b30;
-  --color-green:      #30d158;
-  --color-amber:      #ff9f0a;
-  --color-conflict:   var(--color-red);
-  --color-verified:   var(--color-green);
+  --color-red:        var(--color-status-conflict);
+  --color-green:      var(--color-status-verified);
+  --color-amber:      var(--color-status-attention);
+  --color-conflict:   var(--color-status-conflict);
+  --color-verified:   var(--color-status-verified);
   --color-weak:       var(--ink-300);
   --color-inferred:   var(--ink-400);
   --color-strip-bg:   var(--color-surface-sunken);
