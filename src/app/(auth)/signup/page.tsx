@@ -42,45 +42,58 @@ function Field({
   );
 }
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+      setError("Something took too long. Please try again.");
+    }, 8000);
+
     try {
       const supabase = createClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
       });
 
-      if (signInError) {
-        setError(signInError.message);
+      clearTimeout(timeoutId);
+
+      if (error) {
+        setError(error.message);
         setLoading(false);
         return;
       }
 
-      await supabase.auth.getSession();
-      router.push("/home");
+      if (!data.session) {
+        setError("Check your email to confirm your account, then sign in.");
+        setLoading(false);
+        return;
+      }
+
+      router.push("/welcome");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign in failed");
+      clearTimeout(timeoutId);
+      setError(err instanceof Error ? err.message : "Sign up failed");
       setLoading(false);
     }
   };
 
   return (
     <AuthShell
-      heading="Sign in"
+      heading="Create your account"
       footer={
-        <a href="/signup" style={{ color: "inherit", textDecoration: "none" }}>
-          New here?{" "}
+        <a href="/login" style={{ color: "inherit", textDecoration: "none" }}>
+          Already have an account?{" "}
           <span
             style={{
               textDecoration: "underline",
@@ -97,12 +110,12 @@ export default function LoginPage() {
               e.currentTarget.style.textDecorationColor = "transparent";
             }}
           >
-            Create an account →
+            Sign in →
           </span>
         </a>
       }
     >
-      <form onSubmit={handleSignIn} className={styles.form}>
+      <form onSubmit={handleSignUp} className={styles.form}>
         <Field
           label="Email"
           id="email"
@@ -126,7 +139,7 @@ export default function LoginPage() {
         {error && <div className={styles.error}>{error}</div>}
 
         <button type="submit" disabled={loading} className={styles.submitButton}>
-          {loading ? "Signing in…" : "Sign in"}
+          {loading ? "Creating account…" : "Create account"}
         </button>
       </form>
     </AuthShell>
