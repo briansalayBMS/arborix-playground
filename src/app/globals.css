@@ -33,6 +33,7 @@
     background-color: var(--color-bg);
     color: var(--color-primary);
     font-feature-settings: "ss01" on, "cv01" on;
+    font-variant-numeric: slashed-zero;
   }
 
   ::selection {

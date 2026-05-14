@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Source_Code_Pro, Instrument_Serif } from "next/font/google";
+import { Public_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import "@/styles/tokens.css";
 import "@/styles/arborix-ds.css";
@@ -10,22 +10,23 @@ import { IngestLedgerProvider } from "@/components/providers/IngestLedgerProvide
 import { DemoFirstTimeProvider } from "@/context/DemoFirstTimeContext";
 import { SovereignCommandProvider } from "@/context/SovereignCommandContext";
 
-const inter = Inter({
+const publicSans = Public_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
   variable: "--font-sans",
-});
-
-const sourceCodePro = Source_Code_Pro({
-  subsets: ["latin"],
-  variable: "--font-code",
   display: "swap",
 });
 
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-serif",
+  display: "swap",
+  axes: ["SOFT", "WONK", "opsz"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -45,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sourceCodePro.variable} ${instrumentSerif.variable}`}
+      className={`${publicSans.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen font-[family-name:var(--font-sans)]">
         <IngestLedgerProvider>
