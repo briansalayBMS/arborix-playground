@@ -1,21 +1,21 @@
-import { supabase } from '@/lib/supabase/client'
+import { createClient } from '@/lib/supabase/client'
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 async function getAuthToken(): Promise<string> {
-  const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
+  const supabase = createClient()
+  let { data: { session } } = await supabase.auth.getSession()
 
-  if (sessionError) {
-    throw new Error(`Authentication error: ${sessionError.message}`)
+  if (!session) {
+    const { data: refreshed } = await supabase.auth.refreshSession()
+    session = refreshed.session
   }
 
-  const token = sessionData?.session?.access_token
-
-  if (!token) {
+  if (!session?.access_token) {
     throw new Error('Not authenticated')
   }
 
-  return token
+  return session.access_token
 }
 
 async function request(path: string, options?: RequestInit): Promise<unknown> {
@@ -93,7 +93,7 @@ export async function uploadResume(
   formData.append('file', file)
   if (linkedinText) formData.append('linkedin_text', linkedinText)
   if (targetRole) formData.append('target_role', targetRole)
-  return requestFormData('/onboarding/resume', formData)
+  return requestFormData('/onboarding/onboarding-resume', formData)
 }
 
 // One-pager

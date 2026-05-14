@@ -87,6 +87,11 @@ function AppShellInner({ children }: { children: React.ReactNode }) {
   const { isExternalView } = useExternalView();
 
   const isWelcome = pathname === "/welcome";
+  const isAuth = pathname === "/login";
+
+  if (isAuth) {
+    return <>{children}</>;
+  }
 
   return (
     <DiagnosticFocusProvider>

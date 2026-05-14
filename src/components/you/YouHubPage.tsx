@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Check } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 import { useDemoFirstTime } from "@/context/DemoFirstTimeContext";
 import { useSovereignCommand } from "@/context/SovereignCommandContext";
 import { useRightRailDrawer } from "@/context/RightRailDrawerContext";
@@ -14,6 +15,7 @@ import { IDENTITY_ANCHOR } from "@/constants/identityAnchor";
 import { useExternalView } from "@/context/ExternalViewContext";
 import { AuditTooltip } from "@/components/layout/GlobalHUD";
 import { ResolutionCenter, FORENSIC_GAPS, TOOLTIP_DEFINITIONS } from "@/components/you/ConflictReconciliation";
+import { getOnePager } from "@/lib/api/client";
 
 // ─── Content data ───────────────────────────────────────────────
 
@@ -381,15 +383,31 @@ function JumpLink({ children }: { children: React.ReactNode }) {
 function HeaderBlock({
   profile,
   isExternal,
+  headline,
+  performanceContent,
 }: {
   profile: { primaryForce: string; posture: string; bias: string };
   isExternal: boolean;
+  headline: string;
+  performanceContent: Record<string, unknown> | null;
 }) {
   const OPERATING_MODEL = [
     { label: "OPERATING MODE", value: profile.primaryForce },
     { label: "ENVIRONMENT",   value: profile.posture },
     { label: "PRIORITY BIAS", value: profile.bias },
   ] as const;
+
+  const bodyContent = performanceContent && typeof performanceContent === "object"
+    ? (performanceContent as Record<string, unknown>).pitch || (performanceContent as Record<string, unknown>).summary
+    : null;
+
+  const defaultHeadline = isExternal
+    ? "Brian Salay is a high-velocity design leader who translates complex technical strategy into verified commercial outcomes."
+    : "Brian, your output shows a consistent ability to deliver high-stakes results while maintaining absolute clarity for leadership.";
+
+  const defaultBody = isExternal
+    ? "You translate ambiguous market pressure into shippable revenue narratives, then stand behind the instrumentation that makes those claims defensible where capital is allocated. Judgment under uncertainty is the through-line: you compress complexity without erasing tradeoffs, and you leave organizations with artifacts they can operate, not decks they can only applaud."
+    : "The evidence is strongest where your technical decisions lead to direct commercial outcomes. The primary gap is in proving your influence on team coalition and long-term strategy.";
 
   return (
     <div>
@@ -398,13 +416,11 @@ function HeaderBlock({
         className="statement-hero m-0"
         style={{ marginBottom: "var(--spacing-3x)", maxWidth: '720px' }}
       >
-        {isExternal
-          ? "Brian Salay is a high-velocity design leader who translates complex technical strategy into verified commercial outcomes."
-          : "Brian, your output shows a consistent ability to deliver high-stakes results while maintaining absolute clarity for leadership."}
+        {headline || defaultHeadline}
       </p>
 
       {/* Body — Inter 18px */}
-      <p
+      <div
         className="m-0"
         style={{
           fontFamily: "var(--font-sans)",
@@ -416,17 +432,12 @@ function HeaderBlock({
           maxWidth: '640px',
         }}
       >
-        {isExternal ? (
-          "You translate ambiguous market pressure into shippable revenue narratives, then stand behind the instrumentation that makes those claims defensible where capital is allocated. Judgment under uncertainty is the through-line: you compress complexity without erasing tradeoffs, and you leave organizations with artifacts they can operate, not decks they can only applaud."
+        {bodyContent && typeof bodyContent === "string" ? (
+          <ReactMarkdown>{bodyContent}</ReactMarkdown>
         ) : (
-          <>
-            The evidence is strongest where your technical decisions lead to direct commercial
-            outcomes. The primary gap is in proving your influence on{" "}
-            <JumpLink>team coalition</JumpLink> and{" "}
-            <JumpLink>long-term strategy</JumpLink>.
-          </>
+          defaultBody
         )}
-      </p>
+      </div>
 
       {/* Arborix trust seal — both views */}
       <div
@@ -489,6 +500,8 @@ function InternalStack({
   highlightGaps,
   profile,
   onOpenDeposition,
+  headline,
+  performanceContent,
 }: {
   auditPercent: number;
   archetypeTitle: string;
@@ -499,6 +512,8 @@ function InternalStack({
   highlightGaps: boolean;
   profile: { primaryForce: string; posture: string; bias: string };
   onOpenDeposition: (q?: string) => void;
+  headline: string;
+  performanceContent: Record<string, unknown> | null;
 }) {
   function scrollToInquiry() {
     inquiryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -508,7 +523,7 @@ function InternalStack({
     <div className="flex flex-col" style={{ gap: "var(--spacing-16x)" }}>
 
       {/* Header Block — dynamic verdict inside this tab panel */}
-      <HeaderBlock profile={profile} isExternal={false} />
+      <HeaderBlock profile={profile} isExternal={false} headline={headline} performanceContent={performanceContent} />
 
       {/* 1 — Identity Radar with delta legend */}
       <RadarCard
@@ -539,18 +554,22 @@ function ExternalStack({
   archetypeSubtitle,
   gapIndex,
   profile,
+  headline,
+  performanceContent,
 }: {
   auditPercent: number;
   archetypeTitle: string;
   archetypeSubtitle: string;
   gapIndex: number;
   profile: { primaryForce: string; posture: string; bias: string };
+  headline: string;
+  performanceContent: Record<string, unknown> | null;
 }) {
   return (
     <div className="flex flex-col" style={{ gap: "var(--spacing-16x)" }}>
 
       {/* Header Block — brand verdict inside this tab panel */}
-      <HeaderBlock profile={profile} isExternal={true} />
+      <HeaderBlock profile={profile} isExternal={true} headline={headline} performanceContent={performanceContent} />
 
       <RadarCard
         auditPercent={auditPercent}
@@ -596,9 +615,22 @@ export function YouHubPage() {
   const [gapsHighlighted, setGapsHighlighted] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [onePagerData, setOnePagerData] = useState<unknown>(null);
   const inquiryRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const fetchOnePager = async () => {
+      try {
+        const data = await getOnePager();
+        setOnePagerData(data);
+      } catch (err) {
+        console.warn("Failed to fetch one-pager:", err);
+      }
+    };
+    fetchOnePager();
+  }, []);
 
   // Sync tab state → global external view flag; reset on unmount
   useEffect(() => {
@@ -639,6 +671,17 @@ export function YouHubPage() {
   const profile = useMemo(() => parseOperatingPosture(archetypeVerdict), [archetypeVerdict]);
   const gap = useMemo(() => performanceGap(), []);
   const inquiryText = mostPressingQuestion.trim() || SURGICAL_INQUIRY;
+
+  const performanceContent = useMemo(() => {
+    if (!onePagerData || typeof onePagerData !== "object") return null;
+    return (onePagerData as Record<string, unknown>).performance_content ?? null;
+  }, [onePagerData]);
+
+  const internalHeadline = useMemo(() => {
+    return performanceContent && typeof performanceContent === "object"
+      ? (performanceContent as Record<string, unknown>).headline || INTERNAL_HEADLINE
+      : INTERNAL_HEADLINE;
+  }, [performanceContent]);
 
   function handleOpenInspector(recordId: string) {
     const payload = EVIDENCE_RECORDS[recordId];
@@ -729,6 +772,8 @@ export function YouHubPage() {
           highlightGaps={gapsHighlighted}
           profile={{ primaryForce: profile.primaryForce, posture: profile.posture, bias: profile.bias }}
           onOpenDeposition={openDeposition}
+          headline={internalHeadline}
+          performanceContent={performanceContent}
         />
       ) : (
         <ExternalStack
@@ -737,6 +782,8 @@ export function YouHubPage() {
           archetypeSubtitle="Your dominant operating posture"
           gapIndex={gap.index}
           profile={{ primaryForce: profile.primaryForce, posture: profile.posture, bias: profile.bias }}
+          headline={internalHeadline}
+          performanceContent={performanceContent}
         />
       )}
 
