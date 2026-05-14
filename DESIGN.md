@@ -450,6 +450,8 @@ What this does: references the prior session by day, names the specific commitme
 
 Empty states, error states, and confirmations all follow the same rule. The trusted colleague would say this. If they wouldn't, rewrite.
 
+**Attribution lines.** Attribution references only data sources the product actually uses: the user's uploaded documents and their session responses. The canonical line is "Generated from your uploaded documents and session responses." Arborix is B2C and has no integrations with Slack, Jira, GSuite, or any other workplace tool. Any surface that suggests otherwise is incorrect and should be flagged.
+
 ## What to Avoid
 
 Skip purple-to-blue gradients, glassmorphism, and the prevailing AI-product visual idiom. The system has its own voice.
