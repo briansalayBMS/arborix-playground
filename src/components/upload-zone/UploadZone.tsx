@@ -36,10 +36,18 @@ export default function UploadZone({ onFileSelect, selectedFile }: UploadZonePro
     handleFileSelect(e.dataTransfer.files);
   };
 
+  const triggerFilePicker = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const input = document.getElementById(inputId) as HTMLInputElement;
+    if (input) {
+      input.click();
+    }
+  };
+
   return (
     <label
       htmlFor={inputId}
-      className={`${styles.zone} ${dragOver ? styles.dragOver : ""}`}
+      className={`${styles.zone} ${dragOver && !selectedFile ? styles.dragOver : ""}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -47,12 +55,25 @@ export default function UploadZone({ onFileSelect, selectedFile }: UploadZonePro
       {selectedFile ? (
         <div className={styles.content}>
           <p className={styles.filename}>{selectedFile.name}</p>
-          <p className={styles.changeLink}>change file</p>
+          <button
+            type="button"
+            className={styles.changeLink}
+            onClick={triggerFilePicker}
+          >
+            Choose a different file
+          </button>
         </div>
       ) : (
         <div className={styles.content}>
-          <p className={styles.label}>DROP YOUR RESUME OR LINKEDIN PDF</p>
-          <p className={styles.subtext}>or click to choose a file</p>
+          <p className={styles.label}>DROP YOUR RESUME</p>
+          <button
+            type="button"
+            className={styles.chooseLink}
+            onClick={triggerFilePicker}
+          >
+            Choose file
+          </button>
+          <p className={styles.hint}>PDF, DOCX, or LinkedIn export.</p>
         </div>
       )}
       <input

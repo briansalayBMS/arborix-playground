@@ -1,18 +1,22 @@
-.message {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: var(--text-2xl);
-  font-weight: 400;
-  line-height: 1.45;
-  color: var(--color-text-primary);
-  text-align: center;
-  margin: 0;
+.button {
+  align-self: flex-end;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-action-default);
+  color: var(--color-action-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: background var(--duration-quick) var(--ease-standard);
 }
 
-.footer {
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  color: var(--color-text-tertiary);
-  text-align: center;
-  margin: 0;
+.button:hover:not(:disabled) {
+  background: var(--color-action-hover);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

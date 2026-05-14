@@ -14,7 +14,7 @@
               background var(--duration-quick) var(--ease-standard);
 }
 
-.zone:hover {
+.zone:hover:not(:has(input:disabled)) {
   border-color: var(--color-action-default);
   background: var(--color-surface-raised);
 }
@@ -26,6 +26,10 @@
 
 .content {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .label {
@@ -37,11 +41,28 @@
   margin: 0;
 }
 
-.subtext {
+.chooseLink {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
+  color: var(--color-action-default);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--color-action-default);
+  transition: opacity var(--duration-quick) var(--ease-standard);
+}
+
+.chooseLink:hover {
+  opacity: 0.8;
+}
+
+.hint {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
   color: var(--color-text-tertiary);
-  margin: var(--space-2) 0 0;
+  margin: 0;
 }
 
 .filename {
@@ -53,9 +74,19 @@
 
 .changeLink {
   font-family: var(--font-sans);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-text-tertiary);
-  margin: var(--space-2) 0 0;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: text-decoration var(--duration-quick) var(--ease-standard);
+}
+
+.changeLink:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-action-default);
 }
 
 .input {

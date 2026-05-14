@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import ArborSpeech from "@/components/arbor-speech/ArborSpeech";
 import styles from "./WelcomeReadback.module.css";
 
 interface WelcomeReadbackProps {
@@ -19,7 +20,7 @@ export default function WelcomeReadback({ readback, onSubmit }: WelcomeReadbackP
 
   return (
     <>
-      <p className={styles.message}>{readback}</p>
+      <ArborSpeech>{readback}</ArborSpeech>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <textarea

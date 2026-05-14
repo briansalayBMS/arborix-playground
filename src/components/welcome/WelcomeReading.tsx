@@ -1,5 +1,10 @@
+import ArborSpeech from "@/components/arbor-speech/ArborSpeech";
 import styles from "./WelcomeReading.module.css";
 
 export default function WelcomeReading() {
-  return <p className={styles.message}>Reading your career...</p>;
+  return (
+    <div className={styles.wrapper}>
+      <ArborSpeech>Reading your career...</ArborSpeech>
+    </div>
+  );
 }

@@ -2,22 +2,17 @@
 
 import Link from "next/link";
 import styles from "./ZenHome.module.css";
-import SovereignBeacon from "@/components/sovereign-beacon/SovereignBeacon";
-import ArborMessage from "@/components/arbor-message/ArborMessage";
+import ArborSpeech from "@/components/arbor-speech/ArborSpeech";
 import WhatsInPlay from "@/components/whats-in-play/WhatsInPlay";
 
 export default function ZenHome() {
   return (
     <main className={styles.main}>
       <div className={styles.section}>
-        <SovereignBeacon />
-      </div>
-
-      <div className={styles.section}>
-        <ArborMessage accent="the staff hire">
+        <ArborSpeech accent="the staff hire">
           Tuesday. Forty-seven minutes before your board update. We left the
           staff hire unresolved on Thursday.
-        </ArborMessage>
+        </ArborSpeech>
       </div>
 
       <div className={styles.section}>

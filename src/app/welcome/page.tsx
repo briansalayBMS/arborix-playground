@@ -12,8 +12,12 @@ export default function WelcomePage() {
   const [state, setState] = useState<WelcomeState>("intro");
   const [file, setFile] = useState<File | null>(null);
 
-  const handleUpload = (uploadedFile: File) => {
+  const handleFileSelect = (uploadedFile: File) => {
     setFile(uploadedFile);
+  };
+
+  const handleSendToArbor = () => {
+    if (!file) return;
     setState("reading");
     setTimeout(() => setState("readback"), 2000);
   };
@@ -27,7 +31,13 @@ export default function WelcomePage() {
 
   return (
     <WelcomeShell>
-      {state === "intro" && <WelcomeIntro onUpload={handleUpload} />}
+      {state === "intro" && (
+        <WelcomeIntro
+          selectedFile={file}
+          onFileSelect={handleFileSelect}
+          onContinue={handleSendToArbor}
+        />
+      )}
       {state === "reading" && <WelcomeReading />}
       {state === "readback" && (
         <WelcomeReadback readback={placeholderReadback} onSubmit={handleSubmit} />
