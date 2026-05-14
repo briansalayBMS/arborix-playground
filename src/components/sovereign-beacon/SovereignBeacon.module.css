@@ -1,0 +1,26 @@
+.mark {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-strong);
+  flex-shrink: 0;
+  transition: border-color var(--duration-quick) var(--ease-standard);
+}
+
+.mark:hover {
+  border-color: var(--color-text-primary);
+}
+
+.letter {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-action-default);
+  /* Optical adjustment to center italic lowercase a inside the circle */
+  transform: translateY(-1px);
+}

@@ -1,0 +1,17 @@
+.message {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--color-text-primary);
+  max-width: 38rem;
+  margin: 0;
+  padding: 0;
+}
+
+.accent {
+  color: var(--color-action-default);
+  font-style: italic;
+  font-weight: 400;
+}
