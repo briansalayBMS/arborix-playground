@@ -167,7 +167,7 @@ export function WelcomeDeposit() {
             htmlFor={stressorId}
             className="font-ui text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--color-secondary)]"
           >
-            WHAT'S ACTUALLY ON YOUR MIND?
+            WHAT&apos;S ACTUALLY ON YOUR MIND?
           </label>
           <textarea
             id={stressorId}

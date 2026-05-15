@@ -674,13 +674,15 @@ export function YouHubPage() {
 
   const performanceContent = useMemo(() => {
     if (!onePagerData || typeof onePagerData !== "object") return null;
-    return (onePagerData as Record<string, unknown>).performance_content ?? null;
+    const content = (onePagerData as Record<string, unknown>).performance_content;
+    return typeof content === "object" && content !== null ? (content as Record<string, unknown>) : null;
   }, [onePagerData]);
 
   const internalHeadline = useMemo(() => {
-    return performanceContent && typeof performanceContent === "object"
-      ? (performanceContent as Record<string, unknown>).headline || INTERNAL_HEADLINE
-      : INTERNAL_HEADLINE;
+    const headline = performanceContent && typeof performanceContent === "object"
+      ? (performanceContent as Record<string, unknown>).headline
+      : undefined;
+    return typeof headline === "string" ? headline : INTERNAL_HEADLINE;
   }, [performanceContent]);
 
   function handleOpenInspector(recordId: string) {

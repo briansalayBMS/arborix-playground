@@ -314,7 +314,7 @@ export function GlobalHUD() {
 
   const Sep = () => (
     <span style={{ ...mono, color: "var(--color-tertiary)", margin: "0 8px", userSelect: "none" } as React.CSSProperties}>
-      //
+      {"//"}
     </span>
   );
 

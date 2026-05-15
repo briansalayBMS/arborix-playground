@@ -14,8 +14,8 @@ export default function WelcomeIntro({ selectedFile, onFileSelect, onContinue }:
   return (
     <>
       <ArborSpeech>
-        Hi, I'm Arbor. I'm a coach built around your real work and growth — and the best place to
-        start is your resume. Upload it and I'll take a look before we get into anything else.
+        Hi, I&apos;m Arbor. I&apos;m a coach built around your real work and growth — and the best place to
+        start is your resume. Upload it and I&apos;ll take a look before we get into anything else.
       </ArborSpeech>
 
       <UploadZone onFileSelect={onFileSelect} selectedFile={selectedFile} />

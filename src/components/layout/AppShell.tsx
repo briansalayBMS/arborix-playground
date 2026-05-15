@@ -54,12 +54,12 @@ function CommandStrip({ viewMode = "internal" }: { viewMode?: "internal" | "exte
       letterSpacing: '0.03em',
     }}>
       <span className="arb-command-strip__zone arb-command-strip__name">
-        {IDENTITY_ANCHOR.name.toUpperCase()} // SESSION 01
+        {IDENTITY_ANCHOR.name.toUpperCase()} {"//"} SESSION 01
       </span>
 
       <div className="arb-command-strip__zone">
         <span className="arb-command-strip__verified">{auditCalibrationPercent}% VERIFIED</span>
-        <span>//</span>
+        <span>{"//"}</span>
         <span>MODERATE CONFIDENCE</span>
       </div>
 
@@ -73,7 +73,7 @@ function CommandStrip({ viewMode = "internal" }: { viewMode?: "internal" | "exte
         >
           [!] {conflictLabel}
         </span>
-        <span>//</span>
+        <span>{"//"}</span>
         <span>SYNCED: 4M AGO</span>
       </div>
     </div>
