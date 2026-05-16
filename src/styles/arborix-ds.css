@@ -43,7 +43,7 @@ body {
   line-height: var(--leading-serif);
   color: var(--color-text-primary);
   letter-spacing: var(--tracking-none);
-  font-feature-settings: 'lnum' 1, 'pnum' 1;
+  font-feature-settings: 'ss01' on, 'lnum' 1, 'pnum' 1;
 }
 
 .statement-question {
@@ -72,7 +72,7 @@ body {
   line-height: var(--leading-serif);
   color: var(--color-text-primary);
   letter-spacing: var(--tracking-none);
-  font-feature-settings: 'lnum' 1, 'pnum' 1;
+  font-feature-settings: 'ss01' on, 'lnum' 1, 'pnum' 1;
 }
 
 .data-unit {
@@ -81,7 +81,7 @@ body {
   font-weight: 400;
   line-height: var(--leading-serif);
   color: var(--color-text-secondary);
-  font-feature-settings: 'lnum' 1, 'pnum' 1;
+  font-feature-settings: 'ss01' on, 'lnum' 1, 'pnum' 1;
 }
 
 
