@@ -46,6 +46,24 @@ HOME is not a dashboard. It is a presentation of what is on top, with Arbor offe
 
 HOME does not contain the user's full record, their full synthesis, or their full ledger. Those live on YOU, WORK, and COMPANY.
 
+### What's in Play is a typed list of Arbor's active POVs
+
+The content of HOME below Arbor's opening turn is *What's in Play* — a small list of the things Arbor currently has a point of view on about the user. Each item is a typed POV with a one-line statement in Arbor's voice and an action that invites engagement.
+
+The types that ship initially are:
+
+**Observation.** Arbor has noticed something about the user's pattern, behavior, or evidence. The POV is *here is what I am seeing*. The action is *engage with the observation*.
+
+**Conflict.** Arbor has detected a tension between two things in the record — a stated identity that does not match the evidence, a goal that contradicts a pattern, two claims that do not square. The POV is *these two things do not fit*. The action is *resolve the conflict*.
+
+**POV-with-uncertainty.** Arbor has a read but the read is partial. The POV is *I think X, but I am working with limited data*. The action is *give Arbor more data* — take an assessment, answer a question, upload evidence.
+
+The vocabulary will grow as Arbor's coaching range grows. Other types — pattern, forecast, recognition — may join. The architectural commitment is the shape: typed POV, one-line statement, action affordance, Sovereign Beacon for beacon-click pre-load of the right pane.
+
+POVs enter the list as Arbor reads evidence, holds sessions, or notices patterns. They leave as the user resolves them, refines them, rejects them, or as they go cold. The list is curated — three to five items at a time — not a feed of everything Arbor is thinking.
+
+The discipline: every item is a coaching read, not a task. If an item could be written by Asana, it does not belong on HOME. Anything task-shaped — projects, OKRs, deadlines as facts — lives on WORK. HOME's content is what Arbor is thinking about the user right now.
+
 ### The user has one record. Three hubs surface it.
 
 The user's record is one thing. The schema separates it into three ledgers (YOU, COMPANY, WORK), and the product surfaces the record through three hubs that map onto the same cut.
