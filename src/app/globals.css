@@ -1,7 +1,7 @@
 /* Override Tailwind Preflight font defaults with higher priority */
 @layer utilities {
   :root {
-    --default-font-variation-settings: "opsz" 16, "wght" 350, "SOFT" 50, "WONK" 1 !important;
+    --default-font-variation-settings: "opsz" 16, "wght" 350, "SOFT" 50, "WONK" 0 !important;
     --default-font-feature-settings: "ss01" on, "cv01" on !important;
   }
 }
@@ -52,7 +52,7 @@
 /* Force font-variation-settings after Tailwind Preflight */
 @layer utilities {
   html, :host, body {
-    font-variation-settings: "opsz" 16, "wght" 350, "SOFT" 50, "WONK" 1 !important;
+    font-variation-settings: "opsz" 16, "wght" 350, "SOFT" 50, "WONK" 0 !important;
   }
 }
 

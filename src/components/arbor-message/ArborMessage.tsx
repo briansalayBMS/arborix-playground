@@ -6,7 +6,7 @@ interface ArborMessageProps {
 }
 
 const frauncesTuning = {
-  fontVariationSettings: '"opsz" 22, "wght" 350, "SOFT" 50, "WONK" 1',
+  fontVariationSettings: '"opsz" 22, "wght" 350, "SOFT" 50, "WONK" 0',
 } as const;
 
 export default function ArborMessage({ children, accent }: ArborMessageProps) {
