@@ -64,6 +64,38 @@ POVs enter the list as Arbor reads evidence, holds sessions, or notices patterns
 
 The discipline: every item is a coaching read, not a task. If an item could be written by Asana, it does not belong on HOME. Anything task-shaped — projects, OKRs, deadlines as facts — lives on WORK. HOME's content is what Arbor is thinking about the user right now.
 
+### POV lifecycle and dynamism
+
+POV items have states: fresh, touched, explored, resolved. The prose Arbor speaks for each item, the action affordance offered, and whether the item appears on HOME at all are derived from state. Engaging with an item changes its state and triggers re-rendering on next visit.
+
+After a conversation, HOME visibly reflects what was said. New POVs may emerge. Touched POVs re-render with relational continuity — *"we started this last week, want to pick back up?"* — rather than restating the original observation as if for the first time. Resolved POVs leave the active list and live in the user's record.
+
+This is the operational expression of the *every action has a visible outcome* coaching principle. A conversation that changes nothing on the surface that started it is a coaching session that left no trace.
+
+### POV gauges
+
+Some POV types warrant progress gauges. *Partial read* POVs show data completeness — *Based on 5 resume rows · 8 of 24 personality questions answered* — with a small progress indicator. *Work-in-progress* or *commitment* POVs, once the type is introduced, show progress toward what the user committed to.
+
+Other POV types do not get gauges. *Observation* and *conflict* are tracked by state (fresh, touched, explored, resolved), not by percentage. The discipline: gauges appear where they reflect a measurable arc; they do not appear where they would pretend to quantify coaching engagement. *47% complete on your operating style read* is meaningful; *47% complete on a conflict* is dashboard register pretending to be coaching.
+
+### POV linkage to dimensions, goals, and current priorities
+
+POVs are tagged across three taxonomies:
+
+**Dimensions** — radar axes the POV touches. The third-person observation tags Influence and Pace. The Director-role conflict tags Strategy and Influence. Engaging with a POV and shifting Arbor's read updates the radar on YOU. Same POV, different surface.
+
+**Goals** — user-side targets the POV affects. POVs can advance or stall goals; goals influence POV priority in WIP curation.
+
+**Current priorities** — short-horizon focuses the user is actively engaged with (interviewing, a specific project, a transition). Current priorities are separate from goals — they are the lens through which the user is currently looking at their work.
+
+Linkages are bidirectional. Visualization is a design decision per surface, but the typical treatment is small chips below the POV attribution line. Clicking a chip navigates to or filters by that tag.
+
+### POV curation and filtering
+
+The WIP list is curated by Arbor, not user-sorted. The discipline matches a real coach: the coach decides which three things to bring to a session, not the client. Letting the user sort would shift agency in a way that breaks the coaching register and makes HOME a productivity tool.
+
+The user can apply Arbor-defined lenses on the curated set: *Most impactful*, *Quick*, *Patient*. These reorder the same items by Arbor's interpretation of each lens — they do not let the user override Arbor's selection of which items appear. Default rendering is unfiltered (Arbor's primary curation).
+
 ### The user has one record. Three hubs surface it.
 
 The user's record is one thing. The schema separates it into three ledgers (YOU, COMPANY, WORK), and the product surfaces the record through three hubs that map onto the same cut.
