@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import SovereignBeacon from "@/components/sovereign-beacon/SovereignBeacon";
+import { useRightPane } from "@/context/RightPaneContext";
 import styles from "./HomeWelcome.module.css";
 
 const EMOJI_OPTIONS = ["😀", "😐", "😔"];
@@ -10,6 +12,7 @@ const EMOJI_OPTIONS = ["😀", "😐", "😔"];
 export default function HomeWelcome() {
   const [moodOpen, setMoodOpen] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null);
+  const { openWithContext } = useRightPane();
 
   const handleEmojiSelect = (emoji: string) => {
     setSelectedEmoji(emoji);
@@ -17,7 +20,11 @@ export default function HomeWelcome() {
   };
 
   const handleContinuityClick = () => {
-    // TODO: Wire this to open the right pane pre-loaded on the continuity subject
+    openWithContext({
+      type: "continuity",
+      subject: "interviews",
+      placeholder: "Continuity from your most recent conversation about interviews will load here once chat is wired."
+    });
   };
 
   return (
@@ -73,13 +80,9 @@ export default function HomeWelcome() {
         </a>
       </p>
 
-      <button
-        className={styles.attribution}
-        type="button"
-        // TODO: Wire to open evidence details
-      >
+      <Link href="/conversations" className={styles.attribution}>
         From our last 3 conversations
-      </button>
+      </Link>
     </div>
   );
 }

@@ -57,4 +57,5 @@
   align-items: center;
   white-space: nowrap;
   gap: 0;
+  text-decoration: inherit;
 }

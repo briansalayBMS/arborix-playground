@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import SideNav from "@/components/side-nav/SideNav";
 import RightPane from "@/components/right-pane/RightPane";
 import RightPaneTrigger from "@/components/right-pane/RightPaneTrigger";
+import { RightPaneProvider, useRightPane } from "@/context/RightPaneContext";
 import styles from "./zen-layout.module.css";
 
-export default function ZenLayout({
+function ZenLayoutContent({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [rightPaneOpen, setRightPaneOpen] = useState(false);
+  const { isOpen, context, close, openWithContext } = useRightPane();
 
   return (
     <>
@@ -21,11 +21,28 @@ export default function ZenLayout({
           {children}
         </div>
       </div>
-      <RightPaneTrigger onClick={() => setRightPaneOpen(true)} />
+      <RightPaneTrigger onClick={() => openWithContext({
+        type: "chat",
+        subject: "Start a conversation",
+        placeholder: "Chat interface will load here once backend is wired."
+      })} />
       <RightPane
-        isOpen={rightPaneOpen}
-        onClose={() => setRightPaneOpen(false)}
+        isOpen={isOpen}
+        onClose={close}
+        context={context}
       />
     </>
+  );
+}
+
+export default function ZenLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <RightPaneProvider>
+      <ZenLayoutContent>{children}</ZenLayoutContent>
+    </RightPaneProvider>
   );
 }

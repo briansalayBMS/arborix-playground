@@ -76,7 +76,7 @@ export default function ZenHome() {
       <div className={styles.section}>
         <div className={styles.recordLink}>
           Profile is 42% complete.{" "}
-          <Link href="/your-record" className={styles.recordLinkAction}>
+          <Link href="/you" className={styles.recordLinkAction}>
             View your{" "}
             <span className={styles.nowrapAction}>
               record

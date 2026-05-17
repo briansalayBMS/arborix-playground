@@ -4,12 +4,20 @@ import { useEffect, useRef, useState } from "react";
 import ArborSpeech from "@/components/arbor-speech/ArborSpeech";
 import styles from "./RightPane.module.css";
 
+export interface RightPaneContext {
+  type: "evidence" | "chat" | "conversationSummary" | "continuity";
+  subject: string;
+  povId?: string;
+  placeholder: string;
+}
+
 interface RightPaneProps {
   isOpen: boolean;
   onClose: () => void;
+  context?: RightPaneContext;
 }
 
-export default function RightPane({ isOpen, onClose }: RightPaneProps) {
+export default function RightPane({ isOpen, onClose, context }: RightPaneProps) {
   const [message, setMessage] = useState("");
   const paneRef = useRef<HTMLDivElement>(null);
 
@@ -51,27 +59,40 @@ export default function RightPane({ isOpen, onClose }: RightPaneProps) {
     }
   };
 
+  // TODO: Replace this placeholder UI with real chat/evidence renderer when backend is wired
+  const showPlaceholder = !context || (context.type !== "chat" && context.type !== "evidence");
+
   return (
     <div
       ref={paneRef}
       className={`${styles.pane} ${isOpen ? styles.open : ""}`}
     >
       <div className={styles.header}>
-        <span className={styles.label}>Arbor</span>
+        <span className={styles.label}>
+          {context ? context.subject : "Arbor"}
+        </span>
         <button
           className={styles.closeButton}
           onClick={onClose}
-          aria-label="Close Arbor"
+          aria-label="Close pane"
         >
           ✕
         </button>
       </div>
 
       <div className={styles.conversationArea}>
-        <ArborSpeech>
-          Hi Brian. We were talking about the staff hire last time. Want to
-          pick that up, or start somewhere new?
-        </ArborSpeech>
+        {context ? (
+          <div className={styles.placeholderContent}>
+            <div className={styles.contextType}>{context.type.toUpperCase()}</div>
+            <h3 className={styles.contextSubject}>{context.subject}</h3>
+            <p className={styles.placeholderText}>{context.placeholder}</p>
+          </div>
+        ) : (
+          <ArborSpeech>
+            Hi Brian. We were talking about the staff hire last time. Want to
+            pick that up, or start somewhere new?
+          </ArborSpeech>
+        )}
       </div>
 
       <div className={styles.inputArea}>
