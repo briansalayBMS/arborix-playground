@@ -1,0 +1,114 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.header {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-6);
+  padding: var(--space-3) 0;
+  border-bottom: 0.5px solid var(--color-border-default);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.name {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+}
+
+.right {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.rating {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-sunken);
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+.chainlinkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: color var(--duration-quick) var(--ease-standard);
+}
+
+.chainlinkButton:hover,
+.chainlinkButton:focus-visible {
+  outline: none;
+  color: var(--color-text-primary);
+}
+
+.affordance {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-action-default);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: var(--space-2);
+  cursor: pointer;
+}
+
+.affordance:hover,
+.affordance:focus-visible {
+  outline: none;
+  text-decoration: underline;
+  text-decoration-color: var(--color-action-default);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.nowrapAction {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 4px;
+}
+
+.arrow {
+  color: var(--color-action-default);
+}

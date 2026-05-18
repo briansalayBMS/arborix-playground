@@ -1,58 +1,111 @@
 "use client";
 
-import SynthesizedView from "./SynthesizedView";
-import HubSection from "./HubSection";
-import EvidenceList from "./EvidenceList";
-import CompletenessSignal from "./CompletenessSignal";
+import { useState } from "react";
+import { Share2 } from "lucide-react";
+import { YOU_DATA } from "@/lib/placeholder/you-data";
+import ModeToggle, { type YouMode } from "./ModeToggle";
+import ShareDialog from "./ShareDialog";
+import PlaceholderDialog from "./PlaceholderDialog";
+import InternalView from "./internal/InternalView";
+import ExternalView from "./external/ExternalView";
 import styles from "./YouHub.module.css";
 
-export default function YouHub() {
-  const handleSectionLaunch = () => {
-    // Stub for now
-  };
+type PlaceholderKey =
+  | "addGoal"
+  | "compareGoals"
+  | "takeAssessment"
+  | "sendForPeerRatings"
+  | "requestLedgerAccess"
+  | "downloadDossier";
 
-  const handleGeneratePublicView = () => {
-    // Stub for now
-  };
+const PLACEHOLDER_COPY: Record<PlaceholderKey, { title: string; message: string }> = {
+  addGoal: {
+    title: "ADD A GOAL",
+    message:
+      "Adding goals opens in a future update. For now, the three goals shown are placeholders.",
+  },
+  compareGoals: {
+    title: "COMPARE YOUR GOALS",
+    message:
+      "Pairwise comparison opens in a future update. For now, you can reorder your goals by editing them directly.",
+  },
+  takeAssessment: {
+    title: "FULL ASSESSMENT",
+    message: "Full assessment opens in a future update.",
+  },
+  sendForPeerRatings: {
+    title: "PEER RATINGS",
+    message:
+      "Sending skills out for peer ratings opens in a future update.",
+  },
+  requestLedgerAccess: {
+    title: "REQUEST LEDGER ACCESS",
+    message: "This action opens in a future update.",
+  },
+  downloadDossier: {
+    title: "DOWNLOAD VERIFIED DOSSIER",
+    message: "This action opens in a future update.",
+  },
+};
+
+export default function YouHub() {
+  const [mode, setMode] = useState<YouMode>("internal");
+  const [shareOpen, setShareOpen] = useState(false);
+  const [placeholderKey, setPlaceholderKey] = useState<PlaceholderKey | null>(null);
+
+  const trigger = (key: PlaceholderKey) => () => setPlaceholderKey(key);
 
   return (
     <div className={styles.container}>
-      <SynthesizedView />
+      <div className={styles.toggleRow}>
+        <ModeToggle mode={mode} onChange={setMode} />
+        <div
+          className={styles.shareWrapper}
+          aria-hidden={mode !== "external"}
+        >
+          <button
+            type="button"
+            className={styles.shareButton}
+            onClick={() => setShareOpen((v) => !v)}
+            aria-label="Share your profile"
+            tabIndex={mode === "external" ? 0 : -1}
+            style={{ visibility: mode === "external" ? "visible" : "hidden" }}
+          >
+            <Share2 size={18} strokeWidth={1.5} />
+          </button>
+          {mode === "external" && (
+            <ShareDialog
+              open={shareOpen}
+              link={YOU_DATA.shareLinkPlaceholder}
+              generatedDate={YOU_DATA.shareLinkGeneratedDate}
+              onClose={() => setShareOpen(false)}
+            />
+          )}
+        </div>
+      </div>
 
-      <HubSection
-        label="PERSONALITY"
-        title="Strategic Driver"
-        summary="Your dominant pattern is high-pace and task-oriented. You make decisions fast and you measure them against outcomes, not against process."
-        cta="Take the full assessment →"
-        onLaunch={handleSectionLaunch}
+      {mode === "internal" ? (
+        <InternalView
+          data={YOU_DATA}
+          onAddGoal={trigger("addGoal")}
+          onCompareGoals={trigger("compareGoals")}
+          onTakeAssessment={trigger("takeAssessment")}
+          onSendForPeerRatings={trigger("sendForPeerRatings")}
+        />
+      ) : (
+        <ExternalView
+          data={YOU_DATA}
+          onRequestLedgerAccess={trigger("requestLedgerAccess")}
+          onDownloadDossier={trigger("downloadDossier")}
+        />
+      )}
+
+      <PlaceholderDialog
+        open={placeholderKey !== null}
+        title={placeholderKey ? PLACEHOLDER_COPY[placeholderKey].title : ""}
+        message={placeholderKey ? PLACEHOLDER_COPY[placeholderKey].message : ""}
+        onClose={() => setPlaceholderKey(null)}
       />
-
-      <HubSection
-        label="SKILLS"
-        title="Product leadership"
-        summary="Your record shows depth in product strategy, organizational design, and turning ambiguity into shipped work. Peer ratings will sharpen this."
-        cta="Review your skills →"
-        onLaunch={handleSectionLaunch}
-      />
-
-      <HubSection
-        label="GOALS"
-        title="Three active goals"
-        summary="Lead a meaningful product transformation. Mentor at least two strong PMs to senior. Stay in roles where the strategic and the operational are not separated."
-        cta="Refine your goals →"
-        onLaunch={handleSectionLaunch}
-      />
-
-      <EvidenceList />
-
-      <CompletenessSignal />
-
-      <button
-        className={styles.generateButton}
-        onClick={handleGeneratePublicView}
-      >
-        Generate a Public View
-      </button>
     </div>
   );
 }

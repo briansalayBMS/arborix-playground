@@ -14,12 +14,31 @@ export type Source = {
 
 export type POVType = "observation" | "conflict" | "partial-read";
 
+export interface RightPaneDetail {
+  title?: string;
+  subtitle?: string;
+  body?: string;
+  linkedItems?: { id: string; label: string }[];
+}
+
 export interface RightPaneContext {
-  type: "evidence" | "chat" | "conversationSummary" | "continuity" | "goal" | "sources";
+  type:
+    | "evidence"
+    | "chat"
+    | "conversationSummary"
+    | "continuity"
+    | "goal"
+    | "sources"
+    | "goalDetail"
+    | "impactDetail"
+    | "operatingProfileDetail"
+    | "skillDetail"
+    | "radarDetail";
   subject?: string;
   povId?: string;
   povType?: POVType;
   sources?: Source[];
+  detail?: RightPaneDetail;
   placeholder: string;
 }
 
@@ -32,6 +51,78 @@ function sourcesOpeningLine(count: number): string {
   if (count === 1) return "This source shaped my read.";
   const word = NUMBER_WORDS[count] ?? String(count);
   return `These ${word} sources shaped my read.`;
+}
+
+interface DetailViewProps {
+  monoLabel?: string;
+  heading?: string;
+  headingSize?: "title" | "display";
+  subtitle?: string;
+  body?: string;
+  linkedItemsHeader?: string;
+  linkedItems?: { id: string; label: string }[];
+  sources?: Source[];
+}
+
+function DetailView({
+  monoLabel,
+  heading,
+  headingSize = "title",
+  subtitle,
+  body,
+  linkedItemsHeader,
+  linkedItems,
+  sources,
+}: DetailViewProps) {
+  return (
+    <div className={styles.detailView}>
+      <div className={styles.detailHead}>
+        {monoLabel && <div className={styles.detailMonoLabel}>{monoLabel}</div>}
+        {heading && (
+          <h3
+            className={
+              headingSize === "display"
+                ? styles.detailHeadingDisplay
+                : styles.detailHeading
+            }
+          >
+            {heading}
+          </h3>
+        )}
+        {subtitle && <div className={styles.detailSubtitle}>{subtitle}</div>}
+      </div>
+      {body && <ArborSpeech>{body}</ArborSpeech>}
+      {linkedItems && linkedItems.length > 0 && (
+        <div className={styles.detailSection}>
+          <div className={styles.detailSectionHeader}>
+            {linkedItemsHeader ?? "Linked"}
+          </div>
+          <ul className={styles.detailLinkedList}>
+            {linkedItems.map((item) => (
+              <li key={item.id} className={styles.detailLinkedItem}>
+                {item.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {sources && sources.length > 0 && (
+        <div className={styles.detailSection}>
+          <div className={styles.detailSectionHeader}>Sources</div>
+          <ul className={styles.sourcesList}>
+            {sources.map((source) => (
+              <li key={source.id} className={styles.sourceItem}>
+                <div className={styles.sourceTitle}>{source.title}</div>
+                {source.excerpt && (
+                  <div className={styles.sourceExcerpt}>{source.excerpt}</div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
 }
 
 interface RightPaneProps {
@@ -120,6 +211,52 @@ export default function RightPane({ isOpen, onClose, context }: RightPaneProps) 
               ))}
             </ul>
           </div>
+        ) : context?.type === "goalDetail" ? (
+          <DetailView
+            heading={context.detail?.title}
+            headingSize="title"
+            subtitle={context.detail?.subtitle ?? "Active goal"}
+            body={context.detail?.body}
+            linkedItemsHeader="Linked POVs"
+            linkedItems={context.detail?.linkedItems}
+            sources={context.sources}
+          />
+        ) : context?.type === "impactDetail" ? (
+          <DetailView
+            heading={context.detail?.title}
+            headingSize="display"
+            subtitle={context.detail?.subtitle}
+            body={context.detail?.body}
+            sources={context.sources}
+          />
+        ) : context?.type === "operatingProfileDetail" ? (
+          <DetailView
+            monoLabel={context.detail?.title}
+            heading={context.detail?.subtitle}
+            headingSize="title"
+            body={context.detail?.body}
+            sources={context.sources}
+          />
+        ) : context?.type === "skillDetail" ? (
+          <DetailView
+            monoLabel={context.detail?.title}
+            heading={context.detail?.subtitle}
+            headingSize="title"
+            body={context.detail?.body}
+            sources={context.sources}
+          />
+        ) : context?.type === "radarDetail" ? (
+          <DetailView
+            heading={context.detail?.title}
+            headingSize="title"
+            subtitle={context.detail?.subtitle}
+            body={context.detail?.body}
+            linkedItemsHeader="Axes"
+            linkedItems={context.detail?.linkedItems}
+            sources={context.sources}
+          />
+        ) : context?.type === "chat" && context.detail?.body ? (
+          <ArborSpeech>{context.detail.body}</ArborSpeech>
         ) : context ? (
           <div className={styles.placeholderContent}>
             <div className={styles.contextType}>{context.type.toUpperCase()}</div>

@@ -4,6 +4,7 @@ import SideNav from "@/components/side-nav/SideNav";
 import RightPane from "@/components/right-pane/RightPane";
 import RightPaneTrigger from "@/components/right-pane/RightPaneTrigger";
 import { RightPaneProvider, useRightPane } from "@/context/RightPaneContext";
+import { DiagnosticFocusProvider } from "@/context/DiagnosticFocusContext";
 import styles from "./zen-layout.module.css";
 
 function ZenLayoutContent({
@@ -41,8 +42,10 @@ export default function ZenLayout({
   children: React.ReactNode;
 }) {
   return (
-    <RightPaneProvider>
-      <ZenLayoutContent>{children}</ZenLayoutContent>
-    </RightPaneProvider>
+    <DiagnosticFocusProvider>
+      <RightPaneProvider>
+        <ZenLayoutContent>{children}</ZenLayoutContent>
+      </RightPaneProvider>
+    </DiagnosticFocusProvider>
   );
 }

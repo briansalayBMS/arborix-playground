@@ -1,0 +1,56 @@
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+}
+
+.group {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.value {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 350;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.chainlinkButton {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0 0 0 4px;
+  margin: 0;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  vertical-align: baseline;
+  line-height: inherit;
+  transition: color var(--duration-quick) var(--ease-standard);
+}
+
+.chainlinkButton:hover,
+.chainlinkButton:focus-visible {
+  outline: none;
+  color: var(--color-text-primary);
+}
+
+.separator {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  margin: 0 4px;
+}

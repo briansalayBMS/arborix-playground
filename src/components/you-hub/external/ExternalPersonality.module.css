@@ -1,0 +1,80 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+.header {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.archetypeHeadButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  text-align: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  align-self: center;
+  cursor: pointer;
+  transition: opacity var(--duration-quick) var(--ease-standard);
+}
+
+.archetypeHeadButton:hover,
+.archetypeHeadButton:focus-visible {
+  outline: none;
+  opacity: 0.85;
+}
+
+.archetypeName {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.radarButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: var(--space-6) 0;
+  margin: 0;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity var(--duration-quick) var(--ease-standard);
+}
+
+.radarButton:hover {
+  opacity: 0.92;
+}
+
+.radarButton:focus-visible {
+  outline: none;
+  opacity: 0.92;
+}
+
+.radarColumn {
+  width: 100%;
+  max-width: 440px;
+  min-height: 340px;
+}

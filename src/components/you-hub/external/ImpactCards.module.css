@@ -1,0 +1,85 @@
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 760px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-default);
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  min-height: 280px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.metric {
+  font-family: var(--font-serif);
+  font-size: 52px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: var(--space-1) 0 var(--space-3);
+}
+
+.narrative {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.delta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-action-default);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: var(--space-4);
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.delta:hover,
+.delta:focus-visible {
+  outline: none;
+  text-decoration: underline;
+  text-decoration-color: var(--color-action-default);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.nowrapAction {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 4px;
+}
+
+.deltaArrow {
+  color: var(--color-action-default);
+}

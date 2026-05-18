@@ -1,0 +1,90 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 680px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 44px;
+  font-weight: 350;
+  color: var(--color-text-primary);
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.body {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 19px;
+  font-weight: 350;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 640px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.chainlinkButton {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0 0 0 4px;
+  margin: 0;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  vertical-align: baseline;
+  line-height: inherit;
+  transition: color var(--duration-quick) var(--ease-standard);
+}
+
+.chainlinkButton:hover,
+.chainlinkButton:focus-visible {
+  outline: none;
+  color: var(--color-text-primary);
+}
+
+.talkAction {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-action-default);
+  line-height: 1.4;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: var(--space-2) 0 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: text-decoration-color var(--duration-quick) var(--ease-standard);
+}
+
+.talkAction:hover,
+.talkAction:focus-visible {
+  outline: none;
+  text-decoration: underline;
+  text-decoration-color: var(--color-action-default);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.nowrapAction {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 0;
+}
+
+.actionArrow {
+  margin-left: 4px;
+  vertical-align: middle;
+  color: var(--color-action-default);
+}

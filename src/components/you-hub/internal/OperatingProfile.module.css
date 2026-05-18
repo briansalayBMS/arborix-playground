@@ -1,0 +1,60 @@
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+}
+
+@media (max-width: 720px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.value {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 350;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.chainlinkButton {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0 0 0 4px;
+  margin: 0;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  vertical-align: baseline;
+  line-height: inherit;
+  transition: color var(--duration-quick) var(--ease-standard);
+}
+
+.chainlinkButton:hover,
+.chainlinkButton:focus-visible {
+  outline: none;
+  color: var(--color-text-primary);
+}
