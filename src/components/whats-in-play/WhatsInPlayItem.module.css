@@ -24,29 +24,30 @@
   padding: 0;
 }
 
-.attribution {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  line-height: 1.4;
+.chainlinkButton {
+  display: inline;
   background: none;
   border: none;
-  padding: 0;
-  margin: 0 0 8px 0;
+  padding: 0 0 0 4px;
+  margin: 0;
+  color: var(--color-text-secondary);
   cursor: pointer;
-  text-align: left;
-  text-decoration: none;
-  transition: all var(--duration-quick) var(--ease-standard);
+  vertical-align: baseline;
+  line-height: inherit;
+  transition: color var(--duration-quick) var(--ease-standard);
 }
 
-.attribution:hover {
+.chainlinkButton:hover {
   color: var(--color-text-primary);
-  text-decoration: underline;
-  text-decoration-color: var(--color-text-primary);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+}
+
+.chainlinkButton:focus-visible {
+  outline: none;
+  color: var(--color-text-primary);
+}
+
+.nowrapPov {
+  white-space: nowrap;
 }
 
 .action {
@@ -92,4 +93,20 @@
   white-space: nowrap;
   gap: 0;
   text-decoration: inherit;
+}
+
+.goalChipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.moreGoalsLabel {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+  line-height: 1;
 }

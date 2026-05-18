@@ -141,3 +141,41 @@
   margin: 0;
   padding: 0;
 }
+
+.sourcesView {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.sourcesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sourceItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sourceTitle {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.sourceExcerpt {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}

@@ -4,11 +4,34 @@ import { useEffect, useRef, useState } from "react";
 import ArborSpeech from "@/components/arbor-speech/ArborSpeech";
 import styles from "./RightPane.module.css";
 
+export type Source = {
+  id: string;
+  type: "document" | "session" | "synthesis";
+  title: string;
+  excerpt?: string;
+  reference?: string;
+};
+
+export type POVType = "observation" | "conflict" | "partial-read";
+
 export interface RightPaneContext {
-  type: "evidence" | "chat" | "conversationSummary" | "continuity";
-  subject: string;
+  type: "evidence" | "chat" | "conversationSummary" | "continuity" | "goal" | "sources";
+  subject?: string;
   povId?: string;
+  povType?: POVType;
+  sources?: Source[];
   placeholder: string;
+}
+
+const NUMBER_WORDS: Record<number, string> = {
+  1: "one", 2: "two", 3: "three", 4: "four", 5: "five",
+  6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
+};
+
+function sourcesOpeningLine(count: number): string {
+  if (count === 1) return "This source shaped my read.";
+  const word = NUMBER_WORDS[count] ?? String(count);
+  return `These ${word} sources shaped my read.`;
 }
 
 interface RightPaneProps {
@@ -69,7 +92,9 @@ export default function RightPane({ isOpen, onClose, context }: RightPaneProps) 
     >
       <div className={styles.header}>
         <span className={styles.label}>
-          {context ? context.subject : "Arbor"}
+          {context?.type === "sources"
+            ? "sources"
+            : (context?.subject ?? "Arbor")}
         </span>
         <button
           className={styles.closeButton}
@@ -81,10 +106,24 @@ export default function RightPane({ isOpen, onClose, context }: RightPaneProps) 
       </div>
 
       <div className={styles.conversationArea}>
-        {context ? (
+        {context?.type === "sources" && context.sources ? (
+          <div className={styles.sourcesView}>
+            <ArborSpeech>{sourcesOpeningLine(context.sources.length)}</ArborSpeech>
+            <ul className={styles.sourcesList}>
+              {context.sources.map((source) => (
+                <li key={source.id} className={styles.sourceItem}>
+                  <div className={styles.sourceTitle}>{source.title}</div>
+                  {source.excerpt && (
+                    <div className={styles.sourceExcerpt}>{source.excerpt}</div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : context ? (
           <div className={styles.placeholderContent}>
             <div className={styles.contextType}>{context.type.toUpperCase()}</div>
-            <h3 className={styles.contextSubject}>{context.subject}</h3>
+            <h3 className={styles.contextSubject}>{context.subject ?? ""}</h3>
             <p className={styles.placeholderText}>{context.placeholder}</p>
           </div>
         ) : (

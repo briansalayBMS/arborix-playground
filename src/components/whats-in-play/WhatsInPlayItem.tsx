@@ -1,18 +1,33 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Link2 } from "lucide-react";
 import { useRightPane } from "@/context/RightPaneContext";
+import GoalImpactChip from "./GoalImpactChip";
+import type { Source } from "@/components/right-pane/RightPane";
 import styles from "./WhatsInPlayItem.module.css";
 
 export type POVType = "observation" | "conflict" | "partial-read";
 
+interface GoalLink {
+  goalId: string;
+  impactStrength: "high" | "medium" | "low";
+}
+
+interface Goal {
+  id: string;
+  title: string;
+  priority: "high" | "medium" | "low";
+}
+
 interface WhatsInPlayItemProps {
   type: POVType;
   pov: string;
-  attribution: string;
   action: string;
   onAction?: () => void;
-  onAttributionClick?: () => void;
+  goalLinks?: GoalLink[];
+  goals?: Record<string, Goal>;
+  povId?: string;
+  sources?: Source[];
 }
 
 const typeLabels: Record<POVType, string> = {
@@ -22,26 +37,18 @@ const typeLabels: Record<POVType, string> = {
 };
 
 const contextConfig: Record<POVType, {
-  evidenceSubject: string;
-  evidencePlaceholder: string;
   chatSubject: string;
   chatPlaceholder: string;
 }> = {
   observation: {
-    evidenceSubject: "third person observation",
-    evidencePlaceholder: "The 3 resume passages supporting this observation will load here once backend is wired.",
     chatSubject: "third person observation",
     chatPlaceholder: "Chat pre-loaded on this observation will open here once chat is wired.",
   },
   conflict: {
-    evidenceSubject: "director role conflict",
-    evidencePlaceholder: "The goal record and 6 quarterly observations supporting this conflict will load here once backend is wired.",
     chatSubject: "director role conflict",
     chatPlaceholder: "Chat pre-loaded on this conflict will open here once chat is wired.",
   },
   "partial-read": {
-    evidenceSubject: "operating style read",
-    evidencePlaceholder: "The 5 resume rows supporting this read will load here once backend is wired.",
     chatSubject: "personality questions",
     chatPlaceholder: "The personality questions flow (or a chat-driven version) will load here once that flow is built.",
   },
@@ -50,30 +57,25 @@ const contextConfig: Record<POVType, {
 export default function WhatsInPlayItem({
   type,
   pov,
-  attribution,
   action,
   onAction,
-  onAttributionClick,
+  goalLinks = [],
+  goals = {},
+  povId,
+  sources,
 }: WhatsInPlayItemProps) {
   const { openWithContext } = useRightPane();
   const config = contextConfig[type];
 
-  // Strip the arrow from the action text if present
   const actionText = action.replace(/\s*→\s*$/, "");
-
-  // Extract last word for nowrap binding with arrow
   const words = actionText.trim().split(/\s+/);
   const lastWord = words[words.length - 1];
-  const beforeLastWord = words.slice(0, -1).join(' ');
+  const beforeLastWord = words.slice(0, -1).join(" ");
 
-  const handleAttributionClick = () => {
-    openWithContext({
-      type: "evidence",
-      subject: config.evidenceSubject,
-      placeholder: config.evidencePlaceholder,
-    });
-    onAttributionClick?.();
-  };
+  const hasSources = !!sources && sources.length > 0;
+  const povWords = pov.trim().split(/\s+/);
+  const povLastWord = povWords[povWords.length - 1];
+  const povBeforeLastWord = povWords.slice(0, -1).join(" ");
 
   const handleActionClick = () => {
     openWithContext({
@@ -84,19 +86,66 @@ export default function WhatsInPlayItem({
     onAction?.();
   };
 
+  const handleChainlinkClick = () => {
+    if (!hasSources) return;
+    openWithContext({
+      type: "sources",
+      povId,
+      povType: type,
+      sources,
+      placeholder: "These sources shaped this read.",
+    });
+  };
+
   return (
     <div className={styles.item}>
       <div className={styles.typeLabel}>{typeLabels[type]}</div>
 
-      <p className={styles.pov}>{pov}</p>
+      <p className={styles.pov}>
+        {hasSources ? (
+          <>
+            {povBeforeLastWord && `${povBeforeLastWord} `}
+            <span className={styles.nowrapPov}>
+              {povLastWord}
+              <button
+                className={styles.chainlinkButton}
+                onClick={handleChainlinkClick}
+                type="button"
+                aria-label="View sources for this point of view"
+              >
+                <Link2 size={14} strokeWidth={1.5} />
+              </button>
+            </span>
+          </>
+        ) : (
+          pov
+        )}
+      </p>
 
-      <button
-        className={styles.attribution}
-        onClick={handleAttributionClick}
-        type="button"
-      >
-        {attribution}
-      </button>
+      {goalLinks.length > 0 && (
+        <div className={styles.goalChipsRow}>
+          {goalLinks.map((link) => {
+            const goal = goals[link.goalId];
+            if (!goal) return null;
+
+            const visibleChips = goalLinks.slice(0, 2);
+
+            return visibleChips.find((g) => g.goalId === link.goalId) ? (
+              <GoalImpactChip
+                key={link.goalId}
+                goalId={link.goalId}
+                goalTitle={goal.title}
+                impactStrength={link.impactStrength}
+              />
+            ) : null;
+          })}
+          {goalLinks.length > 2 && (
+            <span className={styles.moreGoalsLabel}>
+              +{goalLinks.length - 2} more
+            </span>
+          )}
+        </div>
+      )}
 
       <button
         className={styles.action}
