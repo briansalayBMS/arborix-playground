@@ -16,8 +16,6 @@ import {
   getAckAndFollowUp,
   makeAnswerSnippet,
 } from "@/lib/depositionFlow";
-import { getMe } from "@/lib/api/client";
-import { createClient } from "@/lib/supabase/client";
 
 const STORAGE_KEY = "arborix:sovereign-command";
 
@@ -52,8 +50,6 @@ export type SovereignCommandState = {
   onboardingData: unknown | null;
   /** One-pager data from API */
   onePagerData: unknown | null;
-  /** User data from GET /users/me */
-  userData: { name?: string; mode?: string; completeness_pct?: number } | null;
 };
 
 const DEFAULTS: SovereignCommandState = {
@@ -69,7 +65,6 @@ const DEFAULTS: SovereignCommandState = {
   latestDepositionPreview: "",
   onboardingData: null,
   onePagerData: null,
-  userData: null,
 };
 
 function loadState(): SovereignCommandState {
@@ -119,7 +114,6 @@ function loadState(): SovereignCommandState {
           : DEFAULTS.latestDepositionPreview,
       onboardingData: (parsed as { onboardingData?: unknown }).onboardingData ?? DEFAULTS.onboardingData,
       onePagerData: (parsed as { onePagerData?: unknown }).onePagerData ?? DEFAULTS.onePagerData,
-      userData: (parsed as { userData?: unknown }).userData ?? DEFAULTS.userData,
     };
   } catch {
     return DEFAULTS;
@@ -156,7 +150,6 @@ type SovereignCommandContextValue = SovereignCommandState & {
   }) => void;
   setOnboardingData: (data: unknown) => void;
   setOnePagerData: (data: unknown) => void;
-  setUserData: (data: { name?: string; mode?: string; completeness_pct?: number } | null) => void;
 };
 
 type DepositionContinueResult = {
@@ -238,33 +231,6 @@ export function SovereignCommandProvider({ children }: { children: ReactNode }) 
     setState(loadState());
     setHydrated(true);
   }, []);
-
-  useEffect(() => {
-    if (!hydrated) return;
-    const fetchUserData = async () => {
-      try {
-        const supabase = createClient();
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) return;
-
-        const result = await getMe();
-        if (result && typeof result === "object") {
-          const data = result as Record<string, unknown>;
-          setState((s) => ({
-            ...s,
-            userData: {
-              name: typeof data.name === "string" ? data.name : undefined,
-              mode: typeof data.mode === "string" ? data.mode : undefined,
-              completeness_pct: typeof data.completeness_pct === "number" ? data.completeness_pct : undefined,
-            },
-          }));
-        }
-      } catch (err) {
-        console.warn("Failed to fetch user data:", err);
-      }
-    };
-    fetchUserData();
-  }, [hydrated]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -367,10 +333,6 @@ export function SovereignCommandProvider({ children }: { children: ReactNode }) 
     setState((s) => ({ ...s, onePagerData: data }));
   }, []);
 
-  const setUserData = useCallback((data: { name?: string; mode?: string; completeness_pct?: number } | null) => {
-    setState((s) => ({ ...s, userData: data }));
-  }, []);
-
   const value = useMemo<SovereignCommandContextValue>(
     () => ({
       ...state,
@@ -389,7 +351,6 @@ export function SovereignCommandProvider({ children }: { children: ReactNode }) 
       continueDeposition,
       setOnboardingData,
       setOnePagerData,
-      setUserData,
     }),
     [
       state,
@@ -408,7 +369,6 @@ export function SovereignCommandProvider({ children }: { children: ReactNode }) 
       continueDeposition,
       setOnboardingData,
       setOnePagerData,
-      setUserData,
     ],
   );
 

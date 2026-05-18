@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Share2 } from "lucide-react";
 import { YOU_DATA } from "@/lib/placeholder/you-data";
+import { useOnePager } from "@/lib/api/hooks/useOnePager";
+import { applyOnePagerOverlay } from "@/lib/api/transformers/onepager";
 import ModeToggle, { type YouMode } from "./ModeToggle";
 import ShareDialog from "./ShareDialog";
 import PlaceholderDialog from "./PlaceholderDialog";
@@ -53,6 +55,12 @@ export default function YouHub() {
   const [shareOpen, setShareOpen] = useState(false);
   const [placeholderKey, setPlaceholderKey] = useState<PlaceholderKey | null>(null);
 
+  const onePager = useOnePager();
+  const data = useMemo(
+    () => applyOnePagerOverlay(YOU_DATA, onePager.data),
+    [onePager.data],
+  );
+
   const trigger = (key: PlaceholderKey) => () => setPlaceholderKey(key);
 
   return (
@@ -76,8 +84,8 @@ export default function YouHub() {
           {mode === "external" && (
             <ShareDialog
               open={shareOpen}
-              link={YOU_DATA.shareLinkPlaceholder}
-              generatedDate={YOU_DATA.shareLinkGeneratedDate}
+              link={data.shareLinkPlaceholder}
+              generatedDate={data.shareLinkGeneratedDate}
               onClose={() => setShareOpen(false)}
             />
           )}
@@ -86,7 +94,7 @@ export default function YouHub() {
 
       {mode === "internal" ? (
         <InternalView
-          data={YOU_DATA}
+          data={data}
           onAddGoal={trigger("addGoal")}
           onCompareGoals={trigger("compareGoals")}
           onTakeAssessment={trigger("takeAssessment")}
@@ -94,7 +102,7 @@ export default function YouHub() {
         />
       ) : (
         <ExternalView
-          data={YOU_DATA}
+          data={data}
           onRequestLedgerAccess={trigger("requestLedgerAccess")}
           onDownloadDossier={trigger("downloadDossier")}
         />

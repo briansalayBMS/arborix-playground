@@ -2,6 +2,8 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext";
+import { IDENTITY_ANCHOR } from "@/constants/identityAnchor";
 import styles from "./SideNav.module.css";
 
 const NAV_LINKS = [
@@ -12,18 +14,29 @@ const NAV_LINKS = [
   { href: "/conversations", label: "PAST CONVERSATIONS" },
 ];
 
+function computeInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 0 || parts[0] === "") return IDENTITY_ANCHOR.initials;
+  const first = parts[0][0] ?? "";
+  const second = parts.length > 1 ? (parts[1][0] ?? "") : "";
+  const result = `${first}${second}`.toUpperCase();
+  return result || IDENTITY_ANCHOR.initials;
+}
+
 export default function SideNav() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user } = useUser();
+
+  const displayName = user?.name?.trim() || IDENTITY_ANCHOR.name;
+  const initials = computeInitials(displayName);
 
   const isActive = (href: string) => pathname === href;
 
   return (
     <nav className={styles.nav}>
-      {/* Wordmark */}
       <div className={styles.wordmark}>Arborix</div>
 
-      {/* Nav links section */}
       <div className={styles.linksSection}>
         {NAV_LINKS.map((link) => (
           <Link
@@ -36,15 +49,16 @@ export default function SideNav() {
         ))}
       </div>
 
-      {/* Spacer to push avatar to bottom */}
       <div className={styles.spacer} />
 
-      {/* Avatar button */}
       <button
-        className={`${styles.avatar} ${isActive("/settings") ? styles.active : ""}`}
+        className={`${styles.identityRow} ${isActive("/settings") ? styles.active : ""}`}
         onClick={() => router.push("/settings")}
         aria-label="Settings"
-      />
+      >
+        <span className={styles.avatar}>{initials}</span>
+        <span className={styles.name}>{displayName}</span>
+      </button>
     </nav>
   );
 }

@@ -2,6 +2,34 @@ import { createClient } from '@/lib/supabase/client'
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
+export class ApiAuthError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'ApiAuthError'
+  }
+}
+
+export class ApiClientError extends Error {
+  constructor(message: string, public status: number) {
+    super(message)
+    this.name = 'ApiClientError'
+  }
+}
+
+export class ApiServerError extends Error {
+  constructor(message: string, public status: number) {
+    super(message)
+    this.name = 'ApiServerError'
+  }
+}
+
+export class ApiNetworkError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'ApiNetworkError'
+  }
+}
+
 async function getAuthToken(): Promise<string> {
   const supabase = createClient()
   let { data: { session } } = await supabase.auth.getSession()
@@ -12,10 +40,26 @@ async function getAuthToken(): Promise<string> {
   }
 
   if (!session?.access_token) {
-    throw new Error('Not authenticated')
+    throw new ApiAuthError('Not authenticated')
   }
 
   return session.access_token
+}
+
+async function extractErrorMessage(response: Response): Promise<string> {
+  try {
+    const body = await response.json()
+    return body?.detail || body?.message || JSON.stringify(body)
+  } catch {
+    return `HTTP ${response.status}: ${response.statusText}`
+  }
+}
+
+function throwForStatus(status: number, message: string): never {
+  if (status === 401) throw new ApiAuthError(message)
+  if (status >= 400 && status < 500) throw new ApiClientError(message, status)
+  if (status >= 500) throw new ApiServerError(message, status)
+  throw new ApiClientError(message, status)
 }
 
 async function request(path: string, options?: RequestInit): Promise<unknown> {
@@ -30,19 +74,20 @@ async function request(path: string, options?: RequestInit): Promise<unknown> {
   const fullUrl = `${BASE_URL}${path}`
   console.log('[API]', options?.method || 'GET', fullUrl)
 
-  const response = await fetch(fullUrl, {
-    ...options,
-    headers,
-  })
+  let response: Response
+  try {
+    response = await fetch(fullUrl, {
+      ...options,
+      headers,
+    })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Network request failed'
+    throw new ApiNetworkError(message)
+  }
 
   if (!response.ok) {
-    try {
-      const error = await response.json()
-      const message = error?.detail || error?.message || JSON.stringify(error)
-      throw new Error(message)
-    } catch (parseError) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-    }
+    const message = await extractErrorMessage(response)
+    throwForStatus(response.status, message)
   }
 
   return response.json()
@@ -55,23 +100,29 @@ async function requestFormData(path: string, formData: FormData): Promise<unknow
     Authorization: `Bearer ${token}`,
   }
 
-  const response = await fetch(`${BASE_URL}${path}`, {
-    method: 'POST',
-    headers,
-    body: formData,
-  })
+  let response: Response
+  try {
+    response = await fetch(`${BASE_URL}${path}`, {
+      method: 'POST',
+      headers,
+      body: formData,
+    })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Network request failed'
+    throw new ApiNetworkError(message)
+  }
 
   if (!response.ok) {
-    try {
-      const error = await response.json()
-      const message = error?.detail || error?.message || JSON.stringify(error)
-      throw new Error(message)
-    } catch (parseError) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-    }
+    const message = await extractErrorMessage(response)
+    throwForStatus(response.status, message)
   }
 
   return response.json()
+}
+
+// Health
+export async function getHealth() {
+  return request('/health', { method: 'GET' })
 }
 
 // Users

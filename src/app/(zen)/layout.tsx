@@ -5,6 +5,7 @@ import RightPane from "@/components/right-pane/RightPane";
 import RightPaneTrigger from "@/components/right-pane/RightPaneTrigger";
 import { RightPaneProvider, useRightPane } from "@/context/RightPaneContext";
 import { DiagnosticFocusProvider } from "@/context/DiagnosticFocusContext";
+import { UserProvider } from "@/context/UserContext";
 import styles from "./zen-layout.module.css";
 
 function ZenLayoutContent({
@@ -42,10 +43,12 @@ export default function ZenLayout({
   children: React.ReactNode;
 }) {
   return (
-    <DiagnosticFocusProvider>
-      <RightPaneProvider>
-        <ZenLayoutContent>{children}</ZenLayoutContent>
-      </RightPaneProvider>
-    </DiagnosticFocusProvider>
+    <UserProvider>
+      <DiagnosticFocusProvider>
+        <RightPaneProvider>
+          <ZenLayoutContent>{children}</ZenLayoutContent>
+        </RightPaneProvider>
+      </DiagnosticFocusProvider>
+    </UserProvider>
   );
 }
