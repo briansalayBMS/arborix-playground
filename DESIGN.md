@@ -324,6 +324,20 @@ The chat is the upload interface. What the user shares, Arbor reads.
 
 Voice input is on the roadmap. Until then, text and files carry the load.
 
+### Metadata defaults to the pane
+
+Arbor's surfaces show what Arbor is saying. The right pane shows what Arbor is drawing from. The two are kept separate by default.
+
+This means the things that would otherwise pin themselves to every coaching artifact — the source attributions, the dimensional tags, the evidence counts, the timestamps, the strength indicators — do not appear on the main surface by default. They live in the pane. The user reaches them when they want them, by clicking an annotation mark on the artifact that has more context to share.
+
+The discipline is editorial. The surface presents Arbor's voice, in Fraunces italic, with generous breathing room. The pane presents Arbor's receipts, with the structured detail a curious reader can drill into. The annotation mark on the artifact is the bridge: depth on demand, never by default.
+
+This is not a hard rule against metadata on surfaces. Some metadata carries coaching value rather than just transparency value — it is what the artifact is *about*, not where it came *from*. Goal linkages on a POV, for example, name what the POV is connected to in the user's own stated work, which is part of the coaching content. These can sit on the surface when they meet the test: does this metadata change the meaning of what Arbor is saying, or does it just show the work behind what Arbor is saying? The first stays. The second moves to the pane.
+
+When in doubt, the pane. The surface should be able to be read at a glance without the user processing rows of pinned tags. If the surface starts to feel like a dashboard rather than a coaching artifact, the metadata has crept where it should not have.
+
+The annotation marks themselves are quiet. A small Sovereign Beacon at the end of a body sentence. A small chainlink icon after the closing period. A subtle glyph that signals "Arbor has more to share here" without competing with the body text. The marks should read as part of the typographic rhythm, not as additional UI controls.
+
 ## Composition Rule
 
 Composition flows one direction. Always.
