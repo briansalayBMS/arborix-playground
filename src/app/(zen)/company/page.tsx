@@ -1,9 +1,11 @@
-import EmptyHub from "@/components/empty-hub/EmptyHub";
+import Record from "@/components/record/Record";
+import styles from "./page.module.css";
 
 export default function CompanyPage() {
   return (
-    <main>
-      <EmptyHub message="This is where we will hold the people and place around your work. Your manager, your team, your context. It is coming." />
+    <main className={styles.page}>
+      <h1 className={styles.title}>COMPANY</h1>
+      <Record domain="company" />
     </main>
   );
 }

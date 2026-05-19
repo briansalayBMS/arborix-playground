@@ -1,9 +1,11 @@
-import EmptyHub from "@/components/empty-hub/EmptyHub";
+import Record from "@/components/record/Record";
+import styles from "./page.module.css";
 
 export default function WorkPage() {
   return (
-    <main>
-      <EmptyHub message="This is where we will track what you are doing right now. Your OKRs, your projects, what you logged this week. It is coming." />
+    <main className={styles.page}>
+      <h1 className={styles.title}>WORK</h1>
+      <Record domain="work" />
     </main>
   );
 }
