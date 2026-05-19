@@ -7,55 +7,54 @@
   margin-bottom: 16px;
 }
 
-.paragraph {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 30px;
-  font-weight: 350;
+
+/* ── Greeting block — 20px italic ───────────────────────────── */
+
+.greetingBlock {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.greeting {
+  composes: text-head-md-italic from "../../styles/typography.module.css";
   color: var(--color-text-primary);
-  line-height: var(--leading-snug);
-  margin: 0 0 12px 0;
-  padding: 0;
-  word-spacing: normal;
 }
 
 .moodContainer {
+  display: inline-block;
   position: relative;
-  display: inline;
-  margin: 0 0.25em;
 }
 
-.moodToggle {
+.moodQuestion {
+  composes: text-head-md-italic from "../../styles/typography.module.css";
   display: inline-flex;
   align-items: center;
+  gap: 4px;
+  color: var(--color-action-default);
   background: none;
   border: none;
-  border-bottom: 0.5px solid var(--color-text-secondary);
-  padding: 0 2px;
+  padding: 0;
   margin: 0;
   cursor: pointer;
-  transition: border-color var(--duration-quick) var(--ease-standard);
-  vertical-align: middle;
-  line-height: 1;
-  color: var(--color-text-secondary);
+  transition: opacity var(--duration-quick) var(--ease-standard);
 }
 
-.moodToggle:hover {
-  border-bottom-color: var(--color-text-primary);
-  color: var(--color-text-primary);
+.moodQuestion:hover {
+  opacity: 0.8;
 }
 
-.chevron {
-  display: inline-flex;
-  align-items: center;
-  color: var(--color-text-secondary);
+.selectedMood {
+  margin-left: 6px;
+}
+
+.moodChevron {
+  flex-shrink: 0;
 }
 
 .moodDropdown {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   margin-top: 8px;
   background: var(--color-surface-raised);
   border: 0.5px solid var(--color-border-default);
@@ -67,12 +66,10 @@
 }
 
 .moodOption {
+  composes: text-head-md-italic from "../../styles/typography.module.css";
   display: block;
   width: 100%;
   text-align: center;
-  font-family: var(--font-sans);
-  font-size: 24px;
-  font-weight: 400;
   color: var(--color-text-primary);
   background: none;
   border: none;
@@ -86,12 +83,20 @@
   background-color: var(--color-surface-default);
 }
 
-.primaryInvitation {
+
+/* ── Primary block — 32px italic ────────────────────────────── */
+
+.primaryBlock {
+  composes: text-head-lg-italic from "../../styles/typography.module.css";
+  color: var(--color-text-primary);
+  margin: 0 0 12px 0;
+  padding: 0;
+  word-spacing: normal;
+}
+
+.invitation {
+  composes: text-head-lg-italic from "../../styles/typography.module.css";
   display: inline;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 30px;
-  font-weight: 350;
   color: var(--color-action-default);
   background: none;
   border: none;
@@ -102,14 +107,14 @@
   transition: all var(--duration-quick) var(--ease-standard);
 }
 
-.primaryInvitation:hover {
+.invitation:hover {
   text-decoration: underline;
   text-decoration-color: var(--color-action-default);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
-.primaryInvitation:focus {
+.invitation:focus {
   outline: none;
   text-decoration: underline;
   text-decoration-color: var(--color-action-default);

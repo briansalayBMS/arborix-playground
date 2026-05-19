@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ChevronDown, ArrowRight, Link2 } from "lucide-react";
 import SovereignBeacon from "@/components/sovereign-beacon/SovereignBeacon";
 import { useRightPane } from "@/context/RightPaneContext";
@@ -37,6 +37,20 @@ export default function HomeWelcome() {
   const [moodOpen, setMoodOpen] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null);
   const { openWithContext } = useRightPane();
+  const greetingRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        greetingRef.current &&
+        !greetingRef.current.contains(event.target as Node)
+      ) {
+        setMoodOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleEmojiSelect = (emoji: string) => {
     setSelectedEmoji(emoji);
@@ -67,19 +81,26 @@ export default function HomeWelcome() {
         <SovereignBeacon />
       </div>
 
-      <p className={styles.paragraph}>
-        Hi Brian. How are you walking in today
+      {/* Greeting block — 20px italic */}
+      <div className={styles.greetingBlock} ref={greetingRef}>
+        <span className={styles.greeting}>Hi Brian.</span>
+        {" "}
         <span className={styles.moodContainer}>
           <button
-            className={styles.moodToggle}
+            className={styles.moodQuestion}
             onClick={() => setMoodOpen(!moodOpen)}
+            aria-expanded={moodOpen}
             type="button"
           >
-            {selectedEmoji || (
-              <span className={styles.chevron}>
-                <ChevronDown size={14} strokeWidth={1.5} />
-              </span>
+            How are you feeling?
+            {selectedEmoji && (
+              <span className={styles.selectedMood}>{selectedEmoji}</span>
             )}
+            <ChevronDown
+              size={14}
+              strokeWidth={1.5}
+              className={styles.moodChevron}
+            />
           </button>
 
           {moodOpen && (
@@ -97,7 +118,11 @@ export default function HomeWelcome() {
             </div>
           )}
         </span>
-        ? We&apos;ve been talking about your interviews{" "}
+      </div>
+
+      {/* Primary block — 32px italic */}
+      <p className={styles.primaryBlock}>
+        We&apos;ve been talking about your interviews{" "}
         <span className={styles.nowrap}>
           lately.
           <button
@@ -111,7 +136,7 @@ export default function HomeWelcome() {
         </span>{" "}
         <a
           href="#"
-          className={styles.primaryInvitation}
+          className={styles.invitation}
           onClick={(e) => {
             e.preventDefault();
             handleContinuityClick();
@@ -120,7 +145,11 @@ export default function HomeWelcome() {
           Want to pick that{" "}
           <span className={styles.nowrapAction}>
             back up?
-            <ArrowRight size={20} strokeWidth={1.5} className={styles.arrowIcon} />
+            <ArrowRight
+              size={20}
+              strokeWidth={1.5}
+              className={styles.arrowIcon}
+            />
           </span>
         </a>
       </p>
