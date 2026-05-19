@@ -19,7 +19,7 @@ const INITIAL_STATE: LedgerState = {
   error: null,
 };
 
-export function useLedger(): LedgerState {
+export function useLedgerFetch(): LedgerState {
   const [state, setState] = useState<LedgerState>(INITIAL_STATE);
 
   useEffect(() => {

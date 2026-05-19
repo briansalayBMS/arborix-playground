@@ -38,7 +38,9 @@ export default function SkillsSection({
           <li key={skill.name} className={styles.row}>
             <span className={styles.name}>{skill.name}</span>
             <div className={styles.right}>
-              <span className={styles.rating}>{skill.selfRating}</span>
+              {skill.selfRating && (
+                <span className={styles.rating}>{skill.selfRating}</span>
+              )}
               <button
                 type="button"
                 className={styles.chainlinkButton}

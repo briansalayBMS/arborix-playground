@@ -20,7 +20,7 @@ export default function ExternalSkills({ skills }: ExternalSkillsProps) {
       sources: skill.sources,
       detail: {
         title: skill.name.toUpperCase(),
-        subtitle: skill.selfRating,
+        subtitle: skill.selfRating ?? "",
         body: skill.arborExplanation,
       },
     });
@@ -33,10 +33,14 @@ export default function ExternalSkills({ skills }: ExternalSkillsProps) {
         {skills.map((skill) => (
           <li key={skill.name} className={styles.badge}>
             <span className={styles.name}>{skill.name}</span>
-            <span className={styles.separator} aria-hidden>
-              ·
-            </span>
-            <span className={styles.rating}>{skill.selfRating}</span>
+            {skill.selfRating && (
+              <>
+                <span className={styles.separator} aria-hidden>
+                  ·
+                </span>
+                <span className={styles.rating}>{skill.selfRating}</span>
+              </>
+            )}
             <button
               type="button"
               className={styles.chainlinkButton}

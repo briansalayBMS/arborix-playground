@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLedger } from "@/lib/api/hooks/useLedger";
+import { useLedger } from "@/context/LedgerContext";
 import type { LedgerDomain, LedgerItem } from "@/lib/api/types";
 import RecordCategory from "./RecordCategory";
 import styles from "./Record.module.css";

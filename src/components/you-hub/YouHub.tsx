@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import { Share2 } from "lucide-react";
 import { YOU_DATA } from "@/lib/placeholder/you-data";
 import { useOnePager } from "@/lib/api/hooks/useOnePager";
+import { useLedger } from "@/context/LedgerContext";
 import { applyOnePagerOverlay } from "@/lib/api/transformers/onepager";
+import { applyLedgerOverlay } from "@/lib/api/transformers/you-overlay";
 import ModeToggle, { type YouMode } from "./ModeToggle";
 import ShareDialog from "./ShareDialog";
 import PlaceholderDialog from "./PlaceholderDialog";
@@ -56,10 +58,11 @@ export default function YouHub() {
   const [placeholderKey, setPlaceholderKey] = useState<PlaceholderKey | null>(null);
 
   const onePager = useOnePager();
-  const data = useMemo(
-    () => applyOnePagerOverlay(YOU_DATA, onePager.data),
-    [onePager.data],
-  );
+  const ledger = useLedger();
+  const data = useMemo(() => {
+    const afterOnePager = applyOnePagerOverlay(YOU_DATA, onePager.data);
+    return applyLedgerOverlay(afterOnePager, ledger.data);
+  }, [onePager.data, ledger.data]);
 
   const trigger = (key: PlaceholderKey) => () => setPlaceholderKey(key);
 

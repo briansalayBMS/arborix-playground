@@ -52,7 +52,7 @@ export interface PersonalityArchetype {
 
 export interface Skill {
   name: string;
-  selfRating: string;
+  selfRating?: string;
   peerRating?: string;
   arborExplanation: string;
   sources: Source[];
