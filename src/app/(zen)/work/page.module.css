@@ -5,11 +5,7 @@
 }
 
 .title {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  composes: text-eyebrow from "../../../styles/typography.module.css";
   color: var(--color-text-tertiary);
   margin: 0;
 }
