@@ -84,9 +84,40 @@
   --font-weight-semibold: 600;
 
   /* Typography — Line heights */
-  --leading-tight:  1.15;
-  --leading-snug:   1.25;
-  --leading-normal: 1.55;
+  --leading-tight:  1.15;   /* Tailwind leading-tight — do not change, consumed by ~12 TSX files */
+  --leading-snug:   1.25;   /* Tailwind leading-snug — also consumed as var(--leading-snug) in 4 CSS modules */
+  --leading-normal: 1.55;   /* Zero consumers — retained for legacy safety */
+
+  /* ============================================================
+     TYPE SYSTEM — Locked May 20, 2026
+     See docs/type-system-2026-05-20.md
+     ============================================================ */
+
+  /* Scale */
+  --ts-display:  48px;
+  --ts-hero:     44px;
+  --ts-head-lg:  32px;
+  --ts-head-md:  20px;
+  --ts-body-lg:  18px;
+  --ts-body:     16px;
+  --ts-meta:     14px;
+  --ts-eyebrow:  12px;
+
+  /* Line-height
+     --leading-tight (1.15) and --leading-snug (1.25) are inherited from
+     the legacy block above. Do not redeclare them here.
+     --leading-display (1.0) replaces what the spec called --leading-tight:
+     Tailwind already owns that name at 1.15, so the display-numeric token
+     gets its own name. */
+  --leading-display:  1.0;   /* Display numerics, monograms, decorative initials */
+  /* --leading-snug: 1.25   — declared above, use for italic Fraunces large scale */
+  --leading-base:     1.4;   /* Italic Fraunces at body scale — Body Large italic */
+  --leading-relaxed:  1.5;   /* Public Sans body, longer reading */
+  --leading-loose:    1.7;   /* Long-form coaching prose */
+
+  /* Letter-spacing */
+  --tracking-tight:    -0.01em;  /* Hero and Display Fraunces, optical balance */
+  --tracking-eyebrow:   0.06em;  /* All mono uppercase eyebrow labels */
 
   /* Radius */
   --radius-none: 0;

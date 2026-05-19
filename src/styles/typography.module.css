@@ -1,0 +1,94 @@
+/* ============================================================
+   TYPE SYSTEM — Composite Recipes
+   Locked: May 20, 2026
+   Spec: docs/type-system-2026-05-20.md
+   Consumption: composes: text-* from "../../styles/typography.module.css";
+   ============================================================ */
+
+/* ── Fraunces — Display & Headings ──────────────────────────── */
+
+.text-display {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 400;
+  font-size: var(--ts-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-hero-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-size: var(--ts-hero);
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+}
+
+.text-hero-upright {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 400;
+  font-size: var(--ts-hero);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-head-lg {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 400;
+  font-size: var(--ts-head-lg);
+  line-height: var(--leading-display);
+}
+
+.text-head-lg-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-size: var(--ts-head-lg);
+  line-height: var(--leading-snug);
+}
+
+.text-head-md-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-size: var(--ts-head-md);
+  line-height: var(--leading-snug);
+}
+
+.text-body-lg-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-size: var(--ts-body-lg);
+  line-height: var(--leading-base);
+}
+
+/* ── Public Sans — Body ─────────────────────────────────────── */
+
+.text-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--ts-body);
+  line-height: var(--leading-relaxed);
+}
+
+.text-meta {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: var(--ts-meta);
+  line-height: var(--leading-base);
+}
+
+/* ── JetBrains Mono — Eyebrow ───────────────────────────────── */
+
+.text-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--ts-eyebrow);
+  line-height: 1;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
