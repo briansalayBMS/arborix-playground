@@ -186,7 +186,3 @@ export async function profileRegenerate() {
 export async function getLedger() {
   return request('/ledger/', { method: 'GET' })
 }
-
-export async function getLedgerYou() {
-  return request('/ledger/you', { method: 'GET' })
-}

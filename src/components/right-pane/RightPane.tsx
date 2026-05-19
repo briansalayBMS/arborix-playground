@@ -33,7 +33,8 @@ export interface RightPaneContext {
     | "impactDetail"
     | "operatingProfileDetail"
     | "skillDetail"
-    | "radarDetail";
+    | "radarDetail"
+    | "ledgerItemDetail";
   subject?: string;
   povId?: string;
   povType?: POVType;
@@ -253,6 +254,14 @@ export default function RightPane({ isOpen, onClose, context }: RightPaneProps) 
             body={context.detail?.body}
             linkedItemsHeader="Axes"
             linkedItems={context.detail?.linkedItems}
+            sources={context.sources}
+          />
+        ) : context?.type === "ledgerItemDetail" ? (
+          <DetailView
+            monoLabel={context.detail?.title}
+            heading={context.detail?.subtitle}
+            headingSize="title"
+            body={context.detail?.body}
             sources={context.sources}
           />
         ) : context?.type === "chat" && context.detail?.body ? (

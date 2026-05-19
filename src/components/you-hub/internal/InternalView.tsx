@@ -1,6 +1,7 @@
 "use client";
 
 import type { YouPlaceholderData } from "@/lib/placeholder/you-data";
+import Record from "@/components/record/Record";
 import HeroVerdict from "./HeroVerdict";
 import OperatingProfile from "./OperatingProfile";
 import GoalsSection from "./GoalsSection";
@@ -46,6 +47,7 @@ export default function InternalView({
         onSendForPeerRatings={onSendForPeerRatings}
       />
       <ConflictsSection conflicts={data.conflicts} />
+      <Record domain="you" />
     </div>
   );
 }
