@@ -39,6 +39,7 @@ export interface RightPaneContext {
   povId?: string;
   povType?: POVType;
   sources?: Source[];
+  sourceNoun?: string;
   detail?: RightPaneDetail;
   placeholder: string;
 }
@@ -48,10 +49,10 @@ const NUMBER_WORDS: Record<number, string> = {
   6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten",
 };
 
-function sourcesOpeningLine(count: number): string {
-  if (count === 1) return "This source shaped my read.";
+function sourcesOpeningLine(count: number, noun: string = "source"): string {
+  if (count === 1) return `This ${noun} shaped my read.`;
   const word = NUMBER_WORDS[count] ?? String(count);
-  return `These ${word} sources shaped my read.`;
+  return `These ${word} ${noun}s shaped my read.`;
 }
 
 interface DetailViewProps {
@@ -200,7 +201,9 @@ export default function RightPane({ isOpen, onClose, context }: RightPaneProps) 
       <div className={styles.conversationArea}>
         {context?.type === "sources" && context.sources ? (
           <div className={styles.sourcesView}>
-            <ArborSpeech>{sourcesOpeningLine(context.sources.length)}</ArborSpeech>
+            <ArborSpeech>
+              {sourcesOpeningLine(context.sources.length, context.sourceNoun)}
+            </ArborSpeech>
             <ul className={styles.sourcesList}>
               {context.sources.map((source) => (
                 <li key={source.id} className={styles.sourceItem}>

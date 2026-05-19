@@ -121,29 +121,27 @@
   color: var(--color-action-default);
 }
 
-.attribution {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  line-height: 1.4;
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 12px 0 0 0;
-  cursor: pointer;
-  text-align: left;
-  text-decoration: none;
-  transition: all var(--duration-quick) var(--ease-standard);
+.nowrap {
+  white-space: nowrap;
 }
 
-.attribution:hover {
+.chainlinkButton {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0 0 0 4px;
+  margin: 0;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  vertical-align: baseline;
+  line-height: inherit;
+  transition: color var(--duration-quick) var(--ease-standard);
+}
+
+.chainlinkButton:hover,
+.chainlinkButton:focus-visible {
+  outline: none;
   color: var(--color-text-primary);
-  text-decoration: underline;
-  text-decoration-color: var(--color-text-primary);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
 }
 
 .nowrapAction {

@@ -1,13 +1,37 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, ArrowRight, Link2 } from "lucide-react";
 import SovereignBeacon from "@/components/sovereign-beacon/SovereignBeacon";
 import { useRightPane } from "@/context/RightPaneContext";
+import type { Source } from "@/components/right-pane/RightPane";
 import styles from "./HomeWelcome.module.css";
 
 const EMOJI_OPTIONS = ["😀", "😐", "😔"];
+
+const WELCOME_SOURCES: Source[] = [
+  {
+    id: "session_recent_1",
+    type: "session",
+    title: "Session 5 · 2026-05-17",
+    excerpt:
+      "Walked through the loop with the TechCorp recruiter — Brian's read on the second-round question.",
+  },
+  {
+    id: "session_recent_2",
+    type: "session",
+    title: "Session 4 · 2026-05-15",
+    excerpt:
+      "How Brian's framing of the Director-level scope shows up to a hiring panel that hasn't met him.",
+  },
+  {
+    id: "session_recent_3",
+    type: "session",
+    title: "Session 3 · 2026-05-11",
+    excerpt:
+      "What Brian wants the next interview to surface that the last two didn't.",
+  },
+];
 
 export default function HomeWelcome() {
   const [moodOpen, setMoodOpen] = useState(false);
@@ -23,7 +47,17 @@ export default function HomeWelcome() {
     openWithContext({
       type: "continuity",
       subject: "interviews",
-      placeholder: "Continuity from your most recent conversation about interviews will load here once chat is wired."
+      placeholder:
+        "Continuity from your most recent conversation about interviews will load here once chat is wired.",
+    });
+  };
+
+  const handleAttributionClick = () => {
+    openWithContext({
+      type: "sources",
+      sources: WELCOME_SOURCES,
+      sourceNoun: "conversation",
+      placeholder: "These conversations shaped this read.",
     });
   };
 
@@ -63,7 +97,18 @@ export default function HomeWelcome() {
             </div>
           )}
         </span>
-        ? We&apos;ve been talking about your interviews lately.{" "}
+        ? We&apos;ve been talking about your interviews{" "}
+        <span className={styles.nowrap}>
+          lately.
+          <button
+            type="button"
+            className={styles.chainlinkButton}
+            onClick={handleAttributionClick}
+            aria-label="View the conversations behind this read"
+          >
+            <Link2 size={14} strokeWidth={1.5} />
+          </button>
+        </span>{" "}
         <a
           href="#"
           className={styles.primaryInvitation}
@@ -79,10 +124,6 @@ export default function HomeWelcome() {
           </span>
         </a>
       </p>
-
-      <Link href="/conversations" className={styles.attribution}>
-        From our last 3 conversations
-      </Link>
     </div>
   );
 }
