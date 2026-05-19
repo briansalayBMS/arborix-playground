@@ -1,7 +1,9 @@
 /* ==========================================================================
    ARBORIX DESIGN SYSTEM — Component Classes & Typography
-   Version 1.1 · April 2026
-   Governs: typography, component classes, data viz helpers, interaction states
+   Version 1.2 · May 2026
+   Phase 2: Dead utilities removed, orphan tokens rewired to type system.
+   See docs/type-system-2026-05-20.md for the type system spec.
+   Governs: typography, component classes, interaction states
    Requires: tokens.css (must load first)
    ========================================================================== */
 
@@ -30,115 +32,77 @@ body {
 
 /* --------------------------------------------------------------------------
    TYPOGRAPHY — Named font styles
-   Match Figma token names exactly.
+   Fraunces — Arbor's voice
+   Rule: appears ONLY on verdicts, archetype names, data numbers, inquiry questions
    -------------------------------------------------------------------------- */
-
-/* Instrument Serif — Arbor's voice */
-/* Rule: appears ONLY on verdicts, archetype names, data numbers, inquiry questions */
 
 .statement-hero {
   font-family: var(--font-serif);
-  font-size: var(--text-hero);      /* 40px */
+  font-size: var(--ts-hero);     /* 44px */
   font-weight: 400;
-  line-height: var(--leading-serif);
+  line-height: 1.25;
   color: var(--color-text-primary);
-  letter-spacing: var(--tracking-none);
-  font-feature-settings: 'ss01' on, 'lnum' 1, 'pnum' 1;
-}
-
-.statement-question {
-  font-family: var(--font-serif);
-  font-size: var(--text-question);  /* 24px */
-  font-weight: 400;
-  line-height: var(--leading-serif);
-  color: var(--color-text-primary);
-  letter-spacing: var(--tracking-none);
-  max-width: var(--measure-inquiry); /* 60ch */
+  letter-spacing: 0;
+  max-width: 720px;
 }
 
 .statement-title {
   font-family: var(--font-serif);
-  font-size: var(--text-title);     /* 20px */
+  font-size: var(--ts-head-md);  /* 20px */
   font-weight: 400;
-  line-height: var(--leading-serif);
+  line-height: 1.25;
   color: var(--color-text-primary);
-  letter-spacing: var(--tracking-none);
+  letter-spacing: 0;
 }
 
 .data-number {
   font-family: var(--font-serif);
-  font-size: var(--text-data-number); /* 42px */
+  font-size: var(--ts-display);  /* 48px */
   font-weight: 400;
-  line-height: var(--leading-serif);
+  line-height: var(--leading-display);
   color: var(--color-text-primary);
-  letter-spacing: var(--tracking-none);
+  letter-spacing: var(--tracking-tight);
   font-feature-settings: 'ss01' on, 'lnum' 1, 'pnum' 1;
 }
 
 .data-unit {
   font-family: var(--font-serif);
-  font-size: var(--text-data-unit); /* 18px */
+  font-size: var(--ts-body-lg);  /* 18px */
   font-weight: 400;
-  line-height: var(--leading-serif);
+  line-height: var(--leading-base);
   color: var(--color-text-secondary);
   font-feature-settings: 'ss01' on, 'lnum' 1, 'pnum' 1;
 }
 
 
-/* Inter — Product voice */
+/* Public Sans — Product voice */
 
 .narrative-body {
   font-family: var(--font-sans);
-  font-size: var(--text-body);      /* 18px */
+  font-size: var(--ts-body);     /* 16px */
   font-weight: 300;
-  line-height: var(--leading-body);
+  line-height: 1.75;
   color: var(--color-text-primary);
-  max-width: var(--measure-body);   /* 65ch */
-}
-
-.narrative-bold {
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  font-weight: 600;
-  line-height: var(--leading-body);
-  color: var(--color-text-primary);
-}
-
-.observation-body {
-  font-family: var(--font-sans);
-  font-size: var(--text-observation); /* 20px */
-  font-weight: 300;
-  line-height: var(--leading-body);
-  color: var(--color-text-primary);
-  max-width: var(--measure-body);
-}
-
-.gap-body {
-  font-family: var(--font-sans);
-  font-size: var(--text-gap);       /* 16px */
-  font-weight: 300;
-  line-height: var(--leading-body);
-  color: var(--color-text-primary);
-  max-width: var(--measure-gap);    /* 70ch */
+  max-width: 640px;
 }
 
 .label-card {
   font-family: var(--font-sans);
-  font-size: var(--text-label);     /* 14px */
+  font-size: var(--ts-meta);     /* 14px */
   font-weight: 400;
-  line-height: var(--leading-label);
-  color: var(--color-text-secondary);
-  letter-spacing: var(--tracking-label);
+  line-height: 1.35;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  color: var(--color-text-secondary);
 }
 
 .inter-sm {
   font-family: var(--font-sans);
-  font-size: var(--text-small);        /* 12px */
+  font-size: var(--ts-eyebrow);  /* 12px */
   font-weight: 400;
-  line-height: var(--leading-sm);
+  line-height: 1;
   color: var(--color-text-secondary);
-  letter-spacing: var(--tracking-label);
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
 }
 
@@ -146,267 +110,12 @@ body {
   color: var(--color-action-default);
 }
 
-.text-meta {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 300;
-  line-height: var(--leading-meta);
-  color: var(--color-text-secondary);
-}
-
 .text-timestamp {
   font-family: var(--font-sans);
-  font-size: var(--text-small);
+  font-size: var(--ts-meta);     /* 14px */
   font-weight: 300;
-  line-height: var(--leading-meta);
+  line-height: var(--leading-base);
   color: var(--color-text-tertiary);
-}
-
-.text-live {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: var(--leading-meta);
-  color: var(--color-action-default);
-}
-
-.text-flag {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);        /* 11px */
-  font-weight: 500;
-  line-height: var(--leading-label);
-  color: var(--color-status-attention);
-}
-
-.text-delta-link {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: var(--leading-label);
-  color: var(--color-action-default);
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.text-delta-link:hover {
-  opacity: 0.7;
-}
-
-
-/* Source Code Pro — Machine voice */
-/* Rule: never below 12px. Use ONLY for Auditor data, ledger, Command Strip, status */
-
-.source-code {
-  font-family: var(--font-mono);
-  font-size: var(--text-mono);      /* 12px — minimum */
-  font-weight: 400;
-  line-height: var(--leading-meta);
-  color: var(--color-text-primary);
-  letter-spacing: var(--tracking-mono);
-}
-
-.source-code--muted {
-  color: var(--color-text-secondary);
-}
-
-.source-code--verified {
-  color: var(--color-status-verified);
-}
-
-.source-code--flagged {
-  color: var(--color-status-attention);
-}
-
-/* Typography rules enforcement */
-/* Archetype names: initial caps, never ALL CAPS */
-/* ALL CAPS only on: label-card and inter-sm (both have 5% letter spacing) */
-
-
-/* --------------------------------------------------------------------------
-   SECTION LABEL — Numbered section labels (e.g. "01 YOUR PROFILE")
-   -------------------------------------------------------------------------- */
-
-.arb-section-label {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3x);
-  margin-bottom: var(--label-to-content);
-}
-
-.arb-section-label__num {
-  font-family: var(--font-sans);
-  font-size: var(--text-label);
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.arb-section-label__text {
-  font-family: var(--font-sans);
-  font-size: var(--text-label);
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-/* Blue label variant — "YOUR NEXT QUESTION", "YOUR NARRATIVE" */
-.arb-section-label--blue .arb-section-label__text {
-  color: var(--color-action-default);
-}
-
-
-/* --------------------------------------------------------------------------
-   CONFIDENCE SCORE PILL — Internal view, top-right of narrative card
-   -------------------------------------------------------------------------- */
-
-.arb-confidence-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2x);
-  height: var(--height-sm);
-  padding: var(--spacing-2x) var(--spacing-4x);
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border-default);
-  cursor: pointer;
-  transition: var(--transition-default);
-}
-
-.arb-confidence-pill:hover {
-  border-color: var(--color-status-verified);
-}
-
-.arb-confidence-pill__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-status-verified);
-  box-shadow: 0 0 0 2px rgba(48, 209, 88, 0.2);
-  flex-shrink: 0;
-}
-
-.arb-confidence-pill__text {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 300;
-  color: var(--color-text-secondary);
-}
-
-
-/* --------------------------------------------------------------------------
-   SOVEREIGN VERIFICATION BADGE — External view, bottom of narrative card
-   -------------------------------------------------------------------------- */
-
-.arb-verify-badge {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid var(--color-border-default);
-  padding-top: var(--spacing-6x);
-  margin-top: var(--spacing-6x);
-}
-
-.arb-verify-badge__left {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2x);
-}
-
-.arb-verify-badge__icon {
-  width: 14px;
-  height: 14px;
-  color: var(--color-status-verified);
-  flex-shrink: 0;
-}
-
-.arb-verify-badge__label {
-  font-family: var(--font-mono);
-  font-size: var(--text-mono);
-  color: var(--color-text-secondary);
-  letter-spacing: var(--tracking-mono);
-  text-transform: uppercase;
-}
-
-.arb-verify-badge__timestamp {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 300;
-  color: var(--color-text-tertiary);
-}
-
-
-/* --------------------------------------------------------------------------
-   EVIDENCE FOOTNOTE LINK — Inline within observation-body
-   At rest: invisible. On hover: dotted underline + superscript arrow.
-   -------------------------------------------------------------------------- */
-
-.arb-footnote {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  position: relative;
-}
-
-.arb-footnote:hover {
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: rgba(0, 113, 227, 0.3);
-}
-
-.arb-footnote:hover::after {
-  content: ' ›';
-  color: var(--color-action-default);
-  font-size: 0.8em;
-  vertical-align: super;
-}
-
-
-/* --------------------------------------------------------------------------
-   AXIS BAR — Per-axis breakdown in radar card
-   -------------------------------------------------------------------------- */
-
-.arb-axis-bar {
-  flex: 1;
-  height: var(--viz-axis-bar-height); /* 2px — design choice, not spacing */
-  background: var(--color-surface-sunken);
-  border-radius: 1px;
-  position: relative;
-  overflow: hidden;
-}
-
-.arb-axis-bar__fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  border-radius: 1px;
-  transition: width 0.6s ease-out;
-}
-
-.arb-axis-bar__fill--strong  { background: var(--color-text-primary); }
-.arb-axis-bar__fill--flagged { background: var(--color-status-attention); }
-.arb-axis-bar__fill--weak    { background: var(--color-weak); }
-.arb-axis-bar__fill--inferred { background: var(--color-inferred); }
-
-
-/* --------------------------------------------------------------------------
-   DOSSIER CTA ROW — External view, below radar card
-   -------------------------------------------------------------------------- */
-
-.arb-dossier-cta {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--spacing-3x);
-}
-
-.arb-dossier-cta__label {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 300;
-  color: var(--color-text-secondary);
-  margin-right: auto;
 }
 
 
@@ -476,7 +185,7 @@ body {
 
 
 /* --------------------------------------------------------------------------
-   LEDGER STATUS STATES — Source Code Pro throughout
+   LEDGER STATUS STATES — JetBrains Mono throughout
    -------------------------------------------------------------------------- */
 
 .arb-status {
@@ -512,142 +221,6 @@ body {
   background: rgba(255, 159, 10, 0.08);
 }
 
-/* Ghost outline — toggled-off sealed record on radar */
-/* Applied in SVG: stroke-dasharray: 4 4, stroke: var(--color-weak) */
-
-
-/* --------------------------------------------------------------------------
-   FILE DROP ZONE — Onboarding upload
-   -------------------------------------------------------------------------- */
-
-.arb-drop-zone {
-  border: 1px dashed var(--color-border-default);
-  border-radius: var(--radius-card);
-  padding: var(--card-padding-large);
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition-default);
-  background: var(--color-surface-raised);
-}
-
-.arb-drop-zone:hover,
-.arb-drop-zone.dragover {
-  border-color: var(--color-action-default);
-  background: rgba(0, 113, 227, 0.02);
-}
-
-.arb-drop-zone.has-file {
-  border-color: var(--color-status-verified);
-  border-style: solid;
-  background: rgba(48, 209, 88, 0.03);
-}
-
-.arb-drop-zone__label {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: var(--spacing-5x);
-}
-
-.arb-drop-zone__instruction {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 300;
-  color: var(--color-text-secondary);
-  margin-top: var(--spacing-3x);
-}
-
-.arb-drop-zone__confirm {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 300;
-  color: var(--color-status-verified);
-  margin-top: var(--spacing-3x);
-  font-style: italic;
-  display: none;
-}
-
-.arb-drop-zone.has-file .arb-drop-zone__confirm {
-  display: block;
-}
-
-
-/* --------------------------------------------------------------------------
-   HOVER STATES — Consolidated
-   -------------------------------------------------------------------------- */
-
-/* Ledger row hover pulses radar coordinate (handled in JS via DiagnosticFocusContext) */
-.arb-ledger-row {
-  transition: background var(--transition-fast);
-  cursor: pointer;
-}
-
-.arb-ledger-row:hover {
-  background: rgba(0, 113, 227, 0.03);
-}
-
-/* Radar axis label hover — external view tooltip */
-.arb-radar-axis-tooltip {
-  position: absolute;
-  background: var(--color-surface-raised);
-  border-radius: var(--radius-sm);
-  padding: var(--spacing-3x) var(--spacing-4x);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 300;
-  color: var(--color-text-primary);
-  pointer-events: none;
-  z-index: 10;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity var(--transition-default);
-}
-
-.arb-radar-axis-tooltip.visible {
-  opacity: 1;
-}
-
-
-/* --------------------------------------------------------------------------
-   ANIMATION — Data visualization
-   -------------------------------------------------------------------------- */
-
-/* Radar polygon draws from center outward */
-@keyframes arbRadarDraw {
-  from { clip-path: circle(0% at 50% 50%); }
-  to   { clip-path: circle(100% at 50% 50%); }
-}
-
-.arb-radar-animate {
-  animation: arbRadarDraw 600ms ease-out forwards;
-}
-
-/* Node pulse on seal */
-@keyframes arbNodeSeal {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-.arb-node-seal {
-  animation: arbNodeSeal 300ms ease forwards;
-}
-
-/* Ghost outline appears */
-@keyframes arbGhostAppear {
-  from { opacity: 0; }
-  to   { opacity: 0.4; }
-}
-
-.arb-ghost-appear {
-  animation: arbGhostAppear 400ms ease forwards;
-}
-
 
 /* --------------------------------------------------------------------------
    UTILITY CLASSES
@@ -670,65 +243,6 @@ body {
 .external-view .arb-external-only { display: block; }
 .external-view .arb-internal-only { display: none; }
 
-/* Zero em dashes — global enforcement */
-/* Use colons, slashes, or periods instead throughout all copy */
-
-/* ── Type classes ─────────────────────────────────────────────── */
-
-.statement-hero {
-  font-family: var(--font-serif);
-  font-size: var(--text-hero);
-  font-weight: 400;
-  line-height: 1.25;
-  color: var(--color-text-primary);
-  letter-spacing: 0;
-  max-width: 720px;
-}
-
-.statement-question {
-  font-family: var(--font-serif);
-  font-size: var(--text-question);
-  font-weight: 400;
-  line-height: 1.25;
-  color: var(--color-text-primary);
-  letter-spacing: 0;
-}
-
-.statement-title {
-  font-family: var(--font-serif);
-  font-size: var(--text-title);
-  font-weight: 400;
-  line-height: 1.25;
-  color: var(--color-text-primary);
-  letter-spacing: 0;
-}
-
-.narrative-body {
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  font-weight: 300;
-  line-height: 1.75;
-  color: var(--color-text-primary);
-  max-width: 640px;
-}
-
-.label-card {
-  font-family: var(--font-sans);
-  font-size: var(--text-small);
-  font-weight: 400;
-  line-height: 1.35;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-}
-
-.source-code {
-  font-family: var(--font-mono);
-  font-size: var(--text-mono);
-  font-weight: 400;
-  line-height: 1.33;
-  letter-spacing: 0.03em;
-}
 
 /* --------------------------------------------------------------------------
    TAB FEED — Page-level tab switcher (YOU page internal/external)
@@ -774,6 +288,7 @@ body {
   background: linear-gradient(90deg, var(--color-action-default) 0%, var(--color-text-primary) 100%);
 }
 
+
 /* --------------------------------------------------------------------------
    CARD VARIANTS
    -------------------------------------------------------------------------- */
@@ -802,6 +317,7 @@ body {
   padding: 40px 48px;
   border: 1px solid rgba(0, 113, 227, 0.08);
 }
+
 
 /* --------------------------------------------------------------------------
    TAB GROUP
@@ -848,6 +364,7 @@ body {
   background: linear-gradient(90deg, var(--color-action-default), var(--color-status-verified));
 }
 
+
 /* --------------------------------------------------------------------------
    SECTION DIVIDER LABEL
    -------------------------------------------------------------------------- */
@@ -861,6 +378,7 @@ body {
   color: var(--color-text-secondary);
   margin-bottom: 20px;
 }
+
 
 /* --------------------------------------------------------------------------
    VERIFIED ROW
@@ -891,6 +409,7 @@ body {
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+
 
 /* --------------------------------------------------------------------------
    CARD TYPOGRAPHY — one treatment per role, no exceptions
