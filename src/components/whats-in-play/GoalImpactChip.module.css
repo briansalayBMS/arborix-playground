@@ -15,19 +15,13 @@
 }
 
 .title {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 400;
+  composes: text-meta from "../../styles/typography.module.css";
   color: var(--color-text-secondary);
-  line-height: 1;
 }
 
 .dots {
-  font-family: monospace;
-  font-size: 8px;
+  composes: text-eyebrow from "../../styles/typography.module.css";
   color: var(--color-text-secondary);
-  line-height: 1;
   display: inline-block;
-  width: 1.2em;
-  letter-spacing: 0.1em;
+  margin-right: calc(-1 * var(--tracking-eyebrow));
 }

@@ -110,6 +110,26 @@ Each hub is one surface. Sections within the hub render the dimensions inside it
 
 At the top of each hub, the synthesized view: Arbor's read of who the user is (YOU), how their work has been going (WORK), how their context is shaping things (COMPANY). Below, the constituent inputs and evidence the synthesis is built from.
 
+### The record has three layers
+
+The user's record is not flat. It has three layers, each serving a different purpose, each accessible to the user through different paths.
+
+**Raw inputs.** The material the user provides — uploaded documents (resume, LinkedIn export), session turns with Arbor, peer ratings, structured inputs from deliberate flows. These flow in continuously over the user's life with the product. They are the ground truth. They are not surfaced as a destination; the user accesses them when needed through evidence drill-downs from any claim that references them.
+
+**Ledger items.** The named dimensions of the user that Arbor extracts from raw inputs. Each ledger item is a single claim with a category (skill, strength, value, achievement, etc.), a confidence band, a validation state, and references back to the raw inputs that support it. The ledger is the middle layer where Arbor's reading of the user is anchored. Skills, strengths, values, achievements, decisions, stakeholder reads — all are types of ledger items. The full specification is in `arborix-ledger-requirements.md`.
+
+**Synthesized reads.** Arbor's higher-order summaries that draw across multiple ledger items. The hero verdict on each hub, the Operating Profile triplet, the personality archetype, the public view narrative — all synthesized reads. Each synthesis cites its underlying ledger items as evidence. The synthesis is what the user reads first; the ledger items are what the synthesis stands on; the raw inputs are what the ledger items stand on.
+
+The layers are surfaced differently:
+
+- **Synthesized reads** appear at the top of each hub (the hero verdict on YOU/WORK/COMPANY) and in generated artifacts (public views, brag sheets, performance reviews). They are the user's coaching experience.
+- **Ledger items** appear in their typed contexts on each hub (Skills section, Operating Profile triplet, Impact Cards, etc.) and in the collapsed Record at the bottom of each hub. They are the user's record.
+- **Raw inputs** appear only through evidence chainlinks from a ledger item to its sources. They are the user's ground truth, accessed on demand.
+
+Every claim Arbor makes can be traced down through the layers. A reader of the public view can ask "how do you know that" and follow the trail: synthesized read → ledger item → raw input → original document or session turn. The chainlink pattern, formalized in DESIGN.md, is the visible affordance that makes this traversal possible at every layer.
+
+This three-layer model is what enables the trust contract specified in `arborix-ledger-requirements.md`. Without the layers, the synthesis would either be ungrounded (no anchoring to evidence) or burdensome (the user reading raw inputs instead of coaching). With the layers, the synthesis is light and coaching-shaped, the ledger is auditable and complete, and the raw inputs are the bedrock — each in its right place.
+
 ### One inside view. Many public views.
 
 The user has one private record. The user has zero or more public views generated from the record, each targeted at a specific audience and purpose. A public view is a curated, shareable rendering of the record. It has its own URL.

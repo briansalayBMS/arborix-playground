@@ -1,26 +1,18 @@
 .item {
-  margin-bottom: 32px;
+  margin-bottom: 0;
   padding: 0;
 }
 
 .typeLabel {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
+  composes: text-eyebrow from "../../styles/typography.module.css";
   color: var(--color-text-secondary);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: var(--space-3);
 }
 
 .pov {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 18px;
-  font-weight: 350;
+  composes: text-body-lg-italic from "../../styles/typography.module.css";
   color: var(--color-text-primary);
-  line-height: 1.45;
-  margin: 0 0 8px 0;
+  margin: 0 0 var(--space-4) 0;
   padding: 0;
 }
 
@@ -51,12 +43,9 @@
 }
 
 .action {
+  composes: text-meta from "../../styles/typography.module.css";
   display: inline-block;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 400;
   color: var(--color-action-default);
-  line-height: 1.4;
   background: none;
   border: none;
   padding: 0;
@@ -98,15 +87,12 @@
 .goalChipsRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
-  margin-bottom: 12px;
+  gap: var(--space-3);
+  margin-top: 0;
+  margin-bottom: var(--space-3);
 }
 
 .moreGoalsLabel {
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 400;
+  composes: text-meta from "../../styles/typography.module.css";
   color: var(--color-text-tertiary);
-  line-height: 1;
 }
