@@ -1,9 +1,7 @@
 "use client";
 
 import SideNav from "@/components/side-nav/SideNav";
-import RightPane from "@/components/right-pane/RightPane";
-import RightPaneTrigger from "@/components/right-pane/RightPaneTrigger";
-import { RightPaneProvider, useRightPane } from "@/context/RightPaneContext";
+import ChatBar from "@/components/chat-bar/ChatBar";
 import { DiagnosticFocusProvider } from "@/context/DiagnosticFocusContext";
 import { UserProvider } from "@/context/UserContext";
 import { LedgerProvider } from "@/context/LedgerContext";
@@ -14,8 +12,6 @@ function ZenLayoutContent({
 }: {
   children: React.ReactNode;
 }) {
-  const { isOpen, context, close, openWithContext } = useRightPane();
-
   return (
     <>
       <SideNav />
@@ -24,16 +20,7 @@ function ZenLayoutContent({
           {children}
         </div>
       </div>
-      <RightPaneTrigger onClick={() => openWithContext({
-        type: "chat",
-        subject: "Start a conversation",
-        placeholder: "Chat interface will load here once backend is wired."
-      })} />
-      <RightPane
-        isOpen={isOpen}
-        onClose={close}
-        context={context}
-      />
+      <ChatBar />
     </>
   );
 }
@@ -47,9 +34,7 @@ export default function ZenLayout({
     <UserProvider>
       <LedgerProvider>
         <DiagnosticFocusProvider>
-          <RightPaneProvider>
-            <ZenLayoutContent>{children}</ZenLayoutContent>
-          </RightPaneProvider>
+          <ZenLayoutContent>{children}</ZenLayoutContent>
         </DiagnosticFocusProvider>
       </LedgerProvider>
     </UserProvider>

@@ -1,0 +1,169 @@
+.chatBar {
+  position: fixed;
+  bottom: 0;
+  left: calc(14rem + 4rem); /* Match the left nav width from zen-layout */
+  right: 0;
+  z-index: 40;
+  padding: var(--space-4) var(--space-6);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 760px;
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: 24px;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-5);
+  transition: border-color var(--duration-quick) var(--ease-standard),
+    box-shadow var(--duration-quick) var(--ease-standard);
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-action-default);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+.input {
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: var(--space-2) 0;
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.sendButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-action-default);
+  color: var(--color-action-text);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background var(--duration-quick) var(--ease-standard),
+    transform var(--duration-quick) var(--ease-standard);
+  flex-shrink: 0;
+}
+
+.sendButton:hover:not(:disabled) {
+  background: var(--color-action-hover);
+  transform: scale(1.05);
+}
+
+.sendButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Expanded chat panel with glass effect */
+.chatPanel {
+  position: fixed;
+  bottom: 72px; /* Height of chat bar */
+  left: calc(14rem + 4rem); /* Match the left nav width */
+  right: 0;
+  top: 0;
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-default);
+  background: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
+.panelTitle {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--color-text-primary);
+}
+
+.closeButton {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  transition: color var(--duration-quick) var(--ease-standard),
+    background var(--duration-quick) var(--ease-standard);
+}
+
+.closeButton:hover {
+  color: var(--color-text-primary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.messagesArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 760px;
+}
+
+.userMessage {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.arborMessage {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.userMessage .messageText {
+  background: var(--color-action-default);
+  color: var(--color-action-text);
+  border-radius: 18px 18px 4px 18px;
+  padding: var(--space-3) var(--space-4);
+  max-width: 70%;
+}
+
+.arborMessage .messageText {
+  background: var(--color-surface-default);
+  color: var(--color-text-primary);
+  border-radius: 18px 18px 18px 4px;
+  padding: var(--space-3) var(--space-4);
+  max-width: 70%;
+  border: 1px solid var(--color-border-default);
+}
+
+.messageText {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  display: inline-block;
+}
