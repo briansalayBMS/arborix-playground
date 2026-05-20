@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, Link2 } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import type { Skill } from "@/lib/placeholder/you-data";
 import styles from "./SkillsSection.module.css";
 
@@ -14,7 +14,7 @@ export default function SkillsSection({
   skills,
   onSendForPeerRatings,
 }: SkillsSectionProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const handleOpenSkill = (skill: Skill) => {
     openWithContext({

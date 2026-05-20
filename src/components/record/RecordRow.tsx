@@ -1,10 +1,16 @@
 "use client";
 
 import { Check, Link2 } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
-import type { Source } from "@/components/right-pane/RightPane";
+import { useChatBar } from "@/context/ChatBarContext";
 import type { LedgerItem } from "@/lib/api/types";
 import styles from "./RecordRow.module.css";
+
+interface Source {
+  id: string;
+  type: string;
+  title: string;
+  excerpt?: string;
+}
 
 const SOURCE_LABEL: Record<string, string> = {
   resume: "from your resume",
@@ -43,7 +49,7 @@ interface RecordRowProps {
 }
 
 export default function RecordRow({ item, categoryLabel }: RecordRowProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const openDetail = () => {
     const paneSource = buildPaneSource(item);

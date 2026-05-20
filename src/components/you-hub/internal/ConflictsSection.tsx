@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import type { Conflict } from "@/lib/placeholder/you-data";
 import styles from "./ConflictsSection.module.css";
 
@@ -10,7 +10,7 @@ interface ConflictsSectionProps {
 }
 
 export default function ConflictsSection({ conflicts }: ConflictsSectionProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const handleRespond = (conflict: Conflict) => {
     openWithContext({

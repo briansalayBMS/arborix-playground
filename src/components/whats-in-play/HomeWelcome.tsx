@@ -3,9 +3,15 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, ArrowRight, Link2 } from "lucide-react";
 import SovereignBeacon from "@/components/sovereign-beacon/SovereignBeacon";
-import { useRightPane } from "@/context/RightPaneContext";
-import type { Source } from "@/components/right-pane/RightPane";
+import { useChatBar } from "@/context/ChatBarContext";
 import styles from "./HomeWelcome.module.css";
+
+interface Source {
+  id: string;
+  type: string;
+  title: string;
+  excerpt: string;
+}
 
 const EMOJI_OPTIONS = ["😀", "😐", "😔"];
 
@@ -36,7 +42,7 @@ const WELCOME_SOURCES: Source[] = [
 export default function HomeWelcome() {
   const [moodOpen, setMoodOpen] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null);
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
   const greetingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

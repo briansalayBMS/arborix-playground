@@ -1,9 +1,15 @@
 "use client";
 
 import { ArrowRight, Link2 } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
-import type { Source } from "@/components/right-pane/RightPane";
+import { useChatBar } from "@/context/ChatBarContext";
 import styles from "./HeroVerdict.module.css";
+
+interface Source {
+  id: string;
+  type: string;
+  title: string;
+  excerpt: string;
+}
 
 interface HeroVerdictProps {
   title: string;
@@ -12,7 +18,7 @@ interface HeroVerdictProps {
 }
 
 export default function HeroVerdict({ title, body, sources }: HeroVerdictProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const handleChainlinkClick = () => {
     openWithContext({

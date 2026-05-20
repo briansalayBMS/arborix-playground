@@ -1,6 +1,6 @@
 "use client";
 
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import styles from "./GoalImpactChip.module.css";
 
 interface GoalImpactChipProps {
@@ -14,7 +14,7 @@ export default function GoalImpactChip({
   goalTitle,
   impactStrength,
 }: GoalImpactChipProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const handleClick = () => {
     openWithContext({

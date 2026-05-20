@@ -1,7 +1,7 @@
 "use client";
 
 import { Link2 } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import type { Skill } from "@/lib/placeholder/you-data";
 import styles from "./ExternalSkills.module.css";
 
@@ -10,7 +10,7 @@ interface ExternalSkillsProps {
 }
 
 export default function ExternalSkills({ skills }: ExternalSkillsProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const handleOpenSkill = (skill: Skill) => {
     openWithContext({

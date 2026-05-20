@@ -1,7 +1,7 @@
 "use client";
 
 import { Link2 } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import type { Goal } from "@/lib/placeholder/you-data";
 import styles from "./GoalRow.module.css";
 
@@ -10,7 +10,7 @@ interface GoalRowProps {
 }
 
 export default function GoalRow({ goal }: GoalRowProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const handleTitleClick = () => {
     openWithContext({

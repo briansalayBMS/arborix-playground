@@ -1,6 +1,6 @@
 "use client";
 
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import { IdentityRadar } from "@/components/you/IdentityRadar";
 import type { PersonalityArchetype } from "@/lib/placeholder/you-data";
 import styles from "./ExternalPersonality.module.css";
@@ -12,7 +12,7 @@ interface ExternalPersonalityProps {
 export default function ExternalPersonality({
   personality,
 }: ExternalPersonalityProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
   const overrideValues = personality.axes.map((axis) => axis.value);
 
   const handleOpenRadar = () => {

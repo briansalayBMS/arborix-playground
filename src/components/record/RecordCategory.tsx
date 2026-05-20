@@ -1,6 +1,6 @@
 "use client";
 
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import type { LedgerItem } from "@/lib/api/types";
 import RecordRow from "./RecordRow";
 import styles from "./RecordCategory.module.css";
@@ -18,7 +18,7 @@ export default function RecordCategory({
   emptyCopy,
   chatSubject,
 }: RecordCategoryProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
   const count = items.length;
 
   const handleEmptyClick = () => {

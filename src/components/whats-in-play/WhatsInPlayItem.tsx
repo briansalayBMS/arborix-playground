@@ -1,12 +1,18 @@
 "use client";
 
 import { ArrowRight, Link2 } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import GoalImpactChip from "./GoalImpactChip";
-import type { Source } from "@/components/right-pane/RightPane";
 import styles from "./WhatsInPlayItem.module.css";
 
 export type POVType = "observation" | "conflict" | "partial-read";
+
+interface Source {
+  id: string;
+  type: string;
+  title: string;
+  excerpt: string;
+}
 
 interface GoalLink {
   goalId: string;
@@ -64,7 +70,7 @@ export default function WhatsInPlayItem({
   povId,
   sources,
 }: WhatsInPlayItemProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
   const config = contextConfig[type];
 
   const actionText = action.replace(/\s*→\s*$/, "");

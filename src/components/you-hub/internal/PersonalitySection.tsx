@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import { IdentityRadar } from "@/components/you/IdentityRadar";
 import type { PersonalityArchetype } from "@/lib/placeholder/you-data";
 import styles from "./PersonalitySection.module.css";
@@ -15,7 +15,7 @@ export default function PersonalitySection({
   personality,
   onTakeAssessment,
 }: PersonalitySectionProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
   const overrideValues = personality.axes.map((axis) => axis.value);
 
   const handleOpenRadar = () => {

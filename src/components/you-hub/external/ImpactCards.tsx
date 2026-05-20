@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import type { ImpactCard as ImpactCardData } from "@/lib/placeholder/you-data";
 import styles from "./ImpactCards.module.css";
 
@@ -10,7 +10,7 @@ interface ImpactCardsProps {
 }
 
 export default function ImpactCards({ cards }: ImpactCardsProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const handleDeltaClick = (card: ImpactCardData) => {
     openWithContext({

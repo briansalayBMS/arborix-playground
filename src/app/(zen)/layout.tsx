@@ -2,6 +2,7 @@
 
 import SideNav from "@/components/side-nav/SideNav";
 import ChatBar from "@/components/chat-bar/ChatBar";
+import { ChatBarProvider } from "@/context/ChatBarContext";
 import { DiagnosticFocusProvider } from "@/context/DiagnosticFocusContext";
 import { UserProvider } from "@/context/UserContext";
 import { LedgerProvider } from "@/context/LedgerContext";
@@ -33,9 +34,11 @@ export default function ZenLayout({
   return (
     <UserProvider>
       <LedgerProvider>
-        <DiagnosticFocusProvider>
-          <ZenLayoutContent>{children}</ZenLayoutContent>
-        </DiagnosticFocusProvider>
+        <ChatBarProvider>
+          <DiagnosticFocusProvider>
+            <ZenLayoutContent>{children}</ZenLayoutContent>
+          </DiagnosticFocusProvider>
+        </ChatBarProvider>
       </LedgerProvider>
     </UserProvider>
   );

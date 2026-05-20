@@ -1,7 +1,7 @@
 "use client";
 
 import { Link2 } from "lucide-react";
-import { useRightPane } from "@/context/RightPaneContext";
+import { useChatBar } from "@/context/ChatBarContext";
 import type { OperatingProfileElement } from "@/lib/placeholder/you-data";
 import styles from "./ExternalOperatingProfile.module.css";
 
@@ -12,7 +12,7 @@ interface ExternalOperatingProfileProps {
 export default function ExternalOperatingProfile({
   elements,
 }: ExternalOperatingProfileProps) {
-  const { openWithContext } = useRightPane();
+  const { openWithContext } = useChatBar();
 
   const handleOpenDetail = (element: OperatingProfileElement) => {
     openWithContext({

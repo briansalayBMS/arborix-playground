@@ -1,20 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useChatBar } from "@/context/ChatBarContext";
 import styles from "./ChatBar.module.css";
-
-interface Message {
-  role: "arbor" | "user";
-  text: string;
-}
 
 export default function ChatBar() {
   const [input, setInput] = useState("");
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: "arbor", text: "Hi there. How can I help you today?" },
-  ]);
+  const { isExpanded, expand, collapse, messages, sendMessage, context } = useChatBar();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -38,11 +31,11 @@ export default function ChatBar() {
       if (input.trim()) {
         handleSend();
       } else if (!isExpanded) {
-        setIsExpanded(true);
+        expand();
       }
     }
     if (e.key === "Escape" && isExpanded) {
-      setIsExpanded(false);
+      collapse();
     }
   };
 
@@ -50,28 +43,23 @@ export default function ChatBar() {
     const trimmed = input.trim();
     if (!trimmed) return;
 
-    // Expand if not already
     if (!isExpanded) {
-      setIsExpanded(true);
+      expand();
     }
 
-    setMessages((prev) => [
-      ...prev,
-      { role: "user", text: trimmed },
-    ]);
+    sendMessage(trimmed);
     setInput("");
-
-    // Simulate Arbor response
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { role: "arbor", text: "I'm reviewing your request. Give me a moment to synthesize a response." },
-      ]);
-    }, 800);
   };
 
-  const handleClose = () => {
-    setIsExpanded(false);
+  // Get panel title based on context
+  const getPanelTitle = () => {
+    if (context?.type === "sources") {
+      return "Sources";
+    }
+    if (context?.type === "continuity") {
+      return "Continuity";
+    }
+    return "Arbor";
   };
 
   return (
@@ -88,11 +76,11 @@ export default function ChatBar() {
           >
             {/* Header */}
             <div className={styles.panelHeader}>
-              <span className={styles.panelTitle}>Arbor</span>
+              <span className={styles.panelTitle}>{getPanelTitle()}</span>
               <button
                 type="button"
                 className={styles.closeButton}
-                onClick={handleClose}
+                onClick={collapse}
                 aria-label="Close chat"
               >
                 Close
@@ -101,6 +89,17 @@ export default function ChatBar() {
 
             {/* Messages area */}
             <div className={styles.messagesArea}>
+              {/* Show context placeholder if available and no messages yet */}
+              {context?.placeholder && messages.length === 0 && (
+                <div className={styles.arborMessage}>
+                  <span className={styles.messageText}>{context.placeholder}</span>
+                </div>
+              )}
+              {messages.length === 0 && !context?.placeholder && (
+                <div className={styles.arborMessage}>
+                  <span className={styles.messageText}>Hi there. How can I help you today?</span>
+                </div>
+              )}
               {messages.map((msg, i) => (
                 <div
                   key={i}
@@ -110,7 +109,7 @@ export default function ChatBar() {
                       : styles.arborMessage
                   }
                 >
-                  <span className={styles.messageText}>{msg.text}</span>
+                  <span className={styles.messageText}>{msg.content}</span>
                 </div>
               ))}
               <div ref={messagesEndRef} />
